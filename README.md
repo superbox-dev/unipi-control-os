@@ -1,6 +1,6 @@
-# buildroot
+# Unipi buildroot
 
-An external buildroot tree for Unipi Neuron (https://www.unipi.technology/).
+An external buildroot tree for Unipi Neuron (https://www.unipi.technology/). This buildroot include the unipi kernel module. With the unipi kernel module you can access to SysFS.
 
 ## Usage
 

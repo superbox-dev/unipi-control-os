@@ -1,0 +1,136 @@
+################################################################################
+# BASIC
+
+setopt extended_glob
+setopt long_list_jobs
+setopt notify
+setopt no_hup
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt no_glob_dots
+setopt no_sh_word_split
+setopt unset
+setopt rm_star_wait
+
+
+################################################################################
+# PROMPT
+
+setopt prompt_subst
+
+if [ ${USERNAME} = "root" ]; then
+    p_user='%F{red}%n%f'
+else
+    p_user='%F{green}%n%f'
+fi
+
+RPROMPT='%B%K{blue}${VIRTUAL_ENV:+${VIRTUAL_ENV##*/}}%k%b'
+PS1='%B${p_user}@%m:%~%b%F{yellow} %# %f'
+
+
+###############################################################################
+# KEYS
+
+# The best way to find out what a key or key combination sends for your terminal,
+# is run sed -n l and to type it followed by Enter on the keyboard.
+
+# Use emacs key bindings
+bindkey -e
+
+# [PageUp] - Up a line of history
+bindkey '^[[A' up-line-or-history
+
+# [PageDown] - Down a line of history
+bindkey '^[[B' down-line-or-history
+
+# Start typing + [Up-Arrow] - fuzzy find history forward
+autoload -U up-line-or-beginning-search
+zle -N up-line-or-beginning-search
+bindkey '^[[A' up-line-or-beginning-search
+
+# Start typing + [Down-Arrow] - fuzzy find history backward
+autoload -U down-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
+
+# [Home] - Go to beginning of line
+bindkey '^[[H' beginning-of-line
+
+# [End] - Go to end of line
+bindkey '^[[F' end-of-line
+
+# [Shift-Tab] - move through the completion menu backwards
+bindkey '^[[Z' reverse-menu-complete
+
+# [Delete] - delete forward
+bindkey '^[[3~' delete-char
+bindkey '^[3;5~' delete-char
+
+# [Ctrl-Delete] - delete whole forward-word
+bindkey '^[[3;5~' kill-word
+
+# [Ctrl-Right] - move forward one word
+bindkey '^[[1;5C' forward-word
+
+# [Ctrl-Left] - move backward one word
+bindkey '^[[1;5D' backward-word
+
+bindkey '^[[A' history-search-backward
+bindkey '^[[B' history-search-forward
+
+
+###############################################################################
+# HISTORY
+
+setopt append_history
+setopt share_history
+setopt extended_history
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+
+HISTFILE=~/.zsh_history
+HISTSIZE=2000
+SAVEHIST=1000
+
+
+################################################################################
+# ALIAS
+
+alias chmod='chmod -c'
+alias chown='chown -c'
+
+alias history='history -i'
+
+alias ls='ls --color=auto'
+alias la='ls -la'
+alias ll='ls -lh'
+alias lh='ls -lhA'
+alias l='ls -lh'
+
+
+################################################################################
+# COMPLETION
+
+setopt auto_cd
+setopt complete_aliases
+setopt complete_in_word
+setopt hash_list_all
+
+autoload -Uz compinit
+compinit
+
+zstyle ':completion:*' menu select
+zstyle ':completion:*' rehash true
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh_cache
+
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin \
+                                           /usr/local/bin  \
+                                           /usr/sbin       \
+                                           /usr/bin        \
+                                           /sbin           \
+                                           /bin
+
+# Zsh spelling correction options
+setopt correct
+setopt dvorak

@@ -1,0 +1,12 @@
+config BR2_PACKAGE_UNIPI_SYSFS
+	bool "SysFS drivers"
+	depends on BR2_LINUX_KERNEL
+	help
+	  SysFS driver for all Unipi units with I/O (except UniPi 1.1)
+	  provides easy file-based access to all inputs and outputs of
+	  the unit.
+
+	  https://git.unipi.technology/UniPi/unipi-kernel/
+
+comment "unipi_sysfs needs a Linux kernel to be built"
+	depends on !BR2_LINUX_KERNEL

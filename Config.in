@@ -1,0 +1,1 @@
+source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi_sysfs/Config.in"

@@ -13,3 +13,5 @@ $ make unipi_neuron_defconfig
 ```
 
 For more information visit https://buildroot.org/ and read the documenation.
+
+The default username and password is unipi/unipi.

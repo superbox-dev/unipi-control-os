@@ -13,7 +13,6 @@ env:
   CONFIG_FILE: .config
   TZ: Europe/Vienna
 
-
 jobs:
   build:
     runs-on: ubuntu-latest

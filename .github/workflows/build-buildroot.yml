@@ -31,7 +31,10 @@ jobs:
           sudo timedatectl set-timezone "$TZ"
           sudo mkdir -p /workdir
           sudo chown $USER:$GROUPS /workdir
-      
+
+      - name: Blocked mirror workaround
+        run: echo "1.1.1.1 invisible-mirror.net" | sudo tee -a /etc/hosts
+
       - name: Clone buildroot source code
         working-directory: /workdir
         run: |
@@ -42,9 +45,12 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/buildroot
           make BR2_EXTERNAL=$GITHUB_WORKSPACE unipi_neuron_rpi3b_defconfig
+
+      - name: Compile Unipi Neuron RPi 3B sdcard image
+        run: |
           make clean all
 
-      - name: Upload sd image
+      - name: Upload sdcard image
         uses: actions/upload-artifact@master
         with:
           name: unipi_neuron_rpi_3b.img

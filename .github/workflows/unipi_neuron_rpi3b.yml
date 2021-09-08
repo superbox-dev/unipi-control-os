@@ -1,4 +1,4 @@
-name: Build Buildroot
+name: Unipi Neuron RPi 3B
 
 on:
   workflow_dispatch:

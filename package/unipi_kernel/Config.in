@@ -1,5 +1,5 @@
-config BR2_PACKAGE_UNIPI_SYSFS
-	bool "SysFS drivers"
+config BR2_PACKAGE_UNIPI_KERNEL
+	bool "Unipi kernel modules"
 	depends on BR2_LINUX_KERNEL
 	help
 	  SysFS driver for all Unipi units with I/O (except UniPi 1.1)
@@ -8,5 +8,5 @@ config BR2_PACKAGE_UNIPI_SYSFS
 
 	  https://git.unipi.technology/UniPi/unipi-kernel/
 
-comment "unipi_sysfs needs a Linux kernel to be built"
+comment "unipi_kernel needs a Linux kernel to be built"
 	depends on !BR2_LINUX_KERNEL

@@ -4,8 +4,8 @@ This is an external buildroot tree for iot devices with the Raspberry Pi.
 All images contain Systemd, Python 3, Node.js and many useful system tools. The image is not larger than 300 MB!
 
 Device config for:
-    * Unipi Neuron - RPi 3B+ (https://www.unipi.technology/). This config contains the unipi kernel module as a buildroot package.
-    * Default Raspberry 3B+ 
+* Unipi Neuron - RPi 3B+ (https://www.unipi.technology/). This config contains the unipi kernel module as a buildroot package.
+* Default Raspberry 3B+ 
 
 ## Usage
 

@@ -41,4 +41,4 @@ jobs:
       - name: Load Unipi Neuron RPi 3B configuration
         run: |
           cd $GITHUB_WORKSPACE/buildroot
-          make BR2_EXTERNAL=$GITHUB_WORKSPACE/unipi-buildroot unipi_neuron_rpi3b_defconfig
+          make BR2_EXTERNAL=$GITHUB_WORKSPACE unipi_neuron_rpi3b_defconfig

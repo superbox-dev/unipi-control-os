@@ -56,4 +56,4 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: unipi_neuron_rpi_3b.img
-          path: $GITHUB_WORKSPACE/buildroot/output/images/sdcard.img
+          path: /workdir/buildroot/output/images/sdcard.img

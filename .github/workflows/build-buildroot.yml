@@ -42,3 +42,9 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/buildroot
           make BR2_EXTERNAL=$GITHUB_WORKSPACE unipi_neuron_rpi3b_defconfig
+
+      - name: Upload sd image
+        uses: actions/upload-artifact@master
+        with:
+          name: unipi_neuron_rpi_3b.img
+          path: $GITHUB_WORKSPACE/buildroot/output/images/sdcard.img

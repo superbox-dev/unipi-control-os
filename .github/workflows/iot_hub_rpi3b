@@ -38,12 +38,12 @@ jobs:
           git clone --depth 1 $REPO_URL -b $REPO_BRANCH buildroot
           ln -sf /workdir/buildroot $GITHUB_WORKSPACE/buildroot
       
-      - name: Load Unipi Neuron RPi 3B configuration
+      - name: Load IoT Hub RPi 3B configuration
         run: |
           cd $GITHUB_WORKSPACE/buildroot
-          make BR2_EXTERNAL=$GITHUB_WORKSPACE unipi_neuron_rpi3b_defconfig
+          make BR2_EXTERNAL=$GITHUB_WORKSPACE iot_hub_rpi3b_defconfig
 
-      - name: Compile Unipi Neuron RPi 3B sdcard image
+      - name: Compile IoT Hub RPi 3B sdcard image
         run: |
           cd $GITHUB_WORKSPACE/buildroot
           make clean all
@@ -51,5 +51,5 @@ jobs:
       - name: Upload sdcard image
         uses: actions/upload-artifact@master
         with:
-          name: unipi_neuron_rpi_3b.img
+          name: iot_hub_rpi3b.img
           path: /workdir/buildroot/output/images/sdcard.img

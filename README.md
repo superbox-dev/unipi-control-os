@@ -24,4 +24,4 @@ $ make unipi_neuron_rpi3b_defconfig
 
 For more information visit https://buildroot.org/ and read the documenation.
 
-The default root password is `unipi`.
+The root password is `iot` for the default raspberry and `unipi` for the unipi.

@@ -1,12 +1,10 @@
 config BR2_PACKAGE_UNIPI_KERNEL
-	bool "Unipi kernel modules"
+	bool "UniPi kernel modules"
 	depends on BR2_LINUX_KERNEL
 	help
-	  SysFS driver for all Unipi units with I/O (except UniPi 1.1)
-	  provides easy file-based access to all inputs and outputs of
-	  the unit.
+	  Kernel modules required for UniPi Neuron/Axon PLC
 
-	  https://git.unipi.technology/UniPi/unipi-kernel/
+	  https://github.com/UniPiTechnology/unipi-kernel
 
-comment "unipi_kernel needs a Linux kernel to be built"
+comment "UniPi kernel needs a Linux kernel to be built"
 	depends on !BR2_LINUX_KERNEL

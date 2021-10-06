@@ -23,5 +23,8 @@ sed -i 's/#Storage=auto/Storage=volatile/g' ${TARGET_DIR}/etc/systemd/journald.c
 # Set ZSH for root user
 sed -i '/^root:/s,:/bin/dash$,:/bin/zsh,' ${TARGET_DIR}/etc/passwd
 
-# Permit ssh root login
-# sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' ${TARGET_DIR}/etc/ssh/sshd_config
+# Update mosquitto listener
+sed -i 's/#listener/listener 1883 0.0.0.0/g' ${TARGET_DIR}/etc/mosquitto/mosquitto.conf
+
+# Update mosquitto authentication
+sed -i 's/#allow_anonymous false/allow_anonymous true/g' ${TARGET_DIR}/etc/mosquitto/mosquitto.conf

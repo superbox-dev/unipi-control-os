@@ -16,7 +16,8 @@ $ git clone git@github.com:mh-superbox/unipi-buildroot.git
 $ git clone git://git.buildroot.net/buildroot
 
 $ cd /buildroot
-$ git checkout 2021.08.x
+$ # checkout LTS version
+$ git checkout 2021.02.6
 
 $ make BR2_EXTERNAL=../rpi-buildroot list-defconfigs
 $ make unipi_neuron_rpi3b_defconfig

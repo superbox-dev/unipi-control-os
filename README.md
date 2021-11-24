@@ -1,6 +1,6 @@
 # Raspberry buildroot
 
-This is an external buildroot tree for iot devices with the Raspberry Pi.
+This is an external buildroot tree for the Raspberry Pi.
 All images contain Systemd, Python 3, Node.js and many useful system tools. The sdcard image is less than 300 MB!
 
 Device config for:
@@ -16,7 +16,7 @@ $ git clone git@github.com:mh-superbox/unipi-buildroot.git
 $ git clone git://git.buildroot.net/buildroot
 
 $ cd /buildroot
-$ git checkout 2021.08.x
+$ git checkout 2021.02.6
 
 $ make BR2_EXTERNAL=../rpi-buildroot list-defconfigs
 $ make unipi_neuron_rpi3b_defconfig
@@ -24,4 +24,4 @@ $ make unipi_neuron_rpi3b_defconfig
 
 For more information visit https://buildroot.org/ and read the documenation.
 
-The username and password are `rpi`.
+The username and password are `rpi` for the default build and 'unipi' for the Unipi Neuron build.

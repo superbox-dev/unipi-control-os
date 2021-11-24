@@ -25,4 +25,4 @@ $ make unipi_neuron_rpi3b_defconfig
 
 For more information visit https://buildroot.org/ and read the documenation.
 
-The username and password are `rpi` for the default build and 'unipi' for the Unipi Neuron build.
+The username and password are `rpi` for the default build and  `unipi` for the Unipi Neuron build.

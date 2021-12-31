@@ -17,7 +17,7 @@ $ git clone git://git.buildroot.net/buildroot
 
 $ cd /buildroot
 $ # checkout LTS version
-$ git checkout 2021.02.6
+$ git checkout 2021.02.8
 
 $ make BR2_EXTERNAL=../rpi-buildroot list-defconfigs
 $ make unipi_neuron_rpi3b_defconfig

@@ -12,7 +12,7 @@ Device config for:
 Download buildroot from https://buildroot.org/download.html and add this repro as external path.
 
 ```shell
-$ git clone git@github.com:mh-superbox/unipi-buildroot.git
+$ git clone git@github.com:mh-superbox/rpi-buildroot.git
 $ git clone git://git.buildroot.net/buildroot
 
 $ cd /buildroot

@@ -75,9 +75,6 @@ bindkey '^[[1;5C' forward-word
 # [Ctrl-Left] - move backward one word
 bindkey '^[[1;5D' backward-word
 
-bindkey '^[[A' history-search-backward
-bindkey '^[[B' history-search-forward
-
 
 ###############################################################################
 # HISTORY

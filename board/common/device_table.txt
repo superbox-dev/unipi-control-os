@@ -1,0 +1,4 @@
+# <name>                    <type>  <mode>  <uid>   <gid>   <major> <minor> <start> <inc>   <count>
+/bin/telegram-send-message  f       755     0       0       -       -       -       -       -
+/etc/monit/monitrc          f       700     0       0       -       -       -       -       -
+/root/id_ed25519_github     f       600     0       0       -       -       -       -       -

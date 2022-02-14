@@ -1,0 +1,19 @@
+check system $HOST
+    if loadavg (5min) > 3 then exec "/bin/telegram-send-message -s '*[unipi]* Load 5min greater then 3'"
+    if loadavg (15min) > 3 then exec "/bin/telegram-send-messag -s '*[unipi]* Load 15min greater then 3'"
+    if memory usage > 80% for 4 cycles then exec "/bin/telegram-send-messag -s '*[unipi]* Memory usage greater then 80 %'"
+    if swap usage > 20% for 4 cycles then exec "/bin/telegram-send-message -s '*[unipi]* Swap usage greater then 20 %'"
+
+    # Test the user part of CPU usage
+    if cpu usage (user) > 95% for 2 cycles then exec "/bin/telegram-send-message -s '*[unipi]* CPU (User) greater then 95 %'"
+
+    # Test the system part of CPU usage
+    if cpu usage (system) > 80% for 2 cycles then exec "/bin/telegram-send-message -s '*[unipi]* CPU (System) greater then 80 %'"
+
+    # Test the i/o wait part of CPU usage
+    if cpu usage (wait) > 80% for 2 cycles then exec "/bin/telegram-send-message -s '*[unipi]* CPU (Wait) greater then 80 %'"
+
+    # Test CPU usage including user, system and wait. Note that
+    # multi-core systems can generate 100 % per core
+    # so total CPU usage can be more than 100 %
+    if cpu usage > 200% for 4 cycles then exec "/bin/telegram-send-message -s '*[unipi]* CPU greater then 200 %'"

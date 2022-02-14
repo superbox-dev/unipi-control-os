@@ -1,0 +1,11 @@
+config BR2_PACKAGE_UNIPI_TOOLS
+	bool "Unipi tools"
+	select BR2_PACKAGE_UNIPI_KERNEL
+	select BR2_PACKAGE_LIBMODBUS 
+	select BR2_PACKAGE_LIBTOOL
+	help
+	  * Unipi Modbus TCP server
+	  * Unipi Modbus flashing utility for Unipi devices
+	  * RTC UART Modbus flashing utility for Unipi devices
+
+	  https://github.com/UniPiTechnology/unipi-tools

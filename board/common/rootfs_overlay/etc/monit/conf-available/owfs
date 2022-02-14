@@ -1,0 +1,26 @@
+check program owhttpd.service with path "/bin/systemctl --quiet is-active owhttpd.service"
+    group unipi
+
+    start program = "/bin/systemctl start owhttpd.service" with timeout 60 seconds
+    stop program = "/bin/systemctl stop owhttpd.service"
+
+    if status != 0 then exec "/bin/telegram-send-message -s '*[unipi]* 1-Wire Webserver unavailable!'"
+    if 5 restarts within 5 cycles then timeout
+
+check program owserver.service with path "/bin/systemctl --quiet is-active owserver.service"
+    group unipi
+
+    start program = "/bin/systemctl start owserver.service" with timeout 60 seconds
+    stop program = "/bin/systemctl stop owserver.service"
+
+    if status != 0 then exec "/bin/telegram-send-message -s '*[unipi]* 1-Wire Backend Server unavailable!'"
+    if 5 restarts within 5 cycles then timeout
+
+check program owfs.service with path "/bin/systemctl --quiet is-active owfs.service"
+    group unipi
+
+    start program = "/bin/systemctl start owfs.service" with timeout 60 seconds
+    stop program = "/bin/systemctl stop owfs.service"
+
+    if status != 0 then exec "/bin/telegram-send-message -s '*[unipi]* 1-Wire Filesystem unavailable!'"
+    if 5 restarts within 5 cycles then timeout

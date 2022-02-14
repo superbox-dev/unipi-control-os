@@ -11,6 +11,12 @@ mkdir -p ${TARGET_DIR}/etc/systemd/system/multi-user.target.wants
 # Enable resize root systemd service
 ln -fs ../resize-root.service ${TARGET_DIR}/etc/systemd/system/multi-user.target.wants/resize-root.service
 
+# Enable monit systemd service
+ln -fs ../resize-root.service ${TARGET_DIR}/etc/systemd/system/multi-user.target.wants/monit.service
+
+# Disable owftpd
+ln -fs /dev/null ${TARGET_DIR}/etc/systemd/system/owftpd.service
+
 # Change Loglevel
 grep -qE ' loglevel=3' ${BINARIES_DIR}/rpi-firmware/cmdline.txt || sed -i '$ s/$/ loglevel=3/' ${BINARIES_DIR}/rpi-firmware/cmdline.txt
 

@@ -1,0 +1,12 @@
+config BR2_PACKAGE_UNIPI_CONTROL
+	bool "Unipi Control"
+	select BR2_PACKAGE_UNIPI_KERNEL 
+	select BR2_PACKAGE_PYTHON_ASYNCIO_MQTT
+	select BR2_PACKAGE_UNIPI_TOOLS
+	select BR2_PACKAGE_PYTHON_PYMODBUS
+	select BR2_PACKAGE_PYTHON_PYYAML
+
+	help
+	  Control Unipi I/O directly with MQTT commands and without Evok.
+
+	  https://github.com/mh-superbox/unipi-control

@@ -14,6 +14,14 @@ setopt rm_star_wait
 
 
 ################################################################################
+# SYNTAX HIGHLIGHTING
+
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+
+################################################################################
 # PROMPT
 
 setopt prompt_subst
@@ -43,15 +51,9 @@ bindkey '^[[A' up-line-or-history
 # [PageDown] - Down a line of history
 bindkey '^[[B' down-line-or-history
 
-# Start typing + [Up-Arrow] - fuzzy find history forward
-autoload -U up-line-or-beginning-search
-zle -N up-line-or-beginning-search
-bindkey '^[[A' up-line-or-beginning-search
-
-# Start typing + [Down-Arrow] - fuzzy find history backward
-autoload -U down-line-or-beginning-search
-zle -N down-line-or-beginning-search
-bindkey '^[[B' down-line-or-beginning-search
+# Start typing + [Up-Arrow] - Search substring in history
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
 
 # [Home] - Go to beginning of line
 bindkey '^[[H' beginning-of-line
@@ -98,6 +100,7 @@ alias chown='chown -c'
 
 alias history='history -i'
 
+alias rezsh='. /etc/zshrc'
 alias ls='ls --color=auto'
 alias la='ls -la'
 alias ll='ls -lh'

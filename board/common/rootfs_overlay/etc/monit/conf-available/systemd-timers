@@ -1,0 +1,8 @@
+check program om-telegram-alert.timer with path "/bin/systemctl --quiet is-active om-telegram-alert.timer"
+    group timers
+
+    start program = "/bin/systemctl start om-telegram-alert.timer" with timeout 60 seconds
+    stop program = "/bin/systemctl stop om-telegram-alert.timer"
+
+    if status != 0 then exec "/bin/telegram-send-message -s '*[unipi]* om-telegram-alert.timer unavailable!'"
+    if 5 restarts within 5 cycles then timeout

@@ -1,0 +1,10 @@
+#
+# Automatically generated file; DO NOT EDIT.
+#
+
+menu "External options"
+
+comment "Buildroot for UniPi boards (in /home/mh/unipi-control-os/buildroot)"
+source "/home/mh/unipi-control-os/buildroot/Config.in"
+
+endmenu

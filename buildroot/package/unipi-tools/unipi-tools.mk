@@ -11,7 +11,7 @@ UNIPI_TOOLS_SITE = https://github.com/UniPiTechnology/unipi-tools/archive/refs/t
 # UNIPI_TOOLS_LICENSE = GPL-2.0
 # UNIPI_TOOLS_LICENSE_FILES = COPYING
 
-UNIPI_TOOLS_DEPENDENCIES += libmodbus libtool unipi_kernel
+UNIPI_TOOLS_DEPENDENCIES += libmodbus libtool unipi-kernel
 
 MODBUS_LIBDIR = $(STAGING_DIR)/usr/lib
 BINFILES = unipi_tcp_server fwspi fwserial unipihostname unipicheck

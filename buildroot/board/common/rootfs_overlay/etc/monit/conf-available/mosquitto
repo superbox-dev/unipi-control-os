@@ -4,5 +4,5 @@ check program mosquitto.service with path "/bin/systemctl --quiet is-active mosq
     start program = "/bin/systemctl start mosquitto.service" with timeout 60 seconds
     stop program = "/bin/systemctl stop mosquitto.service"
 
-    if status != 0 then exec "/bin/telegram-send-message -s '*[unipi]* Mosquitto unavailable!'"
+    if status != 0 then restart
     if 5 restarts within 5 cycles then timeout

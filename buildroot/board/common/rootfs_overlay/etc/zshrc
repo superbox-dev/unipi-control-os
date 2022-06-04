@@ -1,27 +1,31 @@
-################################################################################
+###############################################################################
 # BASIC
 
+setopt autocd
+setopt autopushd
 setopt extended_glob
-setopt long_list_jobs
+setopt noflowcontrol
+setopt interactive
+setopt longlistjobs
+setopt monitor
+setopt nobeep
 setopt notify
-setopt no_hup
-setopt auto_pushd
-setopt pushd_ignore_dups
-setopt no_glob_dots
-setopt no_sh_word_split
+setopt nohup
+setopt noglobdots
+setopt noshwordsplit
+setopt pushdignoredups
+setopt rmstarwait
 setopt unset
-setopt rm_star_wait
-
+setopt zle
 
 ################################################################################
-# SYNTAX HIGHLIGHTING
+# PLUGINS
 
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
-
-################################################################################
+###############################################################################
 # PROMPT
 
 setopt prompt_subst
@@ -32,11 +36,10 @@ else
     p_user='%F{green}%n%f'
 fi
 
-RPROMPT='%B%K{blue}${VIRTUAL_ENV:+${VIRTUAL_ENV##*/}}%k%b'
-PS1='%B${p_user}@%m:%~%b%F{yellow} %# %f'
+RPROMPT="%B%K{blue}${VIRTUAL_ENV:+${VIRTUAL_ENV##*/}}%k%b"
+PS1="%B${p_user}@%m:%~%b%F{yellow} %# %f"
 
-
-###############################################################################
+##############################################################################
 # KEYS
 
 # The best way to find out what a key or key combination sends for your terminal,
@@ -46,91 +49,136 @@ PS1='%B${p_user}@%m:%~%b%F{yellow} %# %f'
 bindkey -e
 
 # [PageUp] - Up a line of history
-bindkey '^[[A' up-line-or-history
+bindkey "^[[A" up-line-or-history
 
 # [PageDown] - Down a line of history
-bindkey '^[[B' down-line-or-history
+bindkey "^[[B" down-line-or-history
 
 # Start typing + [Up-Arrow] - Search substring in history
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+bindkey "^[[A" history-substring-search-up
+bindkey "^[[B" history-substring-search-down
 
 # [Home] - Go to beginning of line
-bindkey '^[[H' beginning-of-line
+bindkey "^[[H" beginning-of-line
 
 # [End] - Go to end of line
-bindkey '^[[F' end-of-line
+bindkey "^[[F" end-of-line
 
 # [Shift-Tab] - move through the completion menu backwards
-bindkey '^[[Z' reverse-menu-complete
+bindkey "^[[Z" reverse-menu-complete
 
 # [Delete] - delete forward
-bindkey '^[[3~' delete-char
-bindkey '^[3;5~' delete-char
+bindkey "^[[3~" delete-char
+bindkey "^[3;5~" delete-char
 
 # [Ctrl-Delete] - delete whole forward-word
-bindkey '^[[3;5~' kill-word
+bindkey "^[[3;5~" kill-word
 
 # [Ctrl-Right] - move forward one word
-bindkey '^[[1;5C' forward-word
+bindkey "^[[1;5C" forward-word
 
 # [Ctrl-Left] - move backward one word
-bindkey '^[[1;5D' backward-word
+bindkey "^[[1;5D" backward-word
 
 
 ###############################################################################
 # HISTORY
 
-setopt append_history
-setopt share_history
-setopt extended_history
-setopt hist_ignore_all_dups
-setopt hist_ignore_space
+setopt appendhistory
+setopt sharehistory
+setopt extendedhistory
+setopt histexpiredupsfirst
+setopt histignoredups
+setopt histignorespace
+setopt histverify
+setopt incappendhistory
 
 HISTFILE=~/.zsh_history
-HISTSIZE=2000
-SAVEHIST=1000
+HISTSIZE=200000
+SAVEHIST=100000
 
-
-################################################################################
+###############################################################################
 # ALIAS
 
-alias chmod='chmod -c'
-alias chown='chown -c'
+alias chmod="chmod -c"
+alias chown="chown -c"
 
-alias history='history -i'
+alias history="history -i"
 
-alias rezsh='. /etc/zshrc'
-alias ls='ls --color=auto'
-alias la='ls -la'
-alias ll='ls -lh'
-alias lh='ls -lhA'
-alias l='ls -lh'
+alias ls="ls --color=auto"
+alias la="ls -la"
+alias ll="ls -lh"
+alias l="ls -lh"
+alias lh="ls -lhA"
+alias lr="ls -lctr"
+alias lhr="ls -lhctr"
 
+alias rezsh=". /etc/zshrc"
 
-################################################################################
+###############################################################################
+# COLORS IN LESS
+
+export LESS_TERMCAP_mb=$'\e[1;33m'
+export LESS_TERMCAP_md=$'\e[1;33m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[1;44;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;32m'
+
+eval $(dircolors -b)
+export ZLSCOLORS="${LS_COLORS}"
+
+###############################################################################
 # COMPLETION
 
-setopt auto_cd
-setopt complete_aliases
-setopt complete_in_word
-setopt hash_list_all
+setopt alwaystoend
+setopt autonamedirs
+setopt automenu
+setopt autolist
+setopt completealiases
+setopt completeinword
+setopt hashlistall
+setopt listpacked
 
 autoload -Uz compinit
 compinit
 
-zstyle ':completion:*' menu select
-zstyle ':completion:*' rehash true
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zsh_cache
+zstyle ":completion:*" menu select
+zstyle ":completion:*" rehash true
+zstyle ":completion:*" use-cache on
+zstyle ":completion:*" cache-path ~/.zsh_cache
 
-zstyle ':completion:*:sudo:*' command-path /usr/local/sbin \
-                                           /usr/local/bin  \
-                                           /usr/sbin       \
-                                           /usr/bin        \
-                                           /sbin           \
-                                           /bin
+export CLICOLOR=1
+zstyle ":completion:*" list-colors ${(s.:.)LS_COLORS}
+zstyle ":completion:*:aliases" list-colors "=*=1;36;5;142"
+zstyle ":completion:*:options" list-colors "=^(-- *)=33;5;142"
 
-# Zsh spelling correction options
-setopt correct
-setopt dvorak
+zstyle ":completion:*:*:kill:*" menu yes select
+zstyle ":completion:*:*:kill:*:processes" list-colors "=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34;5;142=0=01"
+
+zstyle ":completion:*:*:cp:*" file-sort modification reverse
+zstyle ":completion:*:*:mv:*" file-sort modification reverse
+
+zstyle ":completion:*:man:*" menu yes select
+
+zstyle ":completion:*:sudo:*" menu yes select
+zstyle ":completion:*:sudo:*" command-path /usr/local/sbin \
+                                          /usr/local/bin  \
+                                          /usr/sbin       \
+                                          /usr/bin        \
+                                          /sbin           \
+                                          /bin
+
+if [ -r ~/.ssh/config ]; then
+   zstyle ":completion:*:(scp|ssh):*" hosts ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*}
+fi
+
+zstyle ":completion:*:(scp|ssh):*" hosts on
+
+###############################################################################
+# LANGUAGE
+
+export LANG="en_GB.UTF-8"
+export LC_ALL="en_GB.UTF-8"
+export LC_CTYPE="en_GB.UTF-8"

@@ -1,0 +1,7 @@
+config BR2_PACKAGE_UNIPI_PYTHON_PYYAML
+	bool "Unipi Control python-pyyaml"
+
+	help
+	  YAML parser and emitter for Python
+
+	  https://pypi.org/project/PyYAML

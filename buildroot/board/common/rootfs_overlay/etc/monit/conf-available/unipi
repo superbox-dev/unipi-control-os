@@ -4,7 +4,7 @@ check program unipitcp.service with path "/bin/systemctl --quiet is-active unipi
     start program = "/bin/systemctl start unipitcp.service" with timeout 60 seconds
     stop program = "/bin/systemctl stop unipitcp.service"
 
-    if status != 0 then exec "/bin/telegram-send-message -s '*[unipi]* Unipi TCP unavailable!'"
+    if status != 0 then restart
     if 5 restarts within 5 cycles then timeout
 
 check program unipicheck.service with path "/bin/systemctl --quiet is-active unipicheck.service"
@@ -13,7 +13,7 @@ check program unipicheck.service with path "/bin/systemctl --quiet is-active uni
     start program = "/bin/systemctl start unipicheck.service" with timeout 60 seconds
     stop program = "/bin/systemctl stop unipicheck.service"
 
-    if status != 0 then exec "/bin/telegram-send-message -s '*[unipi]* Unipi Check unavailable!'"
+    if status != 0 then restart
     if 5 restarts within 5 cycles then timeout
 
 check program unipi-control.service with path "/bin/systemctl --quiet is-active unipi-control.service"
@@ -22,5 +22,5 @@ check program unipi-control.service with path "/bin/systemctl --quiet is-active 
     start program = "/bin/systemctl start unipi-control.service" with timeout 60 seconds
     stop program = "/bin/systemctl stop unipi-control.service"
 
-    if status != 0 then exec "/bin/telegram-send-message -s '*[unipi]* Unipi Control unavailable!'"
+    if status != 0 then restart
     if 5 restarts within 5 cycles then timeout

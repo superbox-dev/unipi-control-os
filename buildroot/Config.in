@@ -2,8 +2,6 @@ comment "Base packages"
 source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-control/Config.in"
 source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-python-asyncio-mqtt/Config.in"
 source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-python-paho-mqtt/Config.in"
-source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-python-pymodbus/Config.in"
-source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-python-pyyaml/Config.in"
 source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-kernel/Config.in"
 source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-tools/Config.in"
 

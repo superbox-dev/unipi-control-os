@@ -1,9 +1,0 @@
-config BR2_PACKAGE_UNIPI_PYTHON_PYMODBUS
-	bool "Unipi Control python-pymodbus"
-	select BR2_PACKAGE_PYTHON_SERIAL
-	select BR2_PACKAGE_PYTHON_SIX
-
-	help
-	  A full modbus protocol written in python
-
-	  https://github.com/riptideio/pymodbus

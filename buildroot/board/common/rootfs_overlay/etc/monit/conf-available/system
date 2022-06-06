@@ -1,8 +1,8 @@
 check system $HOST
-    if loadavg (5min) > 3 then exec "/bin/telegram-send-message -s '*[unipi]* Load 5min greater then 3'"
-    if loadavg (15min) > 3 then exec "/bin/telegram-send-messag -s '*[unipi]* Load 15min greater then 3'"
-    if memory usage > 80% for 4 cycles then exec "/bin/telegram-send-messag -s '*[unipi]* Memory usage greater then 80 %'"
-    if swap usage > 20% for 4 cycles then exec "/bin/telegram-send-message -s '*[unipi]* Swap usage greater then 20 %'"
+    if loadavg (5min) > 3 then alert
+    if loadavg (15min) > 3 then alert
+    if memory usage > 80% for 4 cycles then alert
+    if swap usage > 20% for 4 cycles then alert
 
     # Test the user part of CPU usage
     if cpu usage (user) > 95% for 2 cycles then alert

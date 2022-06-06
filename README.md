@@ -20,7 +20,7 @@ $ cd /buildroot
 $ # checkout LTS version
 $ git checkout 2022.02.2
 
-$ make BR2_EXTERNAL=../rpi-buildroot list-defconfigs
+$ make BR2_EXTERNAL=../rpi-buildroot/buildroot list-defconfigs
 $ make unipi_neuron_rpi3b_defconfig
 ```
 

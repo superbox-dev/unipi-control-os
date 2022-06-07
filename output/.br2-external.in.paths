@@ -1,8 +1,0 @@
-#
-# Automatically generated file; DO NOT EDIT.
-#
-
-config BR2_EXTERNAL_UNIPI_PATH
-	string
-	default "/home/mh/unipi-control-os/buildroot"
-

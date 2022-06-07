@@ -1,8 +1,6 @@
 # Unipi Neuron buildroot
 
-This is an external buildroot tree for the Unipi Neuron (https://www.unipi.technology/).
-All images contain Systemd, Python 3, Unipi kernel, Unipi tools and many useful system tools. 
-The sdcard image is less than 300 MB!
+This is an external buildroot tree for the [Unipi Neuron](https://www.unipi.technology/) with preinstalled [Unipi Control](https://github.com/mh-superbox/unipi-control).
 
 Device config for:
 * Unipi Neuron - RPi 3B+

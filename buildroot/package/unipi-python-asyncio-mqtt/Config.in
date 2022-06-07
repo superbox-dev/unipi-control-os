@@ -1,8 +1,0 @@
-config BR2_PACKAGE_UNIPI_PYTHON_ASYNCIO_MQTT
-	bool "Unipi Control python-asyncio-mqtt"
-	select BR2_PACKAGE_PYTHON_UNIPI_PAHO_MQTT
-
-	help
-	  Idomatic asyncio wrapper around paho-mqtt
-
-	  https://github.com/sbtinstruments/asyncio-mqtt

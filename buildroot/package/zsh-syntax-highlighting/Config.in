@@ -1,7 +1,0 @@
-config BR2_PACKAGE_ZSH_SYNTAX_HIGHLIGHTING
-	bool "zsh-syntax-highlighting"
-	depends on BR2_PACKAGE_ZSH 
-	help
-	  Fish shell like syntax highlighting for Zsh.
-
-	  https://github.com/zsh-users/zsh-syntax-highlighting

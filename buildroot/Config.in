@@ -1,11 +1,6 @@
 comment "Unipi packages"
-source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-control/Config.in"
 source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-kernel/Config.in"
 source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-tools/Config.in"
-
-comment "External python modules"
-source "$BR2_EXTERNAL_UNIPI_PATH/package/custom-python-asyncio-mqtt/Config.in"
-source "$BR2_EXTERNAL_UNIPI_PATH/package/custom-python-paho-mqtt/Config.in"
 
 comment "Shell optimizations"
 source "$BR2_EXTERNAL_UNIPI_PATH/package/zsh-autosuggestions/Config.in"

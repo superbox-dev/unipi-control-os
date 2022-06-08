@@ -5,7 +5,7 @@ on:
 
 env:
   REPO_URL: https://github.com/buildroot/buildroot
-  REPO_BRANCH: 2021.08.x
+  REPO_BRANCH: 2022.02.2
   CONFIG_FILE: .config
   TZ: Europe/Vienna
 
@@ -35,13 +35,13 @@ jobs:
       - name: Clone buildroot source code
         working-directory: /workdir
         run: |
-          git clone --depth 1 $REPO_URL -b $REPO_BRANCH buildroot
-          ln -sf /workdir/buildroot $GITHUB_WORKSPACE/buildroot
+          git clone --depth 1 $REPO_URL -b $REPO_BRANCH buildroot_src
+          ln -sf /workdir/buildroot_src $GITHUB_WORKSPACE/buildroot_src
       
       - name: Load Unipi Neuron RPi 3B configuration
         run: |
-          cd $GITHUB_WORKSPACE/buildroot
-          make BR2_EXTERNAL=$GITHUB_WORKSPACE unipi_neuron_rpi3b_defconfig
+          cd $GITHUB_WORKSPACE/buildroot_src
+          make BR2_EXTERNAL=$GITHUB_WORKSPACE/buildroot unipi_neuron_rpi3b_defconfig
 
       - name: Compile Unipi Neuron RPi 3B sdcard image
         run: |

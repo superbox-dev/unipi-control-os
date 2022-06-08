@@ -1,0 +1,7 @@
+config BR2_PACKAGE_ZSH_AUTOSUGGESTIONS
+	bool "zsh-autosuggestions"
+	depends on BR2_PACKAGE_ZSH 
+	help
+	  Fish-like autosuggestions for zsh.
+
+	  https://github.com/zsh-users/zsh-autosuggestions

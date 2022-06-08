@@ -1,0 +1,8 @@
+check process avahi with pidfile /var/run/avahi-daemon/pid
+    group avahi
+
+    start program = "/bin/systemctl start avahi-daemon.service" with timeout 60 seconds
+    stop program = "/bin/systemctl stop avahi-daemon.service"
+
+    if failed host 0.0.0.0 port 5353 type udp then restart
+    if 5 restarts within 5 cycles then timeout

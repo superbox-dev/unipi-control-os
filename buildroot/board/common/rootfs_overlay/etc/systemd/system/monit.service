@@ -6,9 +6,9 @@ Documentation=man:monit(1) https://mmonit.com/wiki/Monit/HowTo
 [Service]
 Type=simple
 KillMode=process
-ExecStart=/bin/monit -I -c /etc/monit/monitrc
-ExecStop=/bin/monit -c /etc/monit/monitrc quit
-ExecReload=/bin/monit -c /etc/monit/monitrc reload
+ExecStart=/bin/monit -I -c /etc/monitrc
+ExecStop=/bin/monit -c /etc/monitrc quit
+ExecReload=/bin/monit -c /etc/monitrc reload
 Restart=on-abnormal
 StandardOutput=null
 

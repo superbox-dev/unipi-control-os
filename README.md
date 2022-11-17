@@ -9,7 +9,7 @@ Device config for:
 ## Usage
 
 ```shell
-~$ git clone https://github.com/mh-superbox/rpi-buildroot.git
+~$ git clone https://github.com/mh-superbox/unipi-buildroot.git
 ~$ git clone git://git.buildroot.net/buildroot
 
 ~$ cd /buildroot

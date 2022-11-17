@@ -4,7 +4,6 @@ This is an external buildroot tree for the [Unipi Neuron](https://www.unipi.tech
 
 Device config for:
 * Unipi Neuron - RPi 3B+
-* Unipi Neuron - RPi 4B
 
 ## Usage
 

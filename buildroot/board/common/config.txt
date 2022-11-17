@@ -1,0 +1,22 @@
+disable_splash=1
+
+start_file=start.elf
+fixup_file=fixup.dat
+
+kernel=u-boot.bin
+
+gpu_mem=64
+
+dtoverlay=miniuart-bt
+dtoverlay=krnbt=on
+
+# Neuron
+dtparam=i2c_arm=on
+dtoverlay=i2c-rtc,mcp7941x
+dtoverlay=neuron-spi-new
+
+# enable 64bits support
+arm_64bit=1
+
+[pi4]
+arm_boost=1

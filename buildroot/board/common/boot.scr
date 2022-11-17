@@ -1,0 +1,8 @@
+mmc dev 0
+
+fatload mmc 0:1 ${kernel_addr_r} Image
+setenv bootargs root=/dev/mmcblk0p2 rootwait console=tty1 console=ttyAMA0,115200 loglevel=3 zram.enabled=1
+
+printenv
+
+booti ${kernel_addr_r} - ${fdt_addr_r}

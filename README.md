@@ -14,7 +14,7 @@ Device config for:
 
 ~$ cd /buildroot
 ~/buildroot$ # checkout LTS version
-~/buildroot$ git checkout 2022.02.2
+~/buildroot$ git checkout 2022.02.6
 
 ~/buildroot$ make BR2_EXTERNAL=../unipi-buildroot/buildroot list-defconfigs
 ~/buildroot$ make unipi_neuron_rpi3b_defconfig

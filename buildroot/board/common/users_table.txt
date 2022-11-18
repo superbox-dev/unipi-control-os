@@ -1,1 +1,1 @@
-unipi -1 unipi -1 =unipi /home/unipi /bin/zsh wheel
+pi -1 pi -1 =pi /home/pi /bin/zsh wheel

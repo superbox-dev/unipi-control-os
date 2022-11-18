@@ -10,5 +10,10 @@ gpu_mem=100
 dtoverlay=miniuart-bt
 dtoverlay=krnbt=on
 
+# Neuron
+dtparam=i2c_arm=on
+dtoverlay=i2c-rtc,mcp7941x
+dtoverlay=neuron-spi-new
+
 # enable 64bits support
 arm_64bit=1

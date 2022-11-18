@@ -157,7 +157,7 @@ set log syslog
 set httpd port 2812 and
     use address 0.0.0.0    # only accept connection from localhost (drop if you use M/Monit)
     allow localhost        # allow localhost to connect to the server and
-    allow unipi:unipi      # require user 'admin' with password 'monit'
+    #allow admin:monit     # require user 'admin' with password 'monit'
     #with ssl {            # enable SSL/TLS and set path to server certificate
     #    pemfile: /etc/ssl/certs/monit.pem
     #}

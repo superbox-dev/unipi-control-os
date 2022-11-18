@@ -39,5 +39,4 @@ For more information visit https://buildroot.org/ and read the documenation.
 
 ## Features
 
-* Monit is run at http://unipi.local:2812/ (Username and password are `unipi`)
 * OWFS (1-Wire) is run at http://unipi.local:8080/

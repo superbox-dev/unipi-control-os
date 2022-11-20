@@ -1,6 +1,0 @@
-mmc dev 0
-fatload mmc 0:1 ${kernel_addr_r} Image
-fatload mmc 0:1 ${fdt_addr_r} bcm2710-rpi-3-b-plus.dtb
-setenv bootargs root=/dev/mmcblk0p2 rootwait console=tty1 console=ttyAMA0,115200 loglevel=3 zram.enabled=1
-printenv
-booti ${kernel_addr_r} - ${fdt_addr_r}

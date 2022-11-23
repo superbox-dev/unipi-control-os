@@ -1,14 +1,13 @@
-start_file=start.elf
-fixup_file=fixup.dat
+# Load U-Boot instead of Linux
+kernel=u-boot.bin
+#kernel=Image
 
-kernel=Image
-
+# Disable compensation for displays with overscan
 disable_overscan=1
 
-gpu_mem=100
-
-dtoverlay=miniuart-bt
-dtoverlay=krnbt=on
-
-# enable 64bits support
+# Enable 64-bit support
 arm_64bit=1
+
+# Enable early debugging info
+uart_2ndstage=1
+

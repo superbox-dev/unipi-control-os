@@ -27,7 +27,12 @@ ln -fs ../resize-root.service "${TARGET_DIR}/etc/systemd/system/multi-user.targe
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' "${TARGET_DIR}/etc/sudoers"
 
 # Update Systemd Journald
-sed -i 's/#Storage=auto/Storage=volatile/g' "${TARGET_DIR}/etc/systemd/journald.conf"
+sed -i 's/#Storage=auto/Storage=volatile/' "${TARGET_DIR}/etc/systemd/journald.conf"
 
 # Set ZSH for root user
 sed -i '/^root:/s,:/bin/dash$,:/bin/zsh,' "${TARGET_DIR}/etc/passwd"
+
+# Setup dhcpcd
+sed -i 's/#hostname/hostname/' "${TARGET_DIR}/etc/dhcpcd.conf"
+sed -i 's/#clientid/clientid/' "${TARGET_DIR}/etc/dhcpcd.conf"
+sed -i 's/#duid/duid/' "${TARGET_DIR}/etc/dhcpcd.conf"

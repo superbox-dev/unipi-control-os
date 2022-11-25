@@ -8,6 +8,4 @@ disable_overscan=1
 # Enable 64-bit support
 arm_64bit=1
 
-# Enable early debugging info
-uart_2ndstage=1
-
+enable_uart=1

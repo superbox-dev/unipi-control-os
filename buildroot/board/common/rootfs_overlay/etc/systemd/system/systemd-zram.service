@@ -1,0 +1,11 @@
+[Unit]
+Description=Initializes zram swaping
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/systemd-zram.sh start
+ExecStop=/usr/libexec/systemd-zram.sh stop
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

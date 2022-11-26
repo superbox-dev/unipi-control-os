@@ -1,11 +1,4 @@
-# Load U-Boot instead of Linux
 kernel=u-boot.bin
-#kernel=Image
-
-# Disable compensation for displays with overscan
 disable_overscan=1
-
-# Enable 64-bit support
 arm_64bit=1
-
 enable_uart=1

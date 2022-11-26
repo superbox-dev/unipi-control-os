@@ -17,11 +17,14 @@ install -m 0644 -D "${BR2_EXTERNAL_UNIPI_PATH}/board/common/cmdline.txt" "${BINA
 # Init systemd
 mkdir -p "${TARGET_DIR}/etc/systemd/system/multi-user.target.wants"
 
-# Enable resize root systemd service
+# Enable resize root service
 ln -fs ../resize-root.service "${TARGET_DIR}/etc/systemd/system/multi-user.target.wants/resize-root.service"
 
-# Enable monit systemd service
+# Enable monit service
 ln -fs ../resize-root.service "${TARGET_DIR}/etc/systemd/system/multi-user.target.wants/monit.service"
+
+# Enable systemd zram service
+ln -fs ../systemd-zram.service "${TARGET_DIR}/etc/systemd/system/multi-user.target.wants/systemd-zram.service"
 
 # Allow members of group whell to exectue any command
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' "${TARGET_DIR}/etc/sudoers"

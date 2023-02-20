@@ -34,8 +34,3 @@ sed -i 's/#Storage=auto/Storage=volatile/' "${TARGET_DIR}/etc/systemd/journald.c
 
 # Set ZSH for root user
 sed -i '/^root:/s,:/bin/dash$,:/bin/zsh,' "${TARGET_DIR}/etc/passwd"
-
-# Setup dhcpcd
-sed -i 's/#hostname/hostname/' "${TARGET_DIR}/etc/dhcpcd.conf"
-sed -i 's/#clientid/clientid/' "${TARGET_DIR}/etc/dhcpcd.conf"
-sed -i 's/#duid/duid/' "${TARGET_DIR}/etc/dhcpcd.conf"

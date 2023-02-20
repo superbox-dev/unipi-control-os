@@ -1,4 +1,0 @@
-kernel=u-boot.bin
-disable_overscan=1
-arm_64bit=1
-enable_uart=1

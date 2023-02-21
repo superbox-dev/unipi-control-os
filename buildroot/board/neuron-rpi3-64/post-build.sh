@@ -6,7 +6,7 @@ set -e
 mkdir -p "${TARGET_DIR}/boot"
 
 # Copy cmdline.txt file
-install -m 0644 -D "${BR2_EXTERNAL_UNIPI_PATH}/board/common/cmdline.txt" "${BINARIES_DIR}/cmdline.txt"
+install -m 0644 -D "${BR2_EXTERNAL_UNIPI_PATH}/board/neuron-rpi3-64/cmdline.txt" "${BINARIES_DIR}/cmdline.txt"
 
 # Disable owftpd
 ln -fs /dev/null "${TARGET_DIR}/etc/systemd/system/owftpd.service"

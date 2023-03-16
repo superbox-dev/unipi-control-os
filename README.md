@@ -1,11 +1,22 @@
-# Unipi Neuron buildroot
+# Unipi Control Operating System
 
-This is an external buildroot tree for the [Unipi Neuron](https://www.unipi.technology/) and the [Unipi Control](https://github.com/mh-superbox/unipi-control).
+Unipi Control Operating System is a Linux based operating system optimized to host [Unipi Control](https://github.com/mh-superbox/unipi-control).
 
-Device config for:
-* Unipi Neuron - RPi 3B+
+## Features
 
-## Usage
+- Lightweight and memory-efficient
+- OWFS 1-Wire (http://unipi.local:8080)
+
+## Supported hardware
+
+- Unipi Neuron (Raspberry Pi 3B+)
+
+## Getting Started
+
+## Development
+
+Unipi Control Operating System use Buildroot for it's embedded systems. For more information visit [www.buildroot.org](https://buildroot.org) and read the [documentation](https://buildroot.org/downloads/manual/manual.html).
+
 
 ```shell
 ~$ git clone https://github.com/mh-superbox/unipi-buildroot.git
@@ -13,7 +24,7 @@ Device config for:
 
 ~$ cd /buildroot
 ~/buildroot$ # checkout LTS version
-~/buildroot$ git checkout 2022.02.6
+~/buildroot$ git checkout 2022.02.10
 
 ~/buildroot$ make BR2_EXTERNAL=../unipi-buildroot/buildroot list-defconfigs
 ~/buildroot$ make unipi_neuron_rpi3_defconfig
@@ -34,9 +45,3 @@ The username and password are `unipi`.
 ```shell
 ~$ ssh unipi@unipi.local
 ```
-
-For more information visit https://buildroot.org/ and read the documenation.
-
-## Features
-
-* OWFS (1-Wire) is run at http://unipi.local:8080/

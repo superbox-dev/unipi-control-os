@@ -1,5 +1,5 @@
 config BR2_PACKAGE_UNIPI_CONTROL
-	bool "Unipi Control"
+	bool "Unipi control"
 	select BR2_PACKAGE_UNIPI_KERNEL
 	select BR2_PACKAGE_UNIPI_TOOLS
 	help

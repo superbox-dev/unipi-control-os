@@ -2,21 +2,38 @@ name: Build Image
 
 on:
   workflow_dispatch:
+  push:
+    tags:
+      - '*'
 
 env:
   REPO_URL: https://github.com/buildroot/buildroot
   REPO_BRANCH: 2022.02.10
-  CONFIG_FILE: .config
   TZ: Europe/Vienna
 
 jobs:
+  check-tag:
+    name: Check Git Tag
+    runs-on: ubuntu-latest
+    outputs:
+      release-type: ${{ steps.check-tag.outputs.run_jobs }}
+    steps:
+      - name: check tag ${{ github.ref }}
+        id: check-tag
+        run: |
+          if [[ ${{ github.event.ref }} =~ ^refs\/tags\/20[0-9][0-9]\.[1-9]{1}[0-9]{0,}$ ]]; then
+            echo "run_jobs=release" >> $GITHUB_OUTPUT
+          elif [[ ${{ github.event.ref }} =~ ^refs\/tags\/20[0-9][0-9]\.[1-9]{1}[0-9]{0,}b[1-9]{1}[0-9]{0,}$$ ]]; then
+            echo "run_jobs=prerelease" >> $GITHUB_OUTPUT
+          fi
+
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@main
-        
+      - name: Check out repository
+        uses: actions/checkout@v3.3.0
+
       - name: Initialization environment
         env:
           DEBIAN_FRONTEND: noninteractive
@@ -24,7 +41,7 @@ jobs:
           sudo -E apt-get -qq update
           sudo -E apt-get -qq upgrade
           sudo apt install wget git bc bison linux-headers-$(uname -r)
-          sudo timedatectl set-timezone "$TZ"
+          sudo timedatectl set-timezone "${{ TZ }}"
           sudo mkdir -p /workdir
           sudo chown $USER:$GROUPS /workdir
 
@@ -35,7 +52,7 @@ jobs:
       - name: Clone buildroot source code
         working-directory: /workdir
         run: |
-          git clone --depth 1 $REPO_URL -b $REPO_BRANCH buildroot_src
+          git clone --depth 1 ${{ REPO_URL }} -b ${{ REPO_BRANCH }} buildroot_src
           ln -sf /workdir/buildroot_src $GITHUB_WORKSPACE/buildroot_src
       
       - name: Compile buildroot
@@ -45,7 +62,14 @@ jobs:
           make BR2_TARGET_GENERIC_HOSTNAME=unipi clean all
 
       - name: Upload image
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: unipi-neuron-rpi3-64.img
           path: /workdir/buildroot_src/output/images/sdcard.img
+
+      - name: Release image
+        uses: softprops/action-gh-release@v1
+        if: needs.check-tag.outputs.release-type == 'release' || needs.check-tag.outputs.release-type == 'prerelease'
+        with:
+          name: unipi-os-${{ github.ref }}-neuron-rpi3-64.img
+          files: /workdir/buildroot_src/output/images/sdcard.img

@@ -1,9 +1,7 @@
 name: Build Unipi Control Operation System Image
 
 on:
-  push:
-    tags:
-      - '*'
+  workflow_dispatch:
 
 env:
   REPO_URL: https://github.com/buildroot/buildroot

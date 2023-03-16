@@ -1,4 +1,4 @@
-name: Build Unipi Control Operation System Image
+name: Create Image
 
 on:
   workflow_dispatch:
@@ -38,18 +38,14 @@ jobs:
           git clone --depth 1 $REPO_URL -b $REPO_BRANCH buildroot_src
           ln -sf /workdir/buildroot_src $GITHUB_WORKSPACE/buildroot_src
       
-      - name: Load Unipi Neuron RPi 3B configuration
+      - name: Compile buildroot
         run: |
           cd $GITHUB_WORKSPACE/buildroot_src
           make BR2_EXTERNAL=$GITHUB_WORKSPACE/buildroot neuron_rpi3_64_defconfig
+          make BR2_TARGET_GENERIC_HOSTNAME=unipi clean all
 
-      - name: Compile Unipi Neuron RPi 3B sdcard image
-        run: |
-          cd $GITHUB_WORKSPACE/buildroot
-          make clean all
-
-      - name: Upload sdcard image
+      - name: Upload image
         uses: actions/upload-artifact@master
         with:
-          name: unipi_neuron_rpi3b.img
+          name: unipi-neuron-rpi3-64.img
           path: /workdir/buildroot/output/images/sdcard.img

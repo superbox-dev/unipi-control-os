@@ -25,4 +25,3 @@ define UNIPI_CONTROL_INSTALL_INIT_SYSTEMD
 endef
 
 $(eval $(python-package))
-$(eval $(generic-package))

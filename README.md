@@ -1,6 +1,6 @@
-# Unipi Control Operating System
+# Unipi Control OS
 
-Unipi Control Operating System is a Linux based operating system optimized to host [Unipi Control](https://github.com/mh-superbox/unipi-control).
+Unipi Control OS is a Linux based operating system optimized to host [Unipi Control](https://github.com/mh-superbox/unipi-control).
 
 ## Features
 
@@ -15,7 +15,7 @@ Unipi Control Operating System is a Linux based operating system optimized to ho
 
 ## Development
 
-Unipi Control Operating System use Buildroot for it's embedded systems. For more information visit [www.buildroot.org](https://buildroot.org) and read the [documentation](https://buildroot.org/downloads/manual/manual.html).
+Unipi Control OS use Buildroot for it's embedded systems. For more information visit [www.buildroot.org](https://buildroot.org) and read the [documentation](https://buildroot.org/downloads/manual/manual.html).
 
 
 ```shell

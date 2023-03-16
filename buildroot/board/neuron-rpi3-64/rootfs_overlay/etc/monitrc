@@ -302,6 +302,4 @@ set httpd port 2812 and
 ## directories.
 #
     include /etc/monit/conf.d/*
-    include /etc/monit/conf-enabled/*
 #
-

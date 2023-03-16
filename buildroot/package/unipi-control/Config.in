@@ -1,0 +1,10 @@
+config BR2_PACKAGE_UNIPI_CONTROL
+	bool "Unipi Control"
+	select BR2_PACKAGE_UNIPI_KERNEL
+	select BR2_PACKAGE_UNIPI_TOOLS
+	help
+	  Control Unipi I/O directly with MQTT commands and without Evok. Unipi Control use Modbus for fast access to
+	  the I/O and provide MQTT topics for reading and writing the circuits. Optionally you can enable the
+	  Home Assistant MQTT discovery for binary sensors, sensors, switches and covers.
+
+	  https://https://github.com/mh-superbox/unipi-control

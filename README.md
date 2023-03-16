@@ -27,7 +27,7 @@ Unipi Control Operating System use Buildroot for it's embedded systems. For more
 ~/buildroot$ git checkout 2022.02.10
 
 ~/buildroot$ make BR2_EXTERNAL=../unipi-buildroot/buildroot list-defconfigs
-~/buildroot$ make unipi_neuron_rpi3_defconfig
+~/buildroot$ make neuron_rpi3_64_defconfig
 
 # You can change the hostname with the BR2_TARGET_GENERIC_HOSTNAME variable
 ~/buildroot$ make BR2_TARGET_GENERIC_HOSTNAME=unipi clean all

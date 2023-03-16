@@ -29,7 +29,7 @@ ln -fs ../resize-root.service "${TARGET_DIR}/etc/systemd/system/multi-user.targe
 # Enable systemd zram service
 ln -fs ../systemd-zram.service "${TARGET_DIR}/etc/systemd/system/multi-user.target.wants/systemd-zram.service"
 
-# Allow members of group whell to exectue any command
+# Allow members of group wheel to execute any command
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' "${TARGET_DIR}/etc/sudoers"
 
 # Update Systemd Journald

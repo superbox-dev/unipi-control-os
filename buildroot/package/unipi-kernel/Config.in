@@ -2,6 +2,6 @@ config BR2_PACKAGE_UNIPI_KERNEL
 	bool "Unipi kernel modules"
 	depends on BR2_LINUX_KERNEL
 	help
-	  Kernel modules required for UniPi Neuron/Axon PLC
+	  Kernel modules for UniPi Neuron/Axon/Patron/Iris PLC
 
 	  https://github.com/UniPiTechnology/unipi-kernel

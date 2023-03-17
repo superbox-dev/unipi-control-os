@@ -16,10 +16,11 @@ jobs:
     steps:
       - name: Build
         run: |
-          echo ${{ github.repository }} 
-          echo ${{ github.repository.name }}
-          echo ${{ github.event.name }}
-          echo ${{ github.event.ref }}
+          echo ${{ github.repository }}
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_EVENT_NAME
+          echo $GITHUB_REF
+          echo GITHUB_REF_NAME
           echo ${{ github.ref_name }} > test.txt
       - name: Release
         uses: softprops/action-gh-release@v1

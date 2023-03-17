@@ -5,6 +5,13 @@ set -e
 
 mkdir -p "${TARGET_DIR}/boot"
 
+# Update motd
+cat > "${TARGET_DIR}/etc/motd" <<EOL
+----------------------------
+${BR2_TARGET_GENERIC_ISSUE}
+----------------------------
+EOL
+
 # Copy cmdline.txt file
 install -m 0644 -D "${BR2_EXTERNAL_UNIPI_PATH}/board/neuron-rpi3-64/cmdline.txt" "${BINARIES_DIR}/cmdline.txt"
 

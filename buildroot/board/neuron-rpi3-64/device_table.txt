@@ -2,3 +2,4 @@
 /etc/monitrc                       f       700     0       0       -       -       -       -       -
 /usr/libexec/systemd-zram.sh       f       755     0       0       -       -       -       -       -
 /usr/bin/check-container.sh        f       755     0       0       -       -       -       -       -
+/usr/sbin/unipi-update.sh          f       755     0       0       -       -       -       -       -

@@ -11,21 +11,16 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    env:
-      PROJECT_NAME:
     steps:
       - name: Get repository name
         run: |
           echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
       - name: Build
         run: |
-          echo ${{ env.REPOSITORY_NAME }}
-          echo ${GITHUB_EVENT_NAME}
-          echo ${GITHUB_REF}
-          echo ${GITHUB_REF_NAME}
           echo "${GITHUB_REF_NAME}" > test.txt
       - name: Release
         uses: softprops/action-gh-release@v1
+        if: github.ref.type == 'tag'
         with:
           name: ${{ env.REPOSITORY_NAME }}-${GITHUB_REF_NAME}.txt
           files: test.txt

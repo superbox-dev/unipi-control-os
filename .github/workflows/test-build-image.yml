@@ -5,6 +5,7 @@ on:
   push:
     tags:
       - 'test'
+      - 'test-pre'
 
 jobs:
   build:
@@ -23,3 +24,4 @@ jobs:
         with:
           name: ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}
           files: ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}.txt
+          prerelease: True

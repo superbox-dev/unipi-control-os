@@ -67,5 +67,5 @@ jobs:
       - name: Release image
         uses: softprops/action-gh-release@v1
         with:
-          name: unipi-os-${{ CI_COMMIT_TAG }}-neuron-rpi3-64.img
+          name: ${{ github.event.repository.name }}-${{ GITHUB_REF_NAME }}-neuron-rpi3-64.img
           files: /workdir/buildroot_src/output/images/sdcard.img

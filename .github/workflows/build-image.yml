@@ -4,7 +4,8 @@ on:
   #workflow_dispatch:
   push:
     tags:
-      - 'v*'
+      - '*'
+      - '!test*'
 
 env:
   REPO_URL: https://github.com/buildroot/buildroot
@@ -21,9 +22,9 @@ jobs:
       - name: check tag ${{ github.ref }}
         id: check-tag
         run: |
-          if [[ ${{ github.event.ref }} =~ ^refs\/tags\/v20[0-9][0-9]\.[1-9]{1}[0-9]{0,}$ ]]; then
+          if [[ ${{ github.event.ref }} =~ ^refs\/tags\/20[0-9][0-9]\.[1-9]{1}[0-9]{0,}$ ]]; then
             echo "run_jobs=release" >> $GITHUB_OUTPUT
-          elif [[ ${{ github.event.ref }} =~ ^refs\/tags\/v20[0-9][0-9]\.[1-9]{1}[0-9]{0,}b[1-9]{1}[0-9]{0,}$ ]]; then
+          elif [[ ${{ github.event.ref }} =~ ^refs\/tags\/20[0-9][0-9]\.[1-9]{1}[0-9]{0,}b[1-9]{1}[0-9]{0,}$ ]]; then
             echo "run_jobs=prerelease" >> $GITHUB_OUTPUT
           fi
 
@@ -60,7 +61,7 @@ jobs:
         run: |
           cd ${GITHUB_WORKSPACE}/buildroot_src
           make BR2_EXTERNAL=${GITHUB_WORKSPACE}/buildroot neuron_rpi3_64_defconfig
-          make BR2_TARGET_GENERIC_HOSTNAME=unipi clean all
+          make BR2_TARGET_GENERIC_ISSUE="Unipi Control OS ${{ github.ref_name }}" clean all
           mv /workdir/buildroot_src/output/images/sdcard.img /workdir/${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img
       - name: Upload image
         uses: actions/upload-artifact@v3.1.2

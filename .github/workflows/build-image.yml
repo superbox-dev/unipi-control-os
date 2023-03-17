@@ -13,7 +13,7 @@ env:
 
 jobs:
   check-tag:
-    name: Check Git Tag
+    name: Check git tag
     runs-on: ubuntu-latest
     outputs:
       release-type: ${{ steps.check-tag.outputs.run_jobs }}
@@ -28,12 +28,13 @@ jobs:
           fi
 
   build:
+    name: Build image
     runs-on: ubuntu-latest
-
+    needs:
+      - check-tag
     steps:
       - name: Check out repository
         uses: actions/checkout@v3.3.0
-
       - name: Initialization environment
         env:
           DEBIAN_FRONTEND: noninteractive
@@ -44,29 +45,24 @@ jobs:
           sudo timedatectl set-timezone "$TZ"
           sudo mkdir -p /workdir
           sudo chown $USER:$GROUPS /workdir
-
       # https://github.com/actions/virtual-environments/issues/2577
       - name: Blocked mirror workaround
         run: echo "1.1.1.1 invisible-mirror.net" | sudo tee -a /etc/hosts
-
       - name: Clone buildroot source code
         working-directory: /workdir
         run: |
           git clone --depth 1 $REPO_URL -b $REPO_BRANCH buildroot_src
           ln -sf /workdir/buildroot_src $GITHUB_WORKSPACE/buildroot_src
-      
       - name: Compile buildroot
         run: |
           cd $GITHUB_WORKSPACE/buildroot_src
           make BR2_EXTERNAL=$GITHUB_WORKSPACE/buildroot neuron_rpi3_64_defconfig
           make BR2_TARGET_GENERIC_HOSTNAME=unipi clean all
-
       - name: Upload image
         uses: actions/upload-artifact@v3.1.2
         with:
           name: unipi-neuron-rpi3-64.img
           path: /workdir/buildroot_src/output/images/sdcard.img
-
       - name: Release image
         uses: softprops/action-gh-release@v1
         if: needs.check-tag.outputs.release-type == 'release' || needs.check-tag.outputs.release-type == 'prerelease'

@@ -70,10 +70,18 @@ jobs:
       - name: Release image
         uses: softprops/action-gh-release@v1
         if: |
-          github.event.name != 'workflow_dispatch' 
-          || needs.check-tag.outputs.release-type == 'release' 
-          || needs.check-tag.outputs.release-type == 'prerelease'
+          github.event.name != 'workflow_dispatch'
+          && needs.check-tag.outputs.release-type == 'release'
         with:
           name: ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}
           files: /workdir/${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img
           prerelease: needs.check-tag.outputs.release-type == 'prerelease'
+      - name: Pre release image
+        uses: softprops/action-gh-release@v1
+        if: |
+          github.event.name != 'workflow_dispatch'
+          && needs.check-tag.outputs.release-type == 'prerelease'
+        with:
+          name: ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}
+          files: /workdir/${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img
+          prerelease: True

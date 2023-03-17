@@ -2,7 +2,6 @@ name: Test Build Image
 
 on:
   workflow_dispatch:
-
   push:
     tags:
       - 'test'
@@ -17,12 +16,11 @@ jobs:
           echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
       - name: Build
         run: |
-          echo ${GITHUB_REF_TYPE}
           echo "${GITHUB_REF_NAME}" > test.txt
           cat test.txt
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: GITHUB_REF_TYPE == 'tag'
+        if: github.event.name != 'workflow_dispatch'
         with:
           name: ${{ env.REPOSITORY_NAME }}-${GITHUB_REF_NAME}.txt
           files: test.txt

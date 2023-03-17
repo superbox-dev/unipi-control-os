@@ -25,7 +25,6 @@ jobs:
           echo $GITHUB_REF_NAME > test.txt
       - name: Release
         uses: softprops/action-gh-release@v1
-#        if: $GITHUB_REF_TYPE == 'tag'
         with:
           name: ${{ env.REPOSITORY_NAME }}-$GITHUB_REF_NAME.txt
           files: test.txt

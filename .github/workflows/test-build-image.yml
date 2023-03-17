@@ -11,14 +11,17 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    env:
+      PROJECT_NAME:
     steps:
       - name: Build
         run: |
-          echo "${{ env.GITHUB_EVENT_NAME }}"
-          echo "${{ env.github.event.repository.name }}"
-          echo "${{ env.GITHUB_REF_NAME }}" > test.txt
+          echo ${{ github.repository }}
+          echo $GITHUB_EVENT_NAME
+          echo "${{ github.repository.name }}"
+          echo "$GITHUB_REF_NAME" > test.txt
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: ${{ env.github.event.repository.name }}-${{ env.GITHUB_REF_NAME }}.txt
+          name: ${{ github.repository.name }}-$GITHUB_REF_NAME.txt
           files: test.txt

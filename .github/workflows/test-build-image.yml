@@ -20,11 +20,10 @@ jobs:
       - name: Build
         run: |
           echo ${{ env.REPOSITORY_NAME }}
-          echo $GITHUB_REF_TYPE
-          echo ${{ env.github.ref.type }}
-          echo $GITHUB_REF_NAME > test.txt
+          echo ${{ github.ref.type }}
+          echo ${{ github.ref.name }} > test.txt
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: ${{ env.REPOSITORY_NAME }}-$GITHUB_REF_NAME.txt
+          name: ${{ env.REPOSITORY_NAME }}-${{ github.ref.name }}.txt
           files: test.txt

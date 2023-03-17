@@ -14,16 +14,16 @@ jobs:
     env:
       PROJECT_NAME:
     steps:
+      - name: Get repository name
+        run: |
+          echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
       - name: Build
         run: |
-          echo ${{ github.repository }}
-          echo $GITHUB_REPOSITORY
-          echo $GITHUB_EVENT_NAME
-          echo $GITHUB_REF
-          echo GITHUB_REF_NAME
-          echo ${{ github.ref_name }} > test.txt
+          echo ${{ env.REPOSITORY_NAME }}
+          echo $GITHUB_REF_NAME > test.txt
       - name: Release
         uses: softprops/action-gh-release@v1
+        if: $GITHUB_REF_TYPE == 'tag'
         with:
-          name: ${{ github.repository.name }}-${{ github.ref_name }}.txt
+          name: ${{ env.REPOSITORY_NAME }}-$GITHUB_REF_NAME.txt
           files: test.txt

@@ -34,12 +34,11 @@ jobs:
       - check-tag
     steps:
       - name: Build
-        working-directory: /workdir
         run: |
           cat "TEST" > test.txt
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: needs.check-tag.outputs.release-type == 'release' || needs.check-tag.outputs.release-type == 'prerelease'
+        if: needs.check-tag.outputs.release-type == 'release'
         with:
           name: unipi-os-${{ github.ref }}-neuron-rpi3-64.img
-          files: /workdir/test.txt
+          files: test.txt

@@ -31,7 +31,7 @@ jobs:
     name: Build image
     runs-on: ubuntu-latest
     if: |
-      github.event.name == 'workflow_dispatch 
+      github.event.name == 'workflow_dispatch' 
       || needs.check-tag.outputs.release-type == 'release' 
       || needs.check-tag.outputs.release-type == 'prerelease'
     needs:

@@ -18,6 +18,7 @@ jobs:
       - name: Build
         run: |
           echo "${GITHUB_REF_NAME}" > test.txt
+          cat test.txt
       - name: Release
         uses: softprops/action-gh-release@v1
         if: github.ref.type == 'tag'

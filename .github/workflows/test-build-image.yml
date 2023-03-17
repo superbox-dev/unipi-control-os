@@ -4,41 +4,18 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - '*'
-
-env:
-  REPO_URL: https://github.com/buildroot/buildroot
-  REPO_BRANCH: 2022.02.10
-  TZ: Europe/Vienna
+      - 'test'
 
 jobs:
-  check-tag:
-    name: Check Git Tag
-    runs-on: ubuntu-latest
-    outputs:
-      release-type: ${{ steps.check-tag.outputs.run_jobs }}
-    steps:
-      - name: check tag ${{ github.ref }}
-        id: check-tag
-        run: |
-          if [[ ${{ github.event.ref }} =~ ^refs\/tags\/20[0-9][0-9]\.[1-9]{1}[0-9]{0,}$ ]]; then
-            echo "run_jobs=release" >> $GITHUB_OUTPUT
-          elif [[ ${{ github.event.ref }} =~ ^refs\/tags\/20[0-9][0-9]\.[1-9]{1}[0-9]{0,}b[1-9]{1}[0-9]{0,}$$ ]]; then
-            echo "run_jobs=prerelease" >> $GITHUB_OUTPUT
-          fi
-
   build:
     name: Build
     runs-on: ubuntu-latest
-    needs:
-      - check-tag
     steps:
       - name: Build
         run: |
-          cat "TEST" > test.txt
+          cat "${{ github.ref }}" > test.txt
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: needs.check-tag.outputs.release-type == 'release'
         with:
-          name: unipi-os-${{ github.ref }}-neuron-rpi3-64.img
+          name: test-${{ github.ref }}.txt
           files: test.txt

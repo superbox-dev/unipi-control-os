@@ -7,21 +7,6 @@ on:
     tags:
       - 'test'
 
-#Run echo unipi-buildroot
-#  echo unipi-buildroot
-#  echo ${GITHUB_EVENT_NAME}
-#  echo ${GITHUB_REF}
-#  echo ${GITHUB_REF_NAME}
-#  echo "${GITHUB_REF_NAME}" > test.txt
-#  shell: /usr/bin/bash -e {0}
-#  env:
-#    PROJECT_NAME:
-#    REPOSITORY_NAME: unipi-buildroot
-#unipi-buildroot
-#workflow_dispatch
-#refs/heads/main
-#main
-
 jobs:
   build:
     name: Build

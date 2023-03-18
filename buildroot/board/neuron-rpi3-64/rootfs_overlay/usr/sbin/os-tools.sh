@@ -10,6 +10,7 @@ UNIPI_CONFIG="/etc/unipi"
 SYSTEMD="/etc/systemd/system"
 SYSTEMD_SERVICE="unipi-control.service"
 SITE_PACKAGES="$(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')"
+DEVELOPMENT="/opt/develop"
 
 COLOR_GREEN="\033[1;92m"
 COLOR_RED="\033[1;91m"
@@ -21,7 +22,8 @@ SKIP_TEXT="${COLOR_BOLD_WHITE}[${COLOR_RESET}${COLOR_YELLOW}SKIP${COLOR_RESET}${
 OK_TEXT="${COLOR_BOLD_WHITE}[${COLOR_RESET}${COLOR_GREEN}OK${COLOR_RESET}${COLOR_BOLD_WHITE}]${COLOR_RESET}"
 ERROR_TEXT="${COLOR_BOLD_WHITE}[${COLOR_RESET}${COLOR_RED}ERROR${COLOR_RESET}${COLOR_BOLD_WHITE}]${COLOR_RESET}"
 
-export DEVELOPMENT="/opt/develop"
+export DEVELOPMENT
+export PIP_REQUIRE_VIRTUALENV=false
 
 ###############################################################################
 # Help
@@ -82,12 +84,14 @@ install_development() {
 
   mkdir ${DEVELOPMENT}
   chown unipi:unipi ${DEVELOPMENT}
-  su - unipi -s /bin/bash -c "python -m venv '${DEVELOPMENT}/venv'"
-  su - unipi -s /bin/bash -c "git clone git@github.com:mh-superbox/unipi-control.git '${DEVELOPMENT}/unipi-control'"
-  su - unipi -s /bin/bash -c "git clone git@github.com:mh-superbox/superbox-utils.git '${DEVELOPMENT}/superbox-utils'"
-  su - unipi -s /bin/bash -c "source '${DEVELOPMENT}/venv/bin/activate'"
-  su - unipi -s /bin/bash -c "pip install -e '${DEVELOPMENT}/superbox-utils'"
-  su - unipi -s /bin/bash -c "pip install -e '${DEVELOPMENT}/unipi-control'"
+  su - unipi -s /bin/bash -c " \
+    python -m venv '${DEVELOPMENT}/.venv' \
+    && git clone git@github.com:mh-superbox/unipi-control.git '${DEVELOPMENT}/unipi-control' \
+    && git clone git@github.com:mh-superbox/superbox-utils.git '${DEVELOPMENT}/superbox-utils' \
+    && source '${DEVELOPMENT}/.venv/bin/activate' \
+    && pip install --upgrade pip \
+    && pip install -e '${DEVELOPMENT}/superbox-utils' \
+    && pip install -e '${DEVELOPMENT}/unipi-control'"
 
   echo -e "${OK_TEXT} Installed development environment to ${DEVELOPMENT}"
 }

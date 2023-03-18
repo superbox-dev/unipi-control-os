@@ -7,10 +7,12 @@ mkdir -p "${TARGET_DIR}/boot"
 
 # Update motd
 cat > "${TARGET_DIR}/etc/motd" <<EOL
----------------------------------------------------
-${BR2_TARGET_GENERIC_ISSUE}
-Run os-tools.sh to install or update Unipi Control
----------------------------------------------------
+------------------------------------------------------   ██████  ██████
+| Hello, this is ${BR2_TARGET_GENERIC_ISSUE}         |   ██░░██  ██░░██
+| Run os-tools.sh to install or update Unipi Control |   ██░░██  ██░░██
+|                                                    |   ██░░██████░░██
+| Code:	https://github.com/mh-superbox/              |   ██░░░░░░░░░░██
+------------------------------------------------------   ██████████████
 EOL
 
 # Copy cmdline.txt file

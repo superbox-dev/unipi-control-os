@@ -48,48 +48,48 @@ update_python_packages() {
 
 install_config() {
   if [ -d "$UNIPI_CONFIG" ]; then
-    printf "${SKIP_TEXT} ${UNIPI_CONFIG} already exists! Can't write config files.\n"
+    echo -e "${SKIP_TEXT} ${UNIPI_CONFIG} already exists! Can't write config files."
   else
     mkdir ${UNIPI_CONFIG}
     cp -R "${SITE_PACKAGES}/unipi_control/config/${UNIPI_CONFIG}" ${UNIPI_CONFIG}
-    printf "${OK_TEXT} Installed config files to ${UNIPI_CONFIG}\n"
+    echo -e "${OK_TEXT} Installed config files to ${UNIPI_CONFIG}"
   fi
 }
 
 install_service() {
   if [ -f "$SYSTEMD/$SYSTEMD_SERVICE" ]; then
-    printf "${SKIP_TEXT} ${SYSTEMD}/${SYSTEMD_SERVICE} already exists! Can't write systemd services file.\n"
+    echo -e "${SKIP_TEXT} ${SYSTEMD}/${SYSTEMD_SERVICE} already exists! Can't write systemd services file."
   else
     cp -R "${SITE_PACKAGES}/unipi_control/config/${SYSTEMD}/${SYSTEMD_SERVICE}" "${SYSTEMD}/${SYSTEMD_SERVICE}"
-    printf "${OK_TEXT} Installed systemd service to ${SYSTEMD}/${SYSTEMD_SERVICE}\n"
+    echo -e "${OK_TEXT} Installed systemd service to ${SYSTEMD}/${SYSTEMD_SERVICE}"
   fi
 }
 
 install_unipi_control() {
-  printf "${COLOR_BOLD_WHITE}[1/3] Install Unipi-Control...${COLOR_RESET}\n"
+  echo -e "${COLOR_BOLD_WHITE}[1/3] Install Unipi-Control...${COLOR_RESET}"
   update_python_packages "$@"
-  printf "${COLOR_BOLD_WHITE}[2/3] Install config files...${COLOR_RESET}\n"
+  echo -e "${COLOR_BOLD_WHITE}[2/3] Install config files...${COLOR_RESET}"
   install_config "$@"
-  printf "${COLOR_BOLD_WHITE}[2/3] Install systemd service...${COLOR_RESET}\n"
+  echo -e "${COLOR_BOLD_WHITE}[2/3] Install systemd service...${COLOR_RESET}"
   install_service "$@"
 }
 
 install_development() {
   if [ -d "$DEVELOPMENT" ]; then
-    printf "${ERROR_TEXT} ${DEVELOPMENT} already exists! Can't install development environment.\n"
+    echo -e "${ERROR_TEXT} ${DEVELOPMENT} already exists! Can't install development environment."
     exit 1
   fi
 
   mkdir ${DEVELOPMENT}
   chown unipi:unipi ${DEVELOPMENT}
-  DEVELOPMENT=${DEVELOPMENT} su - unipi -w DEVELOPMENT -s /bin/bash -c 'python -m venv "${DEVELOPMENT}/venv"'
-  DEVELOPMENT=${DEVELOPMENT} su - unipi -w DEVELOPMENT -s /bin/bash -c 'git clone git@github.com:mh-superbox/unipi-control.git "${DEVELOPMENT}/unipi-control"'
-  DEVELOPMENT=${DEVELOPMENT} su - unipi -w DEVELOPMENT -s /bin/bash -c 'git clone git clone git@github.com:mh-superbox/superbox-utils.git "${DEVELOPMENT}/superbox-utils"'
-  DEVELOPMENT=${DEVELOPMENT} su - unipi -w DEVELOPMENT -s /bin/bash -c 'source "${DEVELOPMENT}/venv/bin/activate"'
-  DEVELOPMENT=${DEVELOPMENT} su - unipi -w DEVELOPMENT -s /bin/bash -c 'pip install -e "${DEVELOPMENT}/superbox-utils"'
-  DEVELOPMENT=${DEVELOPMENT} su - unipi -w DEVELOPMENT -s /bin/bash -c 'pip istall -e "${DEVELOPMENT}/unipi-control"'
+  DEVELOPMENT=${DEVELOPMENT} su - unipi -w DEVELOPMENT -s /bin/bash -c "python -m venv '${DEVELOPMENT}/venv'"
+  DEVELOPMENT=${DEVELOPMENT} su - unipi -w DEVELOPMENT -s /bin/bash -c "git clone git@github.com:mh-superbox/unipi-control.git '${DEVELOPMENT}/unipi-control'"
+  DEVELOPMENT=${DEVELOPMENT} su - unipi -w DEVELOPMENT -s /bin/bash -c "git clone git@github.com:mh-superbox/superbox-utils.git '${DEVELOPMENT}/superbox-utils'"
+  DEVELOPMENT=${DEVELOPMENT} su - unipi -w DEVELOPMENT -s /bin/bash -c "source '${DEVELOPMENT}/venv/bin/activate'"
+  DEVELOPMENT=${DEVELOPMENT} su - unipi -w DEVELOPMENT -s /bin/bash -c "pip install -e '${DEVELOPMENT}/superbox-utils'"
+  DEVELOPMENT=${DEVELOPMENT} su - unipi -w DEVELOPMENT -s /bin/bash -c "pip istall -e '${DEVELOPMENT}/unipi-control'"
 
-  printf "${OK_TEXT} Installed development environment to ${DEVELOPMENT}\n"
+  echo -e "${OK_TEXT} Installed development environment to ${DEVELOPMENT}"
 }
 
 
@@ -97,6 +97,11 @@ install_development() {
 # Main
 
 main() {
+  if [ "$(id -u)" != 0 ]; then
+    echo -e "${ERROR_TEXT} ${_ME} can only run as root user!"
+    exit 1
+  fi
+
   if [[ "${1:-}" =~ ^-h|--help$ ]]
   then
     print_help

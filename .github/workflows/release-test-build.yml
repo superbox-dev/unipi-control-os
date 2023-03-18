@@ -1,4 +1,4 @@
-name: Test Build Image
+name: Release test build
 
 on:
   workflow_dispatch:
@@ -24,7 +24,7 @@ jobs:
           fi
 
   build:
-    name: Build
+    name: Release test build
     runs-on: ubuntu-latest
     needs:
       - check-tag
@@ -35,6 +35,8 @@ jobs:
       - name: Build
         run: |
           echo "${GITHUB_REF_NAME}" > ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}.txt
+      - name: Compress
+        run: |
           tar -czvf ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}.tar.gz ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}.txt
       - name: Release
         uses: softprops/action-gh-release@v1

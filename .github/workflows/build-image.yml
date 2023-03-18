@@ -62,6 +62,8 @@ jobs:
           cd ${GITHUB_WORKSPACE}/buildroot_src
           make BR2_EXTERNAL=${GITHUB_WORKSPACE}/buildroot neuron_rpi3_64_defconfig
           make BR2_TARGET_GENERIC_ISSUE="Unipi Control OS ${{ github.ref_name }}" clean all
+      - name: Compress image
+        run: |
           mv \
             /workdir/buildroot_src/output/images/sdcard.img \
             /workdir/${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img

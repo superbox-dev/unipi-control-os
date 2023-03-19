@@ -24,7 +24,7 @@ jobs:
         run: |
           if [[ ${{ github.event.ref }} =~ ^refs\/tags\/[1-9]{1}[0-9]{0,}\.[1-9]{1}[0-9]{0,}$ ]]; then
             echo "run_jobs=release" >> $GITHUB_OUTPUT
-          elif [[ ${{ github.event.ref }} =~ ^refs\/tags\/[1-9]{1}[0-9]{0,}\.[1-9]{1}[0-9]{0,}-beta[1-9]{1}[0-9]{0,}$ ]]; then
+          elif [[ ${{ github.event.ref }} =~ ^refs\/tags\/[1-9]{1}[0-9]{0,}\.[0-9]{0,}-beta[1-9]{1}[0-9]{0,}$ ]]; then
             echo "run_jobs=prerelease" >> $GITHUB_OUTPUT
           fi
 
@@ -73,8 +73,8 @@ jobs:
       - name: Upload disk image
         uses: actions/upload-artifact@v3.1.2
         with:
-          name: unipi-neuron-rpi3-64.img
-          path: /workdir/buildroot_src/output/images/sdcard.img
+          name: ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.tar.gz
+          path: /workdir/${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.tar.gz
       - name: Release disk image
         uses: softprops/action-gh-release@v1
         if: |

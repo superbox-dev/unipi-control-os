@@ -9,7 +9,7 @@ _ME="$(basename "${0}")"
 UNIPI_CONFIG="/etc/unipi"
 SYSTEMD="/etc/systemd/system"
 SYSTEMD_SERVICE="unipi-control.service"
-SITE_PACKAGES="$(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')"
+VIRTUAL_ENV="/opt/.venv"
 DEVELOPMENT="/opt/develop"
 
 COLOR_GREEN="\033[1;92m"
@@ -24,6 +24,7 @@ ERROR_TEXT="${COLOR_BOLD_WHITE}[${COLOR_RESET}${COLOR_RED}ERROR${COLOR_RESET}${C
 
 export DEVELOPMENT
 export PIP_REQUIRE_VIRTUALENV=false
+export PATH="${VIRTUAL_ENV}/bin:${PATH}"
 
 ###############################################################################
 # Help
@@ -44,16 +45,25 @@ HEREDOC
 # Program Functions
 
 update_python_packages() {
-  pip install --root-user-action=ignore --upgrade pip
-  pip install --root-user-action=ignore --upgrade unipi-control
+  if [ ! -d "$VIRTUAL_ENV" ]; then
+    python -m venv ${VIRTUAL_ENV}
+  fi
+
+  pip install --upgrade pip
+  pip install --upgrade unipi-control
+
+  if [ ! -f /bin/unipi-control ]; then
+    ln -s ${VIRTUAL_ENV}/bin/unipi-control /bin/unipi-control
+  fi
 }
 
 install_config() {
-  if [ -d "$UNIPI_CONFIG" ]; then
+
+if [ -d "$UNIPI_CONFIG" ]; then
     echo -e "${SKIP_TEXT} ${UNIPI_CONFIG} already exists! Can't write config files."
   else
     mkdir ${UNIPI_CONFIG}
-    cp -R "${SITE_PACKAGES}/unipi_control/config/${UNIPI_CONFIG}" ${UNIPI_CONFIG}
+    cp -R "$(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')/unipi_control/config${UNIPI_CONFIG}/"* ${UNIPI_CONFIG}
     echo -e "${OK_TEXT} Installed config files to ${UNIPI_CONFIG}"
   fi
 }
@@ -62,7 +72,7 @@ install_service() {
   if [ -f "$SYSTEMD/$SYSTEMD_SERVICE" ]; then
     echo -e "${SKIP_TEXT} ${SYSTEMD}/${SYSTEMD_SERVICE} already exists! Can't write systemd services file."
   else
-    cp -R "${SITE_PACKAGES}/unipi_control/config/${SYSTEMD}/${SYSTEMD_SERVICE}" "${SYSTEMD}/${SYSTEMD_SERVICE}"
+    cp -R "$(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')/unipi_control/config/${SYSTEMD}/${SYSTEMD_SERVICE}" "${SYSTEMD}/${SYSTEMD_SERVICE}"
     echo -e "${OK_TEXT} Installed systemd service to ${SYSTEMD}/${SYSTEMD_SERVICE}"
   fi
 }
@@ -89,7 +99,7 @@ install_development() {
     && git clone git@github.com:mh-superbox/unipi-control.git '${DEVELOPMENT}/unipi-control' \
     && git clone git@github.com:mh-superbox/superbox-utils.git '${DEVELOPMENT}/superbox-utils' \
     && source '${DEVELOPMENT}/.venv/bin/activate' \
-    && pip install --upgrade pip \
+    && pip install --upgrade pip
     && pip install -e '${DEVELOPMENT}/superbox-utils' \
     && pip install -e '${DEVELOPMENT}/unipi-control'"
 

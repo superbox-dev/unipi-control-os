@@ -40,7 +40,7 @@ ln -fs ../resize-root.service "${TARGET_DIR}/etc/systemd/system/multi-user.targe
 ln -fs ../systemd-zram.service "${TARGET_DIR}/etc/systemd/system/multi-user.target.wants/systemd-zram.service"
 
 # Allow members of group wheel to execute any command
-sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' "${TARGET_DIR}/etc/sudoers"
+sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' "${TARGET_DIR}/etc/sudoers"
 
 # Update Systemd Journald
 sed -i 's/#Storage=auto/Storage=volatile/' "${TARGET_DIR}/etc/systemd/journald.conf"

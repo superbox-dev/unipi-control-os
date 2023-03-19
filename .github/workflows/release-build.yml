@@ -45,7 +45,7 @@ jobs:
         run: |
           sudo -E apt-get -qq update
           sudo -E apt-get -qq upgrade
-          sudo apt install wget git bc bison linux-headers-$(uname -r)
+          sudo apt install wget git bc bison linux-headers-$(uname -r) xz-utils
           sudo timedatectl set-timezone "$TZ"
           sudo mkdir -p /workdir
           sudo chown $USER:$GROUPS /workdir
@@ -67,14 +67,12 @@ jobs:
           mv \
             /workdir/buildroot_src/output/images/sdcard.img \
             /workdir/${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img
-          tar -C /workdir -czvf \
-            ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.tar.gz \
-            ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img
+          xz -z -9 /workdir/${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img
       - name: Upload disk image
         uses: actions/upload-artifact@v3.1.2
         with:
-          name: ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.tar.gz
-          path: /workdir/${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.tar.gz
+          name: ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img.xz
+          path: /workdir/${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img.xz
       - name: Release disk image
         uses: softprops/action-gh-release@v1
         if: |
@@ -82,7 +80,7 @@ jobs:
           && needs.check-tag.outputs.release-type == 'release'
         with:
           name: ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}
-          files: /workdir/${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.tar.gz
+          files: /workdir/${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img.xz
           prerelease: False
       - name: Pre release disk image
         uses: softprops/action-gh-release@v1
@@ -91,5 +89,5 @@ jobs:
           && needs.check-tag.outputs.release-type == 'prerelease'
         with:
           name: ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}
-          files: /workdir/${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.tar.gz
+          files: /workdir/${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img.xz
           prerelease: True

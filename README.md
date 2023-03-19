@@ -13,7 +13,15 @@ Unipi Control OS is a Linux based operating system optimized to host [Unipi Cont
 
 ## Getting Started
 
-WIP
+1. Download the latests [release](https://github.com/mh-superbox/unipi-control-os/releases).
+2. Write the image to your SD card with [Balena Etcher](https://www.balena.io/etcher).
+3. Insert SD card to your Unipi Neuron and power the system on.
+
+Connect to your Unipi Neuron with `ssh`. The username and password are `unipi`.
+
+```shell
+~$ ssh unipi@unipi.local
+```
 
 ## Development
 
@@ -34,15 +42,4 @@ Unipi Control OS use Buildroot for it's embedded systems. For more information v
 ~/buildroot$ make BR2_TARGET_GENERIC_HOSTNAME=unipi clean all
 ```
 
-Wait a long time ... and then write the image to a sdcard.
-
-```shell
-~/buildroot$ cd output/images/
-~/buildroot/output/images$ dd bs=4M if=sdcard.img of=/dev/XXX status=progress
-```
-Boot you Unipi Neuron with the sdcard and connect with ssh:
-The username and password are `unipi`.
-
-```shell
-~$ ssh unipi@unipi.local
-```
+Wait a long time ... and then write the image `~/buildroot/output/images/sdcard.img` to a SD card.

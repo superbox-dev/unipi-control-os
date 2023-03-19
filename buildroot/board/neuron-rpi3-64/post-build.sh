@@ -8,7 +8,7 @@ mkdir -p "${TARGET_DIR}/boot"
 # Update motd
 cat > "${TARGET_DIR}/etc/motd" <<EOL
  ------------------------------------------------------
- Hello, this is ${BR2_TARGET_GENERIC_ISSUE}
+ Hello, this is $(cat ${TARGET_DIR}/etc/issue)
  Run os-tools.sh to install or update Unipi Control
 
  Code:  https://github.com/mh-superbox

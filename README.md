@@ -11,6 +11,8 @@ Unipi Control OS is a Linux based operating system optimized to host [Unipi Cont
 
 - Unipi Neuron (Raspberry Pi 3B+)
 
+If you have an Unipi device, that is not supported, then contact me.
+
 ## Getting Started
 
 1. Download the latests [release](https://github.com/mh-superbox/unipi-control-os/releases).

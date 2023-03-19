@@ -67,9 +67,9 @@ jobs:
           mv \
             /workdir/buildroot_src/output/images/sdcard.img \
             /workdir/${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img
-          tar -czvf \
-            /workdir/${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.tar.gz \
-            /workdir/${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img
+          tar -C /workdir -czvf \
+            ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.tar.gz \
+            ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img
       - name: Upload disk image
         uses: actions/upload-artifact@v3.1.2
         with:

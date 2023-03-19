@@ -16,9 +16,9 @@ Unipi Control OS is a Linux based operating system optimized to host [Unipi Cont
 1. Download the latests [release](https://github.com/mh-superbox/unipi-control-os/releases).
 2. Write the image to your SD card with [Balena Etcher](https://www.balena.io/etcher).
 3. Insert SD card to your Unipi Neuron and power the system on.
-
-Connect to your Unipi Neuron with `ssh unipi@unipi.local` (The username and password are `unipi`) and run `sudo os-install.sh --install`.
-Read the Unipi Control [documentation](https://github.com/mh-superbox/unipi-control#configuration) to configure your Unipi Neuron.
+4. Connect to your Unipi Neuron with `ssh unipi@unipi.local` (The username and password are `unipi`)
+5. Run `sudo os-install.sh --install` to install or upgrade Unipi Control
+6. Read the [documentation](https://github.com/mh-superbox/unipi-control#configuration) to configure your Unipi Neuron.
 
 Now you can start the service with:
 

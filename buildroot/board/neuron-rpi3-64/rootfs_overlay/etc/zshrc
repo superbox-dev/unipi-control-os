@@ -35,7 +35,7 @@ else
     p_user="%F{green}%n%f"
 fi
 
-export PS1="%B${p_user}@%m:%~%b%F{yellow} %# %f"
+export PROMPT="%B${p_user}@%m:%~%b%F{yellow} %# %f"
 
 ##############################################################################
 # KEYS

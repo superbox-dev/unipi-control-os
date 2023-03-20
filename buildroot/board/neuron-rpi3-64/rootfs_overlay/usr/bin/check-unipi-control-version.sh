@@ -11,7 +11,6 @@ CURRENT_RELEASE=$(unipi-control --version | cut -d " " -f 2)
 
 COLOR_BOLD_WHITE="\033[1;97m"
 COLOR_RESET="\033[0m"
-echo $LATEST_RELEASE
 
 if [ "$LATEST_RELEASE" != "$CURRENT_RELEASE" ]; then
     echo "Unipi Control update available:"

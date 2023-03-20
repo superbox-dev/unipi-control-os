@@ -25,8 +25,7 @@ If you have an Unipi device, that is not supported, then contact me.
 Now you can start the service with:
 
 ```shell
-$ systemctl enable unipi-control.service
-$ systemctl start unipi-control.service
+$ sudo systemctl enable --now unipi-control.service
 ```
 
 ## Development

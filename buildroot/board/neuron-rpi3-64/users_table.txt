@@ -1,1 +1,1 @@
-unipi 100 unipi 100 =unipi /home/unipi /bin/zsh wheel
+unipi 1000 unipi 1000 =unipi /home/unipi /bin/zsh wheel

@@ -96,6 +96,9 @@ jobs:
       github.event.name != 'workflow_dispatch'
       && needs.check-tag.outputs.release-type == 'release'
     steps:
+      - name: Get repository name
+        run: |
+          echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
       - name: Download disk image
         uses: actions/download-artifact@v3
         with:
@@ -116,6 +119,9 @@ jobs:
       github.event.name != 'workflow_dispatch'
       && needs.check-tag.outputs.release-type == 'prerelease'
     steps:
+      - name: Get repository name
+        run: |
+          echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
       - name: Download disk image
         uses: actions/download-artifact@v3
         with:

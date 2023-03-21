@@ -2,7 +2,7 @@
 Description=UniPi Config
 
 [Service]
-ExecStart=/opt/unipi/tools/unipiconfig
+ExecStart=/opt/unipi/tools/unipiconfig.sh
 
 [Install]
 RequiredBy=unipitcp.service

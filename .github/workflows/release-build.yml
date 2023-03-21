@@ -38,7 +38,7 @@ jobs:
         run: |
           sudo -E apt-get -qq update
           sudo -E apt-get -qq upgrade
-          sudo apt shellcheck
+          sudo apt install shellcheck
       - name: Check shell scripts
         run: |
           for file in $(find buildroot/board -type f -name "*.sh"); do shellcheck --format=gcc $file; done;

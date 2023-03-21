@@ -42,6 +42,7 @@ jobs:
       - name: Check shell scripts
         run: |
           for file in $(find buildroot/board -type f -name "*.sh"); do shellcheck --format=gcc $file; done;
+          for file in $(find buildroot/package -type f -name "*.sh"); do shellcheck --format=gcc $file; done;
 
   build:
     name: Build disk image

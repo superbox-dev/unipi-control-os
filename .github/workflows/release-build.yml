@@ -111,7 +111,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           name: ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}
-          files: /workdir/${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img.xz
+          files: ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img.xz
           prerelease: False
 
   pre-release:
@@ -135,5 +135,5 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           name: ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}
-          files: /workdir/${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img.xz
+          files: ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img.xz
           prerelease: True

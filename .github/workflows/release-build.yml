@@ -44,7 +44,7 @@ jobs:
           for file in $(find buildroot/board -type f -name "*.sh"); do shellcheck --format=gcc $file; done;
 
   build:
-    name: Release build
+    name: Build disk image
     runs-on: ubuntu-latest
     needs:
       - test-source

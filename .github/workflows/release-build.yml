@@ -46,6 +46,8 @@ jobs:
   build:
     name: Release build
     runs-on: ubuntu-latest
+    needs:
+      - test-source
     steps:
       - name: Get repository name
         run: |
@@ -92,6 +94,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - check-tag
+      - build
     if: |
       github.event.name != 'workflow_dispatch'
       && needs.check-tag.outputs.release-type == 'release'
@@ -112,6 +115,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - check-tag
+      - build
     if: |
       github.event.name != 'workflow_dispatch'
       && needs.check-tag.outputs.release-type == 'prerelease'

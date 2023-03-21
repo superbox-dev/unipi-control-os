@@ -8,7 +8,7 @@ mkdir -p "${TARGET_DIR}/boot"
 # Update motd
 cat > "${TARGET_DIR}/etc/motd" <<EOL
 ---------------------------------------------------------------------
-Hello, this is $(cat ${TARGET_DIR}/etc/issue)
+Hello, this is $(cat "${TARGET_DIR}/etc/issue")
 Run os-tools.sh to install or update Unipi Control
 
 Documentation: https://github.com/superbox-dev/unipi-control#readme

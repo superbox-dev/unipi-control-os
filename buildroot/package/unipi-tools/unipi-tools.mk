@@ -26,7 +26,7 @@ define UNIPI_TOOLS_INSTALL_TARGET_CMDS
 	$(INSTALL) -D -m 644 $(@D)/unipi-common/etc/initramfs/modules.d/unipi $(TARGET_DIR)/etc/modules-load.d/unipi.conf
 	$(INSTALL) -D -m 644 $(@D)/unipi-common/udev/95-unipi-plc-devices.rules $(TARGET_DIR)/etc/udev/rules.d/95-unipi-plc-devices.rules
 	$(INSTALL) -D -m 644 $(@D)/unipi-common/udev/95-unipi-usb-serial.rules $(TARGET_DIR)/etc/udev/rules.d/95-unipi-usb-serial.rules
-	$(INSTALL) -D -m 755 $(UNIPI_TOOLS_PKGDIR)opt/unipi/tools/unipiconfig $(TARGET_DIR)/opt/unipi/tools/unipiconfig
+	$(INSTALL) -D -m 755 $(UNIPI_TOOLS_PKGDIR)opt/unipi/tools/unipiconfig.sh $(TARGET_DIR)/opt/unipi/tools/unipiconfig.sh
 endef
 
 define UNIPI_TOOLS_INSTALL_INIT_SYSTEMD

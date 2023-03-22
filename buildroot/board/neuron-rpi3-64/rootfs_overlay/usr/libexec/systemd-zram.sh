@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
 set -e
 
 NRDEVICES=$(grep -c ^processor /proc/cpuinfo | sed 's/^0$/1/')

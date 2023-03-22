@@ -1,5 +1,5 @@
 [Unit]
-Description=UniPi Config
+Description=Unipi Config
 
 [Service]
 ExecStart=/opt/unipi/tools/unipiconfig.sh

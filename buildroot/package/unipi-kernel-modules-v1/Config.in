@@ -2,7 +2,7 @@ config BR2_PACKAGE_UNIPI_KERNEL_MODULES_V1
 	bool "Unipi kernel modules v1"
 	depends on BR2_LINUX_KERNEL
 	help
-	  Kernel modules for UniPi Neuron/Axon/Patron/Iris PLC
+	  Kernel modules for Unipi devices
 	  Tested for kernel versions 4.11 .. 4.19
 
 	  https://github.com/UniPiTechnology/unipi-kernel-modules-v1

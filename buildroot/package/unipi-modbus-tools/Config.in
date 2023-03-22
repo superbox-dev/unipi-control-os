@@ -1,0 +1,7 @@
+config BR2_PACKAGE_UNIPI_MODBUS_TOOLS
+	bool "Unipi modbus tools"
+	select BR2_PACKAGE_UNIPI_KERNEL_MODULES_V1
+	select BR2_PACKAGE_LIBMODBUS 
+	select BR2_PACKAGE_LIBTOOL
+	help
+	  Modbus TCP server for Unipi devices.

@@ -1,0 +1,10 @@
+[Unit]
+Description=Hardware clock synchronization
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/hwclock --hctosys --adjfile=/etc/adjtime
+ExecStop=/sbin/hwclock --systohc --adjfile=/etc/adjtime
+
+[Install]
+WantedBy=multi-user.target

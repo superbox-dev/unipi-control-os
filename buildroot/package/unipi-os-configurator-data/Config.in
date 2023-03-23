@@ -1,0 +1,7 @@
+config BR2_PACKAGE_UNIPI_OS_CONFIGURATOR_DATA
+	bool "Unipi OS configurator data"
+	select BR2_PACKAGE_UNIPI_KERNEL_MODULES
+	help
+	  Unipi Neuron specific data for Unipi OS configurator
+
+	  https://repo.unipi.technology/debian/pool

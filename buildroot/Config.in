@@ -8,6 +8,7 @@ source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-modbus-tools/Config.in"
 source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-firmware-tools/Config.in"
 source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-firmware/Config.in"
 source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-firmware6/Config.in"
+source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-os-configurator-data/Config.in"
 
 comment "Shell optimizations"
 source "$BR2_EXTERNAL_UNIPI_PATH/package/zsh-autosuggestions/Config.in"

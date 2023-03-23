@@ -24,6 +24,8 @@ define UNIPI_OS_CONFIGURATOR_DATA_INSTALL_TARGET_CMDS
     $(INSTALL) -D -m 0644 $(@D)/lib/systemd/system.conf.d/unipi.conf -t $(TARGET_DIR)/lib/systemd/system.conf.d
     $(INSTALL) -D -m 0644 $(UDEV_RULES:%=$(@D)/lib/udev/%) -t $(TARGET_DIR)/lib/udev
 	$(INSTALL) -D -m 0644 $(TMPFILES:%=$(@D)/usr/lib/tmpfiles.d/%) $-t (TARGET_DIR)/usr/lib/tmpfiles.d
+	$(INSTALL) -D -m 0644 $(@D)/opt/unipi/os-configurator/unipi_values.py -t $(TARGET_DIR)/opt/unipi/os-configurator
+	$(INSTALL) -D -m 0644 $(@D)/opt/unipi/os-configurator/udev/* -t $(TARGET_DIR)/opt/unipi/os-configurator/udev
 endef
 
 define UNIPI_OS_CONFIGURATOR_DATA_INSTALL_INIT_SYSTEMD

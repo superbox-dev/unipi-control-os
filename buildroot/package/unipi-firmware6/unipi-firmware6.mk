@@ -15,7 +15,7 @@ define UNIPI_FIRMWARE6_EXTRACT_CMDS
 endef
 
 define UNIPI_FIRMWARE6_INSTALL_TARGET_CMDS
-	$(INSTALL) -D -m 0644 $(@D)/opt/unipi/firmware)/* -t $(TARGET_DIR)/opt/unipi/firmware
+	$(INSTALL) -D -m 0644 $(@D)/opt/unipi/firmware/* -t $(TARGET_DIR)/opt/unipi/firmware
 endef
 
 $(eval $(generic-package))

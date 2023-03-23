@@ -1,7 +1,0 @@
-config BR2_PACKAGE_UNIPI_FIRMWARE
-	bool "Unipi firmware tools"
-	select BR2_PACKAGE_UNIPI_FIRMWARE_TOOLS
-	help
-	  Firmware files for Unipi boards.
-
-	  https://repo.unipi.technology/debian/pool

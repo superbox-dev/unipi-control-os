@@ -1,14 +1,6 @@
-comment "Unipi packages (v1)"
+comment "Unipi packages"
 source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-kernel-modules-v1/Config.in"
 source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-tools/Config.in"
-
-comment "Unipi packages (v2)"
-source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-kernel-modules/Config.in"
-source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-modbus-tools/Config.in"
-source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-firmware-tools/Config.in"
-source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-firmware/Config.in"
-source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-firmware6/Config.in"
-source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-os-configurator-data/Config.in"
 
 comment "Shell optimizations"
 source "$BR2_EXTERNAL_UNIPI_PATH/package/zsh-autosuggestions/Config.in"

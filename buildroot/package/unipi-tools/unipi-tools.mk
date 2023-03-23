@@ -8,7 +8,7 @@ UNIPI_TOOLS_VERSION = 1.2.46
 UNIPI_TOOLS_SOURCE = $(UNIPI_TOOLS_VERSION).tar.gz
 UNIPI_TOOLS_SITE = https://github.com/UniPiTechnology/unipi-tools/archive/refs/tags
 
-UNIPI_TOOLS_DEPENDENCIES += libmodbus libtool unipi-kernel
+UNIPI_TOOLS_DEPENDENCIES += libmodbus libtool unipi-kernel-modules-v1
 
 MODBUS_LIBDIR = $(STAGING_DIR)/usr/lib
 BINFILES = unipi_tcp_server fwspi fwserial unipihostname unipicheck

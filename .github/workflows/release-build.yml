@@ -61,7 +61,7 @@ jobs:
         run: |
           sudo -E apt-get -qq update
           sudo -E apt-get -qq upgrade
-          sudo apt install wget git bc bison linux-headers-$(uname -r) xz-utils
+          sudo apt install wget git bc binutils bison linux-headers-$(uname -r) xz-utils
           sudo timedatectl set-timezone "$TZ"
           sudo mkdir -p /workdir
           sudo chown $USER:$GROUPS /workdir

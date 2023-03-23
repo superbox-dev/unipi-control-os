@@ -31,10 +31,7 @@ sed -i 's/#allow_anonymous false/allow_anonymous true/g' "${TARGET_DIR}/etc/mosq
 mkdir -p "${TARGET_DIR}/etc/systemd/system/multi-user.target.wants"
 
 # Enable resize root service
-ln -fs ../resize-root.service "${TARGET_DIR}/etc/systemd/system/multi-user.target.wants/resize-root.service"
-
-# Enable monit service
-ln -fs ../resize-root.service "${TARGET_DIR}/etc/systemd/system/multi-user.target.wants/monit.service"
+# ln -fs ../resize-root.service "${TARGET_DIR}/etc/systemd/system/multi-user.target.wants/resize-root.service"
 
 # Enable systemd zram service
 ln -fs ../systemd-zram.service "${TARGET_DIR}/etc/systemd/system/multi-user.target.wants/systemd-zram.service"

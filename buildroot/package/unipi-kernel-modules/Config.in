@@ -2,7 +2,7 @@ config BR2_PACKAGE_UNIPI_KERNEL_MODULES
 	bool "Unipi kernel modules"
 	depends on BR2_LINUX_KERNEL
 	help
-	  Kernel modules for Unipi devices
+	  Kernel modules for Unipi controllers
 	  Tested for kernel versions 5.10 .. 5.15.5
 
 	  https://github.com/UniPiTechnology/unipi-kernel-modules

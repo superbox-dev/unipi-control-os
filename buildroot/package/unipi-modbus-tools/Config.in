@@ -4,4 +4,6 @@ config BR2_PACKAGE_UNIPI_MODBUS_TOOLS
 	select BR2_PACKAGE_LIBMODBUS 
 	select BR2_PACKAGE_LIBTOOL
 	help
-	  Modbus TCP server for Unipi devices.
+	  Modbus TCP server for Unipi controllers.
+
+	  https://repo.unipi.technology/debian/pool

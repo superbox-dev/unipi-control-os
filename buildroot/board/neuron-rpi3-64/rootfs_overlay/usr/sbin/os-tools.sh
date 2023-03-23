@@ -51,15 +51,10 @@ update_python_packages() {
 
   pip install --upgrade pip
   pip install --upgrade unipi-control
-
-  if [ ! -f /bin/unipi-control ]; then
-    ln -s ${VIRTUAL_ENV}/bin/unipi-control /bin/unipi-control
-  fi
 }
 
 install_config() {
-
-if [ -d "$UNIPI_CONFIG" ]; then
+  if [ -d "$UNIPI_CONFIG" ]; then
     echo -e "${SKIP_TEXT} ${UNIPI_CONFIG} already exists! Can't write config files."
   else
     mkdir ${UNIPI_CONFIG}
@@ -105,7 +100,6 @@ install_development() {
 
   echo -e "${OK_TEXT} Installed development environment to ${DEVELOPMENT}"
 }
-
 
 ###############################################################################
 # Main

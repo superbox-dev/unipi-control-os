@@ -17,7 +17,7 @@ define UNIPI_FIRMWARE_TOOLS_EXTRACT_CMDS
 endef
 
 define UNIPI_FIRMWARE_TOOLS_INSTALL_TARGET_CMDS
-    $(INSTALL) -D -m 0755 $(@D)/opt/unipi/tools/fwserial -t $(TARGET_DIR)/opt/unipi/tools
+	$(INSTALL) -D -m 0755 $(BINFILES:%=$(@D)/opt/unipi/tools/%) -t $(TARGET_DIR)/opt/unipi/tools
 endef
 
 define UNIPI_FIRMWARE_TOOLS_INSTALL_INIT_SYSTEMD

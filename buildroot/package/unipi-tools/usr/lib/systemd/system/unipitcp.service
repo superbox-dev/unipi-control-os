@@ -6,8 +6,12 @@ After=systemd-modules-load.service
 [Service]
 Type=simple
 EnvironmentFile=-/etc/default/unipitcp
-ExecStart=/opt/unipi/tools/unipi_tcp_server -v -l ${LISTEN_IP} -p ${LISTEN_PORT}
+ExecStartPre=/opt/unipi/tools/unipiconfig.sh
+ExecStart=/opt/unipi/tools/unipi_tcp_server_dev -v -l ${LISTEN_IP} -p ${LISTEN_PORT}
 TimeoutStopSec=3
 SyslogIdentifier=unipi
 WorkingDirectory=/opt/unipi/tools
-Restart=on-failure
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

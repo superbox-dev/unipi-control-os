@@ -1,8 +1,0 @@
-[Unit]
-Description=Unipi Config
-
-[Service]
-ExecStart=/opt/unipi/tools/unipiconfig.sh
-
-[Install]
-RequiredBy=unipitcp.service

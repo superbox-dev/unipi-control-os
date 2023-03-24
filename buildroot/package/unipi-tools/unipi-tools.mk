@@ -32,12 +32,8 @@ endef
 define UNIPI_TOOLS_INSTALL_INIT_SYSTEMD
 	$(INSTALL) -D -m 0644 $(@D)/unipi-modbus-tools/etc/default/unipitcp -t $(TARGET_DIR)/etc/default
 	$(INSTALL) -D -m 0644 $(UNIPI_TOOLS_PKGDIR)usr/lib/systemd/system/unipitcp.service -t $(TARGET_DIR)/usr/lib/systemd/system
-	$(INSTALL) -D -m 0644 $(@D)/unipi-common/systemd/system/unipicheck.service -t $(TARGET_DIR)/usr/lib/systemd/system
-	$(INSTALL) -D -m 0644 $(@D)/unipi-common/systemd/system/unipigate.target -t $(TARGET_DIR)/usr/lib/systemd/system
-	$(INSTALL) -D -m 0644 $(@D)/unipi-common/systemd/system/unipispi.target -t $(TARGET_DIR)/usr/lib/systemd/system
 	$(INSTALL) -D -m 0644 $(@D)/unipi-common/etc/tmpfiles.d/cpufreq.conf -t $(TARGET_DIR)/etc/tmpfiles.d
 	$(INSTALL) -D -m 0644 $(UNIPI_TOOLS_PKGDIR)usr/lib/systemd/system/hwclock.service -t $(TARGET_DIR)/usr/lib/systemd/system
-	$(INSTALL) -D -m 0644 $(UNIPI_TOOLS_PKGDIR)usr/lib/systemd/system/unipiconfig.service -t $(TARGET_DIR)/usr/lib/systemd/system
 endef
 
 $(eval $(generic-package))

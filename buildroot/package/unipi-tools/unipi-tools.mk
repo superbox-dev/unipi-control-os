@@ -20,19 +20,17 @@ endef
 
 define UNIPI_TOOLS_INSTALL_TARGET_CMDS
 	$(INSTALL) -D -m 0755 $(BINFILES:%=$(@D)/src/%) -t $(TARGET_DIR)/opt/unipi/tools
-	$(INSTALL) -D -m 0644 $(@D)/src/unipi-target.map -t $(TARGET_DIR)/opt/unipi/data
-	$(INSTALL) -D -m 0644 $(@D)/overlays/*.dtbo -t $(BINARIES_DIR)/rpi-firmware/overlays	
+	$(INSTALL) -D -m 0644 $(@D)/overlays/*.dtbo -t $(BINARIES_DIR)/rpi-firmware/overlays
 	$(INSTALL) -D -m 0644 $(@D)/unipi-common/etc/modprobe.d/neuron-blacklist.conf -t $(TARGET_DIR)/etc/modprobe.d
-	$(INSTALL) -D -m 0644 $(@D)/unipi-common/etc/initramfs/modules.d/unipi -t $(TARGET_DIR)/etc/modules-load.d
-	$(INSTALL) -D -m 0644 $(@D)/unipi-common/udev/95-unipi-plc-devices.rules -t $(TARGET_DIR)/etc/udev/rules.d
-	$(INSTALL) -D -m 0644 $(@D)/unipi-common/udev/95-unipi-usb-serial.rules -t $(TARGET_DIR)/etc/udev/rules.d
+	$(INSTALL) -D -m 0644 $(@D)/unipi-common/etc/initramfs/modules.d/unipi $(TARGET_DIR)/etc/modules-load.d/unipi.conf
+	$(INSTALL) -D -m 0644 $(@D)/unipi-common/udev/* -t $(TARGET_DIR)/etc/udev/rules.d
 	$(INSTALL) -D -m 0755 $(UNIPI_TOOLS_PKGDIR)opt/unipi/tools/unipiconfig.sh -t $(TARGET_DIR)/opt/unipi/tools
+	$(INSTALL) -D -m 0644 $(@D)/unipi-common/etc/tmpfiles.d/cpufreq.conf -t $(TARGET_DIR)/etc/tmpfiles.d
+	$(INSTALL) -D -m 0644 $(@D)/unipi-modbus-tools/etc/default/unipitcp -t $(TARGET_DIR)/etc/default
 endef
 
 define UNIPI_TOOLS_INSTALL_INIT_SYSTEMD
-	$(INSTALL) -D -m 0644 $(@D)/unipi-modbus-tools/etc/default/unipitcp -t $(TARGET_DIR)/etc/default
 	$(INSTALL) -D -m 0644 $(UNIPI_TOOLS_PKGDIR)usr/lib/systemd/system/unipitcp.service -t $(TARGET_DIR)/usr/lib/systemd/system
-	$(INSTALL) -D -m 0644 $(@D)/unipi-common/etc/tmpfiles.d/cpufreq.conf -t $(TARGET_DIR)/etc/tmpfiles.d
 	$(INSTALL) -D -m 0644 $(UNIPI_TOOLS_PKGDIR)usr/lib/systemd/system/hwclock.service -t $(TARGET_DIR)/usr/lib/systemd/system
 endef
 

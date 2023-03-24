@@ -1,5 +1,5 @@
 [Unit]
-Description=Initializes zram swaping
+Description=Initializes zram swapping
 
 [Service]
 Type=oneshot

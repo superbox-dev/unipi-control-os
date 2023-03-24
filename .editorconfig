@@ -9,5 +9,5 @@ indent_size = 4
 [{Config.in,*.mk}]
 indent_style = tab
 
-[{*.yml,*.yaml}]
+[{*.sh, *.yml,*.yaml}]
 indent_size = 2

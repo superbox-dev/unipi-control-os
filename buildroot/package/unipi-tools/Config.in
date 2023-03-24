@@ -5,7 +5,7 @@ config BR2_PACKAGE_UNIPI_TOOLS
 	select BR2_PACKAGE_LIBTOOL
 	help
 	  * Unipi Modbus TCP server
-	  * Unipi Modbus flashing utility for Unipi devices
-	  * RTC UART Modbus flashing utility for Unipi devices
+	  * Unipi Modbus flashing utility for Unipi Neuron
+	  * RTC UART Modbus flashing utility for Unipi Neuron
 
 	  https://github.com/UniPiTechnology/unipi-tools

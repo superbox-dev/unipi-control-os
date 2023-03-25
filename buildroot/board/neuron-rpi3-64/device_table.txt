@@ -4,4 +4,4 @@
 /usr/bin/check-container.sh                f       755     0       0       -       -       -       -       -
 /usr/sbin/os-tools.sh                      f       755     0       0       -       -       -       -       -
 /usr/bin/check-unipi-control-version.sh    f       755     0       0       -       -       -       -       -
-/opt                                       d       755     100   100       -       -       -       -       -
+/opt                                       d       755     1000    1000    -       -       -       -       -

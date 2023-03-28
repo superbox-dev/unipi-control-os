@@ -3,8 +3,6 @@
 set -u
 set -e
 
-mkdir -p "${TARGET_DIR}/boot"
-
 # Update motd
 cat > "${TARGET_DIR}/etc/motd" <<EOL
 ---------------------------------------------------------------------
@@ -15,8 +13,9 @@ Documentation: https://github.com/superbox-dev/unipi-control#readme
 ---------------------------------------------------------------------
 EOL
 
-# Copy cmdline.txt file
-install -m 0644 -D "${BR2_EXTERNAL_UNIPI_PATH}/board/neuron-rpi3-64/cmdline.txt" "${BINARIES_DIR}/cmdline.txt"
+# Copy Kernel to /boot
+mkdir -p "${TARGET_DIR}/boot/efi"
+install -D -m 0744 "${BINARIES_DIR}/Image" -t "${TARGET_DIR}/boot"
 
 # Disable owftpd
 ln -fs /dev/null "${TARGET_DIR}/etc/systemd/system/owftpd.service"

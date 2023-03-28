@@ -10,5 +10,5 @@ setenv bootargs "root=/dev/mmcblk0p${bootpart} rootwait console=${console} conso
 
 echo "Booting the active partition"
 setenv bootcmd "part list mmc 0 -bootable bootpart;
-load mmc 0:${bootpart} ${kernel_addr_r} Image;
+load mmc 0:${bootpart} ${kernel_addr_r} boot/Image;
 booti ${kernel_addr_r} - ${fdt_addr_r}"

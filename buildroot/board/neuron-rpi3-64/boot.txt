@@ -1,0 +1,14 @@
+part list mmc 0 -bootable bootpart
+
+setenv console "tty1"
+setenv serial_console "ttyS0,115200"
+setenv verbosity "1"
+
+setenv bootargs "root=/dev/mmcblk0p${bootpart} rootwait console=${console} console=${serial_console} loglevel=${verbosity} 8250.nr_uarts=1 fsck.repair=yes"
+
+echo "Starting kernel"
+load mmc 0:1 ${kernel_addr_r} Image
+bootm ${kernel_addr_r} - ${fdt_addr}
+
+echo "Boot failed, resetting..."
+reset

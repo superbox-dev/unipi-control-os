@@ -13,9 +13,8 @@ Documentation: https://github.com/superbox-dev/unipi-control#readme
 ---------------------------------------------------------------------
 EOL
 
-# Copy Kernel to /boot
-mkdir -p "${TARGET_DIR}/boot/efi"
-install -D -m 0744 "${BINARIES_DIR}/Image" -t "${TARGET_DIR}/boot"
+# Create /boot
+mkdir -p "${TARGET_DIR}/boot"
 
 # Disable owftpd
 ln -fs /dev/null "${TARGET_DIR}/etc/systemd/system/owftpd.service"

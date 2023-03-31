@@ -15,6 +15,7 @@ EOL
 
 # Create /boot
 mkdir -p "${TARGET_DIR}/boot"
+install -D -m 0644 "${BR2_EXTERNAL_UNIPI_PATH}/board/neuron-rpi3-64/boot.cmd" -t "${BINARIES_DIR}"
 
 # Disable owftpd
 ln -fs /dev/null "${TARGET_DIR}/etc/systemd/system/owftpd.service"

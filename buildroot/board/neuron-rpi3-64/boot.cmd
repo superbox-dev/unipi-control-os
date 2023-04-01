@@ -1,6 +1,6 @@
 setenv rootfs "/dev/mmcblk0p2"
 setenv rootfstype "ext4"
-setenv console "serial"
+setenv console "both"
 setenv verbosity "3"
 setenv docker_optimizations "on"
 
@@ -12,7 +12,7 @@ fi
 
 if test "${console}" = "ttyS0,115200"; then setenv console "both"; fi
 if test "${console}" = "display" || test "${console}" = "both"; then setenv consoleargs "console=tty1"; fi
-if test "${console}" = "serial" || test "${console}" = "both"; then setenv consoleargs "console=ttyS0,115200 ${consoleargs}"; fi
+if test "${console}" = "serial" || test "${console}" = "both"; then setenv consoleargs "${consoleargs} console=ttyS0,115200"; fi
 
 setenv bootargs "root=${rootfs} rootwait rootfstype=${rootfstype} ${consoleargs} loglevel=${verbosity} consoleblank=0 fsck.repair=yes 8250.nr_uarts=1 ${extraargs}"
 

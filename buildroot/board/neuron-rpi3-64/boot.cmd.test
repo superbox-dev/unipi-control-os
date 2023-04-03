@@ -1,0 +1,83 @@
+# MBR partition scheme
+# 1. boot
+# 2. Extended partition
+# 3. SystemA
+# 4. SystemB
+# 5. BootInfo
+# 6. Data
+
+# Default environments
+setenv console "both"
+setenv verbosity "3"
+
+part start mmc 0 6 mmc_env
+mmc dev 0
+
+setenv load_bootstate " \
+  echo 'Loading environments...'; \
+  mmc read ${ramdisk_addr_r} ${mmc_env} 0x20; \
+  env import -c ${ramdisk_addr_r} 0x4000;"
+
+setenv store_bootstate " \
+  echo 'Storing environments...'; \
+  env export -c -s 0x4000 ${ramdisk_addr_r} BOOT_ORDER BOOT_A_LEFT BOOT_B_LEFT; \
+  mmc write ${ramdisk_addr_r} ${mmc_env} 0x20;"
+
+run load_bootstate
+
+test -n "${BOOT_ORDER}" || setenv BOOT_ORDER "A B"
+test -n "${BOOT_A_LEFT}" || setenv BOOT_A_LEFT 3
+test -n "${BOOT_B_LEFT}" || setenv BOOT_B_LEFT 3
+
+# Set console arguments
+test "${console}" = "display" || test "${console}" = "both" && setenv consoleargs "console=tty1"
+test "${console}" = "serial" || test "${console}" = "both" && setenv consoleargs "console=tty1 console=ttyS0,115200"
+
+# Default bootargs
+setenv bootargs_default "loglevel=${verbosity}fsck.repair=yes 8250.nr_uarts=1 cgroup_enable=memory ${consoleargs}"
+
+# System A/B
+setenv bootargs_a "root=PARTUUID=20230403-03 rootfstype=ext4 rootwait"
+setenv bootargs_b "root=PARTUUID=20230403-04 rootfstype=ext4 rootwait"
+
+setenv bootargs
+
+for BOOT_SLOT in "${BOOT_ORDER}"; do
+  if test "x${BOOT_SLOT}" = "xA"; then
+    if test ${BOOT_A_LEFT} -gt 0; then
+      setexpr BOOT_A_LEFT ${BOOT_A_LEFT} - 1
+      echo "Trying to boot slot A, ${BOOT_A_LEFT} attempts remaining. Loading kernel ..."
+      if load mmc 0:3 ${kernel_addr_r} /boot/Image; then
+        setenv bootargs "${bootargs_default} ${bootargs_a}"
+      fi
+    fi
+  elif test "x${BOOT_SLOT}" = "xB"; then
+    if test ${BOOT_B_LEFT} -gt 0; then
+      setexpr BOOT_B_LEFT ${BOOT_B_LEFT} - 1
+      echo "Trying to boot slot B, ${BOOT_B_LEFT} attempts remaining. Loading kernel ..."
+      if load mmc 0:4 ${kernel_addr_r} /boot/Image; then
+        setenv bootargs "${bootargs_default} ${bootargs_b}"
+      fi
+    fi
+  fi
+done
+
+if test -n "${bootargs}"; then
+  run store_bootstate
+else
+  echo "No valid slot found, resetting tries to 3"
+  setenv BOOT_A_LEFT 3
+  setenv BOOT_B_LEFT 3
+  run store_bootstate
+  reset
+fi
+
+printenv bootargs
+echo "Starting kernel"
+booti ${kernel_addr_r} - ${fdt_addr}
+
+echo "Boot failed, resetting..."
+reset
+
+# Recompile with:
+# mkimage -C none -A arm -T script -d /boot/boot.cmd /boot/efi/boot.scr

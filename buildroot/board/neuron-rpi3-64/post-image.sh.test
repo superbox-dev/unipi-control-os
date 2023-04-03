@@ -1,0 +1,6 @@
+#!/bin/sh
+
+mkdir -p "${TARGET_DIR}/boot"
+cp "${BR2_EXTERNAL_UNIPI_PATH}/board/neuron-rpi3-64/boot.cmd" "${TARGET_DIR}/"
+
+support/scripts/genimage.sh -c "${BR2_EXTERNAL_UNIPI_PATH}/board/neuron-rpi3-64/genimage.cfg"

@@ -1,0 +1,54 @@
+image boot.vfat {
+    vfat {
+        files = {
+            "bcm2710-rpi-3-b.dtb",
+            "bcm2710-rpi-3-b-plus.dtb",
+            "bcm2837-rpi-3-b.dtb",
+            "rpi-firmware/bootcode.bin",
+            "rpi-firmware/config.txt",
+            "rpi-firmware/fixup.dat",
+            "rpi-firmware/start.elf",
+            "rpi-firmware/overlays",
+            "boot.scr",
+            "uboot.bin"
+        }
+    }
+    size = 32M
+}
+
+image sdcard.img {
+    hdimage {
+        disk-signature = "20230403"
+        extended-partition = 2
+    }
+
+    partition boot {
+        partition-type = 0xC
+        bootable = "true"
+        image = "boot.vfat"
+    }
+
+    partition system-1 {
+        offset = 32M
+        partition-type = 0x83
+        image = "rootfs.ext4"
+    }
+    
+    partition system-2 {
+        offset = 1032M
+        partition-type = 0x83
+        size = 1M
+    }
+
+    partition bootinfo {
+        offset = 2032M
+        partition-type = 0x83
+        size = 8M
+    }
+    
+    partition data {
+        offset = 2040M
+        partition-type = 0x83
+        size = 1M
+    }
+}

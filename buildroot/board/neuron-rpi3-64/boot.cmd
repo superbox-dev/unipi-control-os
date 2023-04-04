@@ -20,7 +20,7 @@ test "${console}" = "display" && setenv consoleargs "console=tty1"
 test "${console}" = "serial" && setenv consoleargs "console=tty1 console=ttyS0,115200"
 
 # Default bootargs
-setenv bootargs_default "loglevel=${verbosity}fsck.repair=yes 8250.nr_uarts=1 cgroup_enable=memory ${consoleargs}"
+setenv bootargs_default "loglevel=${verbosity} fsck.repair=yes 8250.nr_uarts=1 cgroup_enable=memory ${consoleargs}"
 
 # System A/B
 setenv bootargs_a "root=PARTUUID=20230403-05 rootfstype=ext4 rootwait"

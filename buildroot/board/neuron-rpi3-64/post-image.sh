@@ -64,7 +64,7 @@ create_disk_mbr() {
 
   rm -f "${overlay_img}"
   truncate --size="100MiB" "${overlay_img}"
-  mkfs.ext4 "${overlay}"
+  mkfs.ext4 "${overlay_img}"
   dd if="${overlay}" of="${hdd_img}" conv=notrunc,sparse bs=512 seek=3231744
 }
 

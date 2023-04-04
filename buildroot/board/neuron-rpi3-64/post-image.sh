@@ -35,7 +35,7 @@ create_disk_mbr() {
   hdd_img="${BINARIES_DIR}/sdcard.img"
 
   rm -f "${hdd_img}"
-  truncate --size="1167MiB" "${hdd_img}"
+  truncate --size="1679MiB" "${hdd_img}"
 
   (
      echo "label: dos"
@@ -43,11 +43,11 @@ create_disk_mbr() {
      echo "unit: sectors"
      echo "boot      : start=1MiB,      size=30MiB,     type=c, bootable"   # Create the boot partition
      echo "bootstate : start=31MiB,     size=8MiB,      type=83"            # Make a Linux partition
-     echo "data      : start=1166MiB,   size=1MiB,      type=83"            # Make a Linux partition
-     echo "extended  : start=39MiB,     size=1127MiB,   type=5"             # Make an extended partition
-     echo "system    : start=40MiB,     size=512MiB,    type=83"            # Make a logical Linux partition
-     echo "system    : start=553MiB,    size=512MiB,    type=83"            # Make a logical Linux partition
-     echo "overlay   : start=1066MiB,   size=100MiB,    type=83"            # Make a logical Linux partition
+     echo "data      : start=1678MiB,   size=1MiB,      type=83"            # Make a Linux partition
+     echo "extended  : start=39MiB,     size=1639MiB,   type=5"             # Make an extended partition
+     echo "system    : start=40MiB,     size=768MiB,    type=83"            # Make a logical Linux partition
+     echo "system    : start=809MiB,    size=768MiB,    type=83"            # Make a logical Linux partition
+     echo "overlay   : start=1578MiB,   size=100MiB,    type=83"            # Make a logical Linux partition
   ) > "${disk_layout}"
 
   sfdisk "${hdd_img}" < "${disk_layout}"

@@ -13,6 +13,11 @@ Documentation: https://github.com/superbox-dev/unipi-control#readme
 ---------------------------------------------------------------------
 EOL
 
+# Create mount point directories
+mkdir /mnt/boot
+mkdir /mnt/data
+mkdir /mnt/overlay
+
 # Disable owftpd
 ln -fs /dev/null "${TARGET_DIR}/etc/systemd/system/owftpd.service"
 

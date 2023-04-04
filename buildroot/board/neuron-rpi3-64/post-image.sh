@@ -58,11 +58,11 @@ create_disk_mbr() {
   dd if="${ROOTFS_IMG}" of="${hdd_img}" conv=notrunc,sparse bs=512 seek=81920
 
   truncate --size="100MiB" "${data_img}"
-  mkfs.ext4 "${data_img}"
+  mkfs.ext4 -F "${data_img}"
   dd if="${data_img}" of="${hdd_img}" conv=notrunc,sparse bs=512 seek=3436544
 
   truncate --size="100MiB" "${overlay_img}"
-  mkfs.ext4 "${overlay}"
+  mkfs.ext4 -F "${overlay}"
   dd if="${overlay}" of="${hdd_img}" conv=notrunc,sparse bs=512 seek=3231744
 }
 

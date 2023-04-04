@@ -37,7 +37,7 @@ create_disk_mbr() {
   overlay_img="${BINARIES_DIR}/overlay.ext4"
 
   rm -f "${hdd_img}"
-  truncate --size="1769MiB" "${hdd_img}"
+  truncate --size="1775MiB" "${hdd_img}"
 
   (
      echo "label: dos"

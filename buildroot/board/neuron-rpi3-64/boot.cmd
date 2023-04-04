@@ -1,10 +1,3 @@
-# 1. boot
-# 2. Boot info
-# 3. System A
-# 4. System B
-# 5. Extended parition
-# 6. Data
-
 # Default environments
 setenv console "serial"
 setenv verbosity "6"
@@ -23,8 +16,8 @@ test "${console}" = "serial" && setenv consoleargs "console=tty1 console=ttyS0,1
 setenv bootargs_default "loglevel=${verbosity} fsck.repair=yes 8250.nr_uarts=1 cgroup_enable=memory ${consoleargs}"
 
 # System A/B
-setenv bootargs_a "root=PARTUUID=20230403-05 rootfstype=ext4 rootwait"
-setenv bootargs_b "root=PARTUUID=20230404-06 rootfstype=ext4 rootwait"
+setenv bootargs_a "root=PARTUUID=20230403-05 rootfstype=ext4 rootwait ro"
+setenv bootargs_b "root=PARTUUID=20230404-06 rootfstype=ext4 rootwait ro"
 
 setenv bootargs
 

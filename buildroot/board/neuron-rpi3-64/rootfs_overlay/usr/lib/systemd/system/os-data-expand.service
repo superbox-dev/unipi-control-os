@@ -1,9 +1,9 @@
 [Unit]
 Description=Data resizing
 DefaultDependencies=no
-Before=mnt-data.mount
 RefuseManualStart=true
 RefuseManualStop=true
+Before=mnt-data.mount
 Requires=dev-disk-by\x2dlabel-\x2ddata.device
 After=dev-disk-by\x2dlabel-\x2ddata.device systemd-fsck@dev-disk-by\x2dlabel-\x2ddata.service
 

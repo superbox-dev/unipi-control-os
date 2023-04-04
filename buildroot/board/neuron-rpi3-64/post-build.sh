@@ -13,10 +13,6 @@ Documentation: https://github.com/superbox-dev/unipi-control#readme
 ---------------------------------------------------------------------
 EOL
 
-# Create /boot
-mkdir -p "${TARGET_DIR}/boot"
-install -D -m 0644 "${BR2_EXTERNAL_UNIPI_PATH}/board/neuron-rpi3-64/boot.cmd" -t "${BINARIES_DIR}"
-
 # Disable owftpd
 ln -fs /dev/null "${TARGET_DIR}/etc/systemd/system/owftpd.service"
 
@@ -26,12 +22,6 @@ sed -i 's/#listener/listener 1883 0.0.0.0/g' "${TARGET_DIR}/etc/mosquitto/mosqui
 # Update mosquitto authentication
 sed -i 's/#allow_anonymous false/allow_anonymous true/g' "${TARGET_DIR}/etc/mosquitto/mosquitto.conf"
 
-# Init systemd
-mkdir -p "${TARGET_DIR}/etc/systemd/system/multi-user.target.wants"
-
-# Enable systemd zram service
-ln -fs ../systemd-zram.service "${TARGET_DIR}/etc/systemd/system/multi-user.target.wants/systemd-zram.service"
-
 # Allow members of group wheel to execute any command
 sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' "${TARGET_DIR}/etc/sudoers"
 
@@ -40,3 +30,4 @@ sed -i 's/#Storage=auto/Storage=volatile/' "${TARGET_DIR}/etc/systemd/journald.c
 
 # Set ZSH for root user
 sed -i '/^root:/s,:/bin/dash$,:/bin/zsh,' "${TARGET_DIR}/etc/passwd"
+

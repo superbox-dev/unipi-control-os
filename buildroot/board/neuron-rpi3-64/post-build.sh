@@ -14,9 +14,9 @@ Documentation: https://github.com/superbox-dev/unipi-control#readme
 EOL
 
 # Create mount point directories
-mkdir "${TARGET_DIR}/mnt/boot"
-mkdir "${TARGET_DIR}/mnt/data"
-mkdir "${TARGET_DIR}/mnt/overlay"
+mkdir -p "${TARGET_DIR}/mnt/boot"
+mkdir -p "${TARGET_DIR}/mnt/data"
+mkdir -p "${TARGET_DIR}/mnt/overlay"
 
 setup_mosquitto() {
   sed -i 's/#listener/listener 1883 0.0.0.0/g' "${TARGET_DIR}/etc/mosquitto/mosquitto.conf"

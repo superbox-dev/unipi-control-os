@@ -33,9 +33,11 @@ create_boot_image() {
 create_disk_mbr() {
   disk_layout="${BINARIES_DIR}/disk.layout"
   hdd_img="${BINARIES_DIR}/sdcard.img"
+  data_img="${BINARIES_DIR}/data.ext4"
+  overlay_img="${BINARIES_DIR}/overlay.ext4"
 
   rm -f "${hdd_img}"
-  truncate --size="1679MiB" "${hdd_img}"
+  truncate --size="1769MiB" "${hdd_img}"
 
   (
      echo "label: dos"
@@ -43,7 +45,7 @@ create_disk_mbr() {
      echo "unit: sectors"
      echo "boot      : start=1MiB,      size=30MiB,     type=c, bootable"   # Create the boot partition
      echo "bootstate : start=31MiB,     size=8MiB,      type=83"            # Make a Linux partition
-     echo "data      : start=1678MiB,   size=1MiB,      type=83"            # Make a Linux partition
+     echo "data      : start=1678MiB,   size=100MiB,    type=83"            # Make a Linux partition
      echo "extended  : start=39MiB,     size=1639MiB,   type=5"             # Make an extended partition
      echo "system    : start=40MiB,     size=768MiB,    type=83"            # Make a logical Linux partition
      echo "system    : start=809MiB,    size=768MiB,    type=83"            # Make a logical Linux partition
@@ -54,6 +56,14 @@ create_disk_mbr() {
 
   dd if="${BOOT_IMG}" of="${hdd_img}" conv=notrunc,sparse bs=512 seek=2048
   dd if="${ROOTFS_IMG}" of="${hdd_img}" conv=notrunc,sparse bs=512 seek=81920
+
+  truncate --size="100MiB" "${data_img}"
+  mkfs.ext4 "${data_img}"
+  #dd if="${data_img}" of="${hdd_img}" conv=notrunc,sparse bs=512 seek=81920
+
+  truncate --size="100MiB" "${overlay_img}"
+  mkfs.ext4 "${overlay}"
+  # dd if="${overlay}" of="${hdd_img}" conv=notrunc,sparse bs=512 seek=81920
 }
 
 pre_image

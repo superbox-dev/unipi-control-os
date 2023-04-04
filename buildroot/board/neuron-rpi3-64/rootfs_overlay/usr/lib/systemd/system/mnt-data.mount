@@ -3,11 +3,11 @@ Description=Data partition
 DefaultDependencies=no
 Before=umount.target local-fs.target
 Conflicts=umount.target
-After=systemd-fsck@dev-disk-by\x2dlabel-\x2ddata.service
-Wants=systemd-fsck@dev-disk-by\x2dlabel-\x2ddata.service
+After=systemd-fsck@dev-disk-by\x2dpartlabel-data.service
+Wants=systemd-fsck@dev-disk-by\x2dpartlabel-data.service
 
 [Mount]
-What=/dev/disk/by-label/data
+What=/dev/disk/by-partlabel/data
 Where=/mnt/data
 Type=ext4
 Options=defaults,noatime,commit=30

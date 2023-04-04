@@ -76,4 +76,4 @@ convert_disk_image_xz() {
 pre_image
 create_boot_image
 create_disk_mbr
-convert_disk_image_xz
+# convert_disk_image_xz

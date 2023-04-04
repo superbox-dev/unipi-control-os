@@ -3,11 +3,11 @@ Description=Overlay partition
 DefaultDependencies=no
 Before=umount.target local-fs.target
 Conflicts=umount.target
-After=systemd-fsck@dev-disk-by\x2dlabel-\x2doverlay.service
-Wants=systemd-fsck@dev-disk-by\x2dlabel-\x2doverlay.service
+After=systemd-fsck@dev-disk-by\x2dpartlabel-overlay.service
+Wants=systemd-fsck@dev-disk-by\x2dpartlabel-overlay.service
 
 [Mount]
-What=/dev/disk/by-label/overlay
+What=/dev/disk/by-partlabel/overlay
 Where=/mnt/overlay
 Type=ext4
 Options=defaults,noatime,commit=30

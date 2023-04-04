@@ -1,3 +1,0 @@
-PARTUUID=20230403-01  /mnt/boot     vfat  defaults          0 2
-PARTUUID=20230403-03  /mnt/data     ext4  defaults,noatime  0 2
-PARTUUID=20230403-07  /mnt/overlay  ext4  defaults,noatime  0 2

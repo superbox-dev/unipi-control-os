@@ -1,0 +1,16 @@
+[Unit]
+Description=Overlay partition
+DefaultDependencies=no
+Before=umount.target local-fs.target
+Conflicts=umount.target
+After=systemd-fsck@dev-disk-by\x2dlabel-\x2doverlay.service
+Wants=systemd-fsck@dev-disk-by\x2dlabel-\x2doverlay.service
+
+[Mount]
+What=/dev/disk/by-label/overlay
+Where=/mnt/overlay
+Type=ext4
+Options=defaults,noatime,commit=30
+
+[Install]
+WantedBy=local-fs.target

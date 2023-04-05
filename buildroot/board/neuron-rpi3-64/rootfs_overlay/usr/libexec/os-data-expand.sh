@@ -36,6 +36,8 @@ if [ "${PART_LABEL}" = "dos" ]; then
   partx -u "${DEVICE_ROOT}"
   udevadm settle
 
+  resize2fs "${DEVICE_CHILD}"
+
   if ! systemctl start "dev-disk-by\\x2dlabel-data.device"; then
     echo "[ERROR] Data partition not found!"
     exit 1

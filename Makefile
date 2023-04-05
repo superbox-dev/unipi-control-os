@@ -5,8 +5,8 @@ DEFCONFIG_DIR = $(BUILDROOT_EXTERNAL)/configs
 O = output
 
 TARGETS := $(notdir $(patsubst %_defconfig,%,$(wildcard $(DEFCONFIG_DIR)/*_defconfig)))
-TARGETS_CONFIG := $(notdir $(patsubst %_defconfig,%-config,$(wildcard $(DEFCONFIG_DIR)/*_defconfig)))
-TARGETS_SAVE := $(notdir $(patsubst %_defconfig,%-save,$(wildcard $(DEFCONFIG_DIR)/*_defconfig)))
+TARGETS_CONFIG := $(notdir $(wildcard $(DEFCONFIG_DIR)/*_defconfig))
+TARGETS_SAVE := $(notdir $(patsubst %_defconfig,%_savedefconfig,$(wildcard $(DEFCONFIG_DIR)/*_defconfig)))
 
 .NOTPARALLEL: $(TARGETS) $(TARGETS_SAVE) $(TARGETS_CONFIG) all
 .PHONY: $(TARGETS) $(TARGETS_SAVE) $(TARGETS_CONFIG) all clean help
@@ -19,15 +19,15 @@ $(RELEASE_DIR):
 menuconfig:
 	$(MAKE) -C $(BUILDROOT) O=../$(O) BR2_EXTERNAL=../$(BUILDROOT_EXTERNAL) menuconfig
 
-$(TARGETS_SAVE): %-save:
+$(TARGETS_SAVE): %_savedefconfig:
 	@echo "Save $* configuration"
 	$(MAKE) -C $(BUILDROOT) O=../$(O) BR2_EXTERNAL=../$(BUILDROOT_EXTERNAL) BR2_DEFCONFIG=../$(DEFCONFIG_DIR)/$*_defconfig savedefconfig
 
-$(TARGETS_CONFIG): %-config:
+$(TARGETS_CONFIG): %_defconfig:
 	@echo "Load $* configuration"
-	$(MAKE) -C $(BUILDROOT) O=../$(O) BR2_EXTERNAL=../$(BUILDROOT_EXTERNAL) "$*_defconfig"
+	$(MAKE) -C $(BUILDROOT) O=../$(O) BR2_EXTERNAL=../$(BUILDROOT_EXTERNAL) $*_defconfig
 
-$(TARGETS): %: $(RELEASE_DIR) %-config
+$(TARGETS): %: $(RELEASE_DIR) %_defconfig
 	@echo "Build image for $@"
 	$(MAKE) -C $(BUILDROOT) O=../$(O) BR2_EXTERNAL=../$(BUILDROOT_EXTERNAL)
 	cp -f $(O)/images/sdcard.img $(RELEASE_DIR)/
@@ -47,5 +47,5 @@ help:
 	@echo "Run 'make <target>' to build a target image."
 	@echo "Run 'make all' to build all target images."
 	@echo "Run 'make clean' to clean the build output."
-	@echo "Run 'make <target>-config' to configure buildroot for a target."
+	@echo "Run 'make <target>_defconfig' to configure buildroot for a target."
 

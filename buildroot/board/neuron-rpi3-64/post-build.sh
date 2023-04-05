@@ -42,14 +42,14 @@ setup_zsh() {
 
 fix_rootfs() {
   # Cleanup etc
-  rm -rf "${TARGET_DIR}/etc/init.d"
-  rm -rf "${TARGET_DIR}/etc/X11"
-  rm -rf "${TARGET_DIR}/etc/xdg"
+  rm -rf "${TARGET_DIR:?}/etc/init.d"
+  rm -rf "${TARGET_DIR:?}/etc/X11"
+  rm -rf "${TARGET_DIR:?}/etc/xdg"
 
   # Cleanup root
-  rm -rf "${TARGET_DIR}/media"
-  rm -rf "${TARGET_DIR}/srv"
-  rm -rf "${TARGET_DIR}/opt"
+  rm -rf "${TARGET_DIR:?}/media"
+  rm -rf "${TARGET_DIR:?}/srv"
+  rm -rf "${TARGET_DIR:?}/opt"
 
   sed -i "/srv/d" "${TARGET_DIR}/usr/lib/tmpfiles.d/home.conf"
 }

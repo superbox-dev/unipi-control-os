@@ -1,8 +1,10 @@
-RELEASE_DIR = release
-BUILDROOT = buildroot
-BUILDROOT_EXTERNAL = buildroot-external
+BUILDDIR := $(shell pwd)
+RELEASE_DIR = $(BUILDDIR)/release
+
+BUILDROOT = $(BUILDDIR)/buildroot
+BUILDROOT_EXTERNAL = $(BUILDDIR)/buildroot-external
 DEFCONFIG_DIR = $(BUILDROOT_EXTERNAL)/configs
-O = output
+O = $(BUILDDIR)/output
 
 TARGETS := $(notdir $(patsubst %_defconfig,%,$(wildcard $(DEFCONFIG_DIR)/*_defconfig)))
 TARGETS_CONFIG := $(notdir $(wildcard $(DEFCONFIG_DIR)/*_defconfig))
@@ -17,30 +19,30 @@ $(RELEASE_DIR):
 	mkdir -p $(RELEASE_DIR)
 
 menuconfig:
-	$(MAKE) -C $(BUILDROOT) O=../$(O) BR2_EXTERNAL=../$(BUILDROOT_EXTERNAL) menuconfig
+	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) menuconfig
 
 $(TARGETS_SAVE): %_savedefconfig:
 	@echo "Save $* configuration"
-	$(MAKE) -C $(BUILDROOT) O=../$(O) BR2_EXTERNAL=../$(BUILDROOT_EXTERNAL) BR2_DEFCONFIG=../$(DEFCONFIG_DIR)/$*_defconfig savedefconfig
+	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) BR2_DEFCONFIG=$(DEFCONFIG_DIR)/$*_defconfig savedefconfig
 
 $(TARGETS_CONFIG): %_defconfig:
 	@echo "Load $* configuration"
-	$(MAKE) -C $(BUILDROOT) O=../$(O) BR2_EXTERNAL=../$(BUILDROOT_EXTERNAL) $*_defconfig
+	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) $*_defconfig
 
 $(TARGETS): %: $(RELEASE_DIR) %_defconfig
 	@echo "Build image for $@"
-	$(MAKE) -C $(BUILDROOT) O=../$(O) BR2_EXTERNAL=../$(BUILDROOT_EXTERNAL)
+	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL)
 	cp -f $(O)/images/sdcard.img $(RELEASE_DIR)/
 
 	# Do not clean when building for one target
 ifneq ($(words $(filter $(TARGETS),$(MAKECMDGOALS))), 1)
 	@echo "Clean $@"
-	$(MAKE) -C $(BUILDROOT) O=../$(O) BR2_EXTERNAL=../$(BUILDROOT_EXTERNAL) clean
+	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) clean
 endif
 	@echo "Finished $@"
 
 clean:
-	$(MAKE) -C $(BUILDROOT) O=../$(O) BR2_EXTERNAL=../$(BUILDROOT_EXTERNAL) clean
+	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) clean
 
 help:
 	@echo "Supported targets: $(TARGETS)"

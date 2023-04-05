@@ -4,7 +4,7 @@ RELEASE_DIR = $(BUILDDIR)/release
 BUILDROOT = $(BUILDDIR)/buildroot
 BUILDROOT_EXTERNAL = $(BUILDDIR)/buildroot-external
 DEFCONFIG_DIR = $(BUILDROOT_EXTERNAL)/configs
-O = $(BUILDDIR)/output
+O := $(BUILDDIR)/output
 
 TARGETS := $(notdir $(patsubst %_defconfig,%,$(wildcard $(DEFCONFIG_DIR)/*_defconfig)))
 TARGETS_CONFIG := $(notdir $(wildcard $(DEFCONFIG_DIR)/*_defconfig))

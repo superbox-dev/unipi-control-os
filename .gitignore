@@ -1,3 +1,10 @@
+# OS generated files
 .DS_Store
-.idea
 ._*
+
+# Pycharm
+.idea
+
+# Build output dirs
+/release
+output/

@@ -39,4 +39,4 @@ Unipi Control OS use Buildroot for it's embedded systems. For more information v
 ~$ make neuron_rpi3_64
 ```
 
-Wait a long time ... and then write the image `~/unipi-buildroot/output/images/sdcard.img` to a SD card.
+Wait a long time ... and then write the image `~/unipi-buildroot/release/sdcard.img` to a SD card.

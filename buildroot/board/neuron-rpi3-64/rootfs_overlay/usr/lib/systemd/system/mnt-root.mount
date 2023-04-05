@@ -1,7 +1,7 @@
 [Unit]
 Description=Root partition
 Requires=mnt-overlay.mount
-After=mnt-overlay.mount os-overlay-setup.service
+After=mnt-overlay.mount os-overlay.service
 Before=network.target
 
 [Mount]

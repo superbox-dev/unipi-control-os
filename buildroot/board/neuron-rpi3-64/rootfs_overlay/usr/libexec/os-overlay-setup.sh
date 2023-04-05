@@ -21,3 +21,7 @@ fi
 if [ ! -f /mnt/overlay/home ]; then
   cp -rfp /home/* /mnt/overlay/home
 fi
+
+if [ ! -f /mnt/overlay/root ]; then
+  cp -rfp /root/* /mnt/overlay/root
+fi

@@ -18,10 +18,6 @@ if [ ! -f /mnt/overlay/etc/systemd/timesyncd.conf ]; then
   cp -fp /etc/systemd/timesyncd.conf /mnt/overlay/etc/systemd/timesyncd.conf
 fi
 
-if [ ! -f /mnt/overlay/var/lib/NetworkManager ]; then
-  cp -rfp /var/lib/NetworkManager/* /mnt/overlay/var/lib/NetworkManager
-fi
-
 if [ ! -f /mnt/overlay/home ]; then
   cp -rfp /home/* /mnt/overlay/home
 fi

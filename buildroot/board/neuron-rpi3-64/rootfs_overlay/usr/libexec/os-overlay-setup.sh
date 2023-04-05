@@ -5,6 +5,8 @@ set -e
 mkdir -p /mnt/overlay/etc
 mkdir -p /mnt/overlay/home
 
+mkdir -p /mnt/overlay/etc/NetworkManager/system-connections
+
 if [ ! -f /mnt/overlay/etc/hostname ]; then
   cp -fp /etc/hostname /mnt/overlay/etc/hostname
 fi

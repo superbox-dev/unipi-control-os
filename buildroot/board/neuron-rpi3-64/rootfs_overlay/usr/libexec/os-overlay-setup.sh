@@ -2,8 +2,8 @@
 
 set -e
 
-mkdir -p /mnt/overlay/etc/
-mkdir -p /mnt/overlay/home/
+mkdir -p /mnt/overlay/etc
+mkdir -p /mnt/overlay/home
 
 mkdir -p /mnt/overlay/etc/NetworkManager/system-connections
 

@@ -34,17 +34,9 @@ Unipi Control OS use Buildroot for it's embedded systems. For more information v
 
 ```shell
 ~$ git clone https://github.com/mh-superbox/unipi-buildroot.git
-~$ git clone git://git.buildroot.net/buildroot
-
-~$ cd /buildroot
-~/buildroot$ # checkout LTS version
-~/buildroot$ git checkout 2022.02.10
-
-~/buildroot$ make BR2_EXTERNAL=../unipi-buildroot/buildroot list-defconfigs
-~/buildroot$ make neuron_rpi3_64_defconfig
-
-# You can change the hostname with the BR2_TARGET_GENERIC_HOSTNAME variable
-~/buildroot$ make BR2_TARGET_GENERIC_HOSTNAME=unipi clean all
+~$ cd unipi-buildroot
+~$ git submodule update --init
+~$ make neuron_rpi3_64
 ```
 
-Wait a long time ... and then write the image `~/buildroot/output/images/sdcard.img` to a SD card.
+Wait a long time ... and then write the image `~/unipi-buildroot/output/images/sdcard.img` to a SD card.

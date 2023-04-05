@@ -1,0 +1,14 @@
+[Unit]
+Description=Home partition
+Requires=mnt-overlay.mount
+After=mnt-overlay.mount os-overlay-setup.service
+Before=network.target
+
+[Mount]
+What=/mnt/overlay/home
+Where=/home
+Type=none
+Options=bind
+
+[Install]
+WantedBy=os-overlay-bind.target

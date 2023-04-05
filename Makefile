@@ -1,53 +1,46 @@
-BUILDDIR:=$(shell pwd)
-RELEASE_DIR = $(BUILDDIR)/release
-
-BUILDROOT=$(BUILDDIR)/buildroot
-BUILDROOT_EXTERNAL=$(BUILDDIR)/buildroot-external
+RELEASE_DIR = release
+BUILDROOT = buildroot
+BUILDROOT_EXTERNAL = buildroot-external
 DEFCONFIG_DIR = $(BUILDROOT_EXTERNAL)/configs
-VERSION_DATE := $(shell date --utc +'%Y%m%d')
-VERSION_DEV := "dev$(VERSION_DATE)"
+O = output
 
 TARGETS := $(notdir $(patsubst %_defconfig,%,$(wildcard $(DEFCONFIG_DIR)/*_defconfig)))
 TARGETS_CONFIG := $(notdir $(patsubst %_defconfig,%-config,$(wildcard $(DEFCONFIG_DIR)/*_defconfig)))
+TARGETS_SAVE := $(notdir $(patsubst %_defconfig,%-save,$(wildcard $(DEFCONFIG_DIR)/*_defconfig)))
 
-# Set O variable if not already done on the command line
-ifneq ("$(origin O)", "command line")
-O := $(BUILDDIR)/output
-else
-override O := $(BUILDDIR)/$(O)
-endif
-
-.NOTPARALLEL: $(TARGETS) $(TARGETS_CONFIG) all
-
-.PHONY: $(TARGETS) $(TARGETS_CONFIG) all clean help
+.NOTPARALLEL: $(TARGETS) $(TARGETS_SAVE) $(TARGETS_CONFIG) all
+.PHONY: $(TARGETS) $(TARGETS_SAVE) $(TARGETS_CONFIG) all clean help
 
 all: $(TARGETS)
 
 $(RELEASE_DIR):
 	mkdir -p $(RELEASE_DIR)
 
-savedefconfig:
-	@echo "config $*"
-	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) "savedefconfig"
+menuconfig:
+	$(MAKE) -C $(BUILDROOT) O=../$(O) BR2_EXTERNAL=../$(BUILDROOT_EXTERNAL) menuconfig
+
+$(TARGETS_SAVE): %-save:
+	@echo "Save $* configuration"
+	$(MAKE) -C $(BUILDROOT) O=../$(O) BR2_EXTERNAL=../$(BUILDROOT_EXTERNAL) BR2_DEFCONFIG=../$(DEFCONFIG_DIR)/$*_defconfig savedefconfig
 
 $(TARGETS_CONFIG): %-config:
-	@echo "config $*"
-	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) "$*_defconfig"
+	@echo "Load $* configuration"
+	$(MAKE) -C $(BUILDROOT) O=../$(O) BR2_EXTERNAL=../$(BUILDROOT_EXTERNAL) "$*_defconfig"
 
 $(TARGETS): %: $(RELEASE_DIR) %-config
-	@echo "build $@"
-	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) VERSION_DEV=$(VERSION_DEV)
-	cp -f $(O)/images/haos_* $(RELEASE_DIR)/
+	@echo "Build image for $@"
+	$(MAKE) -C $(BUILDROOT) O=../$(O) BR2_EXTERNAL=../$(BUILDROOT_EXTERNAL)
+	cp -f $(O)/images/sdcard.img $(RELEASE_DIR)/
 
 	# Do not clean when building for one target
 ifneq ($(words $(filter $(TARGETS),$(MAKECMDGOALS))), 1)
-	@echo "clean $@"
-	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) clean
+	@echo "Clean $@"
+	$(MAKE) -C $(BUILDROOT) O=../$(O) BR2_EXTERNAL=../$(BUILDROOT_EXTERNAL) clean
 endif
-	@echo "finished $@"
+	@echo "Finished $@"
 
 clean:
-	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) clean
+	$(MAKE) -C $(BUILDROOT) O=../$(O) BR2_EXTERNAL=../$(BUILDROOT_EXTERNAL) clean
 
 help:
 	@echo "Supported targets: $(TARGETS)"
@@ -55,3 +48,4 @@ help:
 	@echo "Run 'make all' to build all target images."
 	@echo "Run 'make clean' to clean the build output."
 	@echo "Run 'make <target>-config' to configure buildroot for a target."
+

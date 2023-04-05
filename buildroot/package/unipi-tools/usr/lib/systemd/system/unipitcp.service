@@ -11,7 +11,6 @@ ExecStart=/opt/unipi/tools/unipi_tcp_server_dev -v -l ${LISTEN_IP} -p ${LISTEN_P
 TimeoutStopSec=3
 SyslogIdentifier=unipi
 WorkingDirectory=/opt/unipi/tools
-Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target

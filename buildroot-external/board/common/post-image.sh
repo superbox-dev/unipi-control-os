@@ -4,10 +4,12 @@
 set -u
 set -e
 
+SCRIPT_DIR=${BR2_EXTERNAL_HASSOS_PATH}/board/common
+
 BOARD_DIR=${2}
 . "${BR2_EXTERNAL_UNIPI_PATH}/meta"
 . "${BOARD_DIR}/meta"
-. post-helpers.sh
+. "${SCRIPT_DIR}/post-helpers.sh"
 
 BOOT_IMG="${BINARIES_DIR}/boot.vfat"
 ROOTFS_IMG="${BINARIES_DIR}/rootfs.ext4"
@@ -103,18 +105,18 @@ function create_disk_mbr() {
 
   sfdisk "${image_name}" < "${disk_layout}"
 
-  dd if="${BOOT_IMG}" of="${image_name}" conv=notrunc,sparse bs=512 seek=${boot_start}
-  dd if="${ROOTFS_IMG}" of="${image_name}" conv=notrunc,sparse bs=512 seek=${system0_start}
+  dd if="${BOOT_IMG}" of="${image_name}" conv=notrunc,sparse bs=512 seek="${boot_start}"
+  dd if="${ROOTFS_IMG}" of="${image_name}" conv=notrunc,sparse bs=512 seek="${system0_start}"
 
   rm -f "${data_img}"
   truncate --size="100MiB" "${data_img}"
   mkfs.ext4 "${data_img}"
-  dd if="${data_img}" of="${image_name}" conv=notrunc,sparse bs=512 seek=${data_start}
+  dd if="${data_img}" of="${image_name}" conv=notrunc,sparse bs=512 seek="${data_start}"
 
   rm -f "${overlay_img}"
   truncate --size="100MiB" "${overlay_img}"
   mkfs.ext4 "${overlay_img}"
-  dd if="${overlay_img}" of="${image_name}" conv=notrunc,sparse bs=512 seek=${overlay_start}
+  dd if="${overlay_img}" of="${image_name}" conv=notrunc,sparse bs=512 seek="${overlay_start}"
 }
 
 function convert_disk_image_xz() {

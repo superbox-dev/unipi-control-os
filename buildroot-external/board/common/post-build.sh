@@ -3,10 +3,12 @@
 set -u
 set -e
 
+SCRIPT_DIR=${BR2_EXTERNAL_HASSOS_PATH}/board/common
+
 BOARD_DIR=${2}
 . "${BR2_EXTERNAL_UNIPI_PATH}/meta"
 . "${BOARD_DIR}/meta"
-. post-helpers.sh
+. "${SCRIPT_DIR}/post-helpers.sh"
 
 # Write os-release
 (

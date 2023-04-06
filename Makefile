@@ -34,8 +34,8 @@ $(TARGETS_CONFIG): %_defconfig:
 
 $(TARGETS): %: $(RELEASE_DIR) %_defconfig
 	@echo "Build image for $@"
-	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) BR2_TARGET_GENERIC_ISSUE="Unipi Control OS $(VERSION_DEV)" VERSION_DEV=$(VERSION_DEV)
-	cp -f $(O)/images/sdcard.img $(RELEASE_DIR)/
+	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) BR2_CCACHE_DIR=$(O)/cache/cc BR2_DL_DIR=$(O)/cache/dl BR2_TARGET_GENERIC_ISSUE="Unipi Control OS $(VERSION_DEV)" VERSION_DEV=$(VERSION_DEV)
+	cp -f $(O)/images/unipi-control-os-* $(RELEASE_DIR)/
 
 	# Do not clean when building for one target
 ifneq ($(words $(filter $(TARGETS),$(MAKECMDGOALS))), 1)

@@ -25,8 +25,7 @@ jobs:
           SHELLCHECK_OPTS: -e SC1091
         with:
           format: gcc
-          ignore_paths: >-
-            ./buildroot
+          ignore_paths: buildroot
           ignore_names: >-
             zshrc
             zprofile

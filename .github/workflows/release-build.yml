@@ -5,14 +5,17 @@ on:
   push:
     tags:
       - '*'
-      - '!test*'
-
-env:
-  REPO_URL: https://github.com/buildroot/buildroot
-  REPO_BRANCH: 2022.02.10
-  TZ: Europe/Vienna
 
 jobs:
+  #create-matrix:
+  #- name: Create build matrix
+  #      uses: actions/github-script@v6
+  #      id: generate_matrix
+  #      with:
+  #        script: |
+  #          const boards = require('./.github/workflows/matrix.json')
+  #          return { "board": boards }
+
   check-tag:
     name: Check git tag
     runs-on: ubuntu-latest
@@ -55,40 +58,19 @@ jobs:
           echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
       - name: Check out repository
         uses: actions/checkout@v3
-      - name: Initialization environment
-        env:
-          DEBIAN_FRONTEND: noninteractive
-        run: |
-          sudo -E apt-get -qq update
-          sudo -E apt-get -qq upgrade
-          sudo apt install wget git bc binutils bison linux-headers-$(uname -r) xz-utils
-          sudo timedatectl set-timezone "$TZ"
-          sudo mkdir -p /workdir
-          sudo chown $USER:$GROUPS /workdir
-      # https://github.com/actions/virtual-environments/issues/2577
-      - name: Blocked mirror workaround
-        run: echo "1.1.1.1 invisible-mirror.net" | sudo tee -a /etc/hosts
-      - name: Clone buildroot source code
-        working-directory: /workdir
-        run: |
-          git clone --depth 1 $REPO_URL -b $REPO_BRANCH buildroot_src
-          ln -sf /workdir/buildroot_src ${GITHUB_WORKSPACE}/buildroot_src
+        with:
+          submodules: true
+      - name: Build docker container
+        run: docker build -t ucos-builder .
       - name: Build disk image
         run: |
-          cd ${GITHUB_WORKSPACE}/buildroot_src
-          make BR2_EXTERNAL=${GITHUB_WORKSPACE}/buildroot neuron_rpi3_64_defconfig
-          make BR2_TARGET_GENERIC_ISSUE="Unipi Control OS ${{ github.ref_name }}" clean all
-      - name: Compress disk image
-        run: |
-          mv \
-            /workdir/buildroot_src/output/images/sdcard.img \
-            /workdir/${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img
-          xz -z -9 /workdir/${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img
+          docker run --rm --privileged -v "${GITHUB_WORKSPACE}:/build" ucos-builder \
+          make BUILDDIR=/build VERSION_DEV=${{ github.ref_name }} neuron_rpi3_64_defconfig
       - name: Upload disk image
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img.xz
-          path: /workdir/${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img.xz
+          name: ${{ env.REPOSITORY_NAME }}-neuron-rpi3-64-${{ github.ref_name }}.img.xz
+          path: ${{ github.workspace }}/release/${{ env.REPOSITORY_NAME }}-neuron-rpi3-64-${{ github.ref_name }}.img.xz
 
   release:
     name: Release disk image
@@ -106,12 +88,12 @@ jobs:
       - name: Download disk image
         uses: actions/download-artifact@v3
         with:
-          name: ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img.xz
+          name: ${{ env.REPOSITORY_NAME }}-neuron-rpi3-64-${{ github.ref_name }}.img.xz
       - name: Release disk image
         uses: softprops/action-gh-release@v1
         with:
-          name: ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}
-          files: ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img.xz
+          name: ${{ env.REPOSITORY_NAME }}-neuron-rpi3-64-${{ github.ref_name }}
+          files: ${{ env.REPOSITORY_NAME }}-neuron-rpi3-64-${{ github.ref_name }}.img.xz
           prerelease: False
 
   pre-release:
@@ -130,10 +112,10 @@ jobs:
       - name: Download disk image
         uses: actions/download-artifact@v3
         with:
-          name: ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img.xz
+          name: ${{ env.REPOSITORY_NAME }}-neuron-rpi3-64-${{ github.ref_name }}.img.xz
       - name: Pre release disk image
         uses: softprops/action-gh-release@v1
         with:
-          name: ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}
-          files: ${{ env.REPOSITORY_NAME }}-${{ github.ref_name }}-neuron-rpi3-64.img.xz
+          name: ${{ env.REPOSITORY_NAME }}-neuron-rpi3-64-${{ github.ref_name }}
+          files: ${{ env.REPOSITORY_NAME }}-neuron-rpi3-64-${{ github.ref_name }}.img.xz
           prerelease: True

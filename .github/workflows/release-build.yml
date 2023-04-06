@@ -83,7 +83,7 @@ jobs:
           path: ${{ github.workspace }}/release/${{ needs.validate_release.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate_release.outputs.version }}.img.xz
 
   release:
-    name: Release image for ${{ matrix.board.id }}
+    name: Release image
     needs:
       - validate_release
       - build
@@ -91,8 +91,8 @@ jobs:
       matrix: ${{ fromJson(needs.validate_release.outputs.matrix) }}
     runs-on: ubuntu-latest
     if: |
-      github.event.name != "workflow_dispatch"
-      && needs.validate_release.outputs.version_dev == ""
+      github.event.name != 'workflow_dispatch'
+      && needs.validate_release.outputs.version_dev == ''
     steps:
       - name: Download image
         uses: actions/download-artifact@v3

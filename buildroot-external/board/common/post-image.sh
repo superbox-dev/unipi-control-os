@@ -4,7 +4,7 @@
 set -u
 set -e
 
-SCRIPT_DIR=${BR2_EXTERNAL_HASSOS_PATH}/board/common
+SCRIPT_DIR=${BR2_EXTERNAL_UNIPI_PATH}/board/common
 
 BOARD_DIR=${2}
 . "${BR2_EXTERNAL_UNIPI_PATH}/meta"

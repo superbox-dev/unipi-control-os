@@ -2,6 +2,6 @@
   {
     "id": "neuron-rpi3-64",
     "defconfig": "neuron_rpi3_64",
-    "runner": "arch64-runner",
+    "runner": "arch64-runner"
   }
 ]

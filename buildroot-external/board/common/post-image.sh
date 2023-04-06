@@ -1,5 +1,5 @@
 #!/bin/bash
-# shellcheck disable=SC2155
+# shellcheck disable=SC2155,SC1091
 
 set -u
 set -e

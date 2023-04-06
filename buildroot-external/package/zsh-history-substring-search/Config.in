@@ -1,6 +1,6 @@
 config BR2_PACKAGE_ZSH_HISTORY_SUBSTRING_SEARCH
 	bool "zsh-history-substring-search"
-	depends on BR2_PACKAGE_ZSH 
+	depends on BR2_PACKAGE_ZSH
 	help
 	  ZSH port of Fish history search (up arrow)
 

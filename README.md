@@ -36,7 +36,10 @@ Unipi Control OS use Buildroot for it's embedded systems. For more information v
 ~$ git clone https://github.com/mh-superbox/unipi-buildroot.git
 ~$ cd unipi-buildroot
 ~$ git submodule update --init
+~$ # For more info use:
+~$ make help
+~$ # Create 64 bit image for Neuron Raspberry Pi 3:
 ~$ make neuron_rpi3_64
 ```
 
-Wait a long time ... and then write the image `~/unipi-buildroot/release/sdcard.img` to a SD card.
+Wait a long time ... and then write the image from `~/unipi-buildroot/release/` to a SD card.

@@ -1,2 +1,2 @@
-BOARD_ID=rpi3-64
+BOARD_ID=neuron-rpi3-64
 BOARD_NAME="RaspberryPi 3 64bit"

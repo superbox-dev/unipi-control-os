@@ -68,7 +68,7 @@ jobs:
       - validate
     strategy:
       matrix: ${{ fromJson(needs.validate.outputs.matrix) }}
-    runs-on: ${{ matrix.board.runner }}
+    runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v3

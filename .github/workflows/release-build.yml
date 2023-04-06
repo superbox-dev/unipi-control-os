@@ -82,7 +82,7 @@ jobs:
           path: ${{ github.workspace }}/release/${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}.img.xz
 
   release:
-    name: Release image
+    name: Release image for ${{ matrix.board.id }}
     needs:
       - validate
       - build

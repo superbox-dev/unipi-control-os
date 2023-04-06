@@ -13,7 +13,7 @@ jobs:
     outputs:
       matrix: ${{ steps.generate_matrix.outputs.result }}
       version: ${{ steps.version_check.outputs.version }}
-      release_type: ${{ steps.version_check.outputs.release_type }}
+      os_id: ${{ steps.version_check.outputs.os_id }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
@@ -29,15 +29,16 @@ jobs:
       - name: Validate version
         id: version_check
         run: |
+          os_id=$(cat ${GITHUB_WORKSPACE}/buildroot-external/meta | grep OS_ID | cut -d'=' -f2)
           major=$(cat ${GITHUB_WORKSPACE}/buildroot-external/meta | grep VERSION_MAJOR | cut -d'=' -f2)
           build=$(cat ${GITHUB_WORKSPACE}/buildroot-external/meta | grep VERSION_BUILD | cut -d'=' -f2)
 
-          tag_major=$(echo "${{ github.event.ref }}" | cut -d '.' -f 1)
-          tag_build=$(echo "${{ github.event.ref }}" | cut -d '.' -f 2)
-          tag_dev=$(echo "${{ github.event.ref }}" | cut -d '.' -f 3)
-          
+          tag_major=$(echo "${{ github.ref_name }}" | cut -d '.' -f 1)
+          tag_build=$(echo "${{ github.ref_name }}" | cut -d '.' -f 2)
+          tag_dev=$(echo "${{ github.ref_name }}" | cut -d '.' -f 3)
+
           if [ "${major}.${build}" != "${tag_major}.${tag_build}" ]; then
-            echo "Version number in Buildroot metadata is does not match tag (${major}.${build} vs ${{ github.event.ref }})."
+            echo "Version number in Buildroot metadata is does not match tag (${major}.${build} vs ${{ github.ref_name }})."
             exit 1
           fi
 
@@ -47,19 +48,14 @@ jobs:
             echo "version=${major}.${build}" >> $GITHUB_OUTPUT
           fi
 
-          echo "version_dev=${tag_dev}" >> $GITHUB_OUTPUT   
-
-          if [[ ${{ github.event.ref }} =~ ^refs\/tags\/[1-9]{1}[0-9]{0,}\.[0-9]{0,}$ ]]; then
-            echo "release_type=release" >> $GITHUB_OUTPUT
-          elif [[ ${{ github.event.ref }} =~ ^refs\/tags\/[1-9]{1}[0-9]{0,}\.[0-9]{0,}-(alpha|beta)[1-9]{1}[0-9]{0,}$ ]]; then
-            echo "release_type=prerelease" >> $GITHUB_OUTPUT
-          fi
+          echo "version_dev=${tag_dev}" >> $GITHUB_OUTPUT
+          echo "os_id=${os_id}" >> $GITHUB_OUTPUT
       - name: Create build matrix
         uses: actions/github-script@v6
         id: generate_matrix
         with:
           script: |
-            const boards = require('./.github/workflows/matrix.json')
+            const boards = require("./.github/workflows/matrix.json")
             return { "board": boards }
 
   build:
@@ -70,9 +66,6 @@ jobs:
       matrix: ${{ fromJson(needs.validate_release.outputs.matrix) }}
     runs-on: ${{ matrix.board.runner }}
     steps:
-      - name: Get repository name
-        run: |
-          echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
       - name: Check out repository
         uses: actions/checkout@v3
         with:
@@ -86,11 +79,11 @@ jobs:
       - name: Upload image
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.REPOSITORY_NAME }}-${{ matrix.board.id }}-${{ needs.validate_release.outputs.version }}.img.xz
-          path: ${{ github.workspace }}/release/${{ env.REPOSITORY_NAME }}-${{ matrix.board.id }}-${{ needs.validate_release.outputs.version }}.img.xz
+          name: ${{ needs.validate_release.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate_release.outputs.version }}.img.xz
+          path: ${{ github.workspace }}/release/${{ needs.validate_release.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate_release.outputs.version }}.img.xz
 
   release:
-    name: Release image
+    name: Release image for ${{ matrix.board.id }}
     needs:
       - validate_release
       - build
@@ -98,45 +91,15 @@ jobs:
       matrix: ${{ fromJson(needs.validate_release.outputs.matrix) }}
     runs-on: ubuntu-latest
     if: |
-      github.event.name != 'workflow_dispatch'
-      && needs.validate_release.outputs.release-type == 'release'
+      github.event.name != "workflow_dispatch"
+      && needs.validate_release.outputs.version_dev == ""
     steps:
-      - name: Get repository name
-        run: |
-          echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
       - name: Download image
         uses: actions/download-artifact@v3
         with:
-          name: ${{ env.REPOSITORY_NAME }}-${{ matrix.board.id }}-${{ needs.validate_release.outputs.version }}.img.xz
+          name: ${{ needs.validate_release.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate_release.outputs.version }}.img.xz
       - name: Release image
         uses: softprops/action-gh-release@v1
         with:
-          name: ${{ env.REPOSITORY_NAME }}-${{ matrix.board.id }}-${{ needs.validate_release.outputs.version }}
-          files: ${{ env.REPOSITORY_NAME }}-${{ matrix.board.id }}-${{ needs.validate_release.outputs.version }}.img.xz
-          prerelease: False
-
-  pre-release:
-    name: Pre-release disk image
-    needs:
-      - validate_release
-      - build
-    strategy:
-      matrix: ${{ fromJson(needs.validate_release.outputs.matrix) }}
-    runs-on: ubuntu-latest
-    if: |
-      github.event.name != 'workflow_dispatch'
-      && needs.validate_release.outputs.release-type == 'prerelease'
-    steps:
-      - name: Get repository name
-        run: |
-          echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
-      - name: Download image
-        uses: actions/download-artifact@v3
-        with:
-          name: ${{ env.REPOSITORY_NAME }}-${{ matrix.board.id }}-${{ needs.validate_release.outputs.version }}.img.xz
-      - name: Pre release image
-        uses: softprops/action-gh-release@v1
-        with:
-          name: ${{ env.REPOSITORY_NAME }}-${{ matrix.board.id }}-${{ needs.validate_release.outputs.version }}
-          files: ${{ env.REPOSITORY_NAME }}-${{ matrix.board.id }}-${{ needs.validate_release.outputs.version }}.img.xz
-          prerelease: True
+          name: ${{ needs.validate_release.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate_release.outputs.version }}
+          files: ${{ needs.validate_release.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate_release.outputs.version }}.img.xz

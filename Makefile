@@ -10,6 +10,9 @@ TARGETS := $(notdir $(patsubst %_defconfig,%,$(wildcard $(DEFCONFIG_DIR)/*_defco
 TARGETS_CONFIG := $(notdir $(wildcard $(DEFCONFIG_DIR)/*_defconfig))
 TARGETS_SAVE := $(notdir $(patsubst %_defconfig,%_savedefconfig,$(wildcard $(DEFCONFIG_DIR)/*_defconfig)))
 
+VERSION_DATE := $(shell date --utc +'%Y%m%d')
+VERSION_DEV := dev$(VERSION_DATE)
+
 .NOTPARALLEL: $(TARGETS) $(TARGETS_SAVE) $(TARGETS_CONFIG) all
 .PHONY: $(TARGETS) $(TARGETS_SAVE) $(TARGETS_CONFIG) all clean help
 
@@ -31,7 +34,7 @@ $(TARGETS_CONFIG): %_defconfig:
 
 $(TARGETS): %: $(RELEASE_DIR) %_defconfig
 	@echo "Build image for $@"
-	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL)
+	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) VERSION_DEV=$(VERSION_DEV)
 	cp -f $(O)/images/sdcard.img $(RELEASE_DIR)/
 
 	# Do not clean when building for one target

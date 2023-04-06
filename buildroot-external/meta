@@ -1,0 +1,7 @@
+VERSION_MAJOR=1
+VERSION_BUILD=0
+
+OS_NAME="Unipi Control OS"
+OS_ID="unipi-control-os"
+
+DEPLOYMENT="development"

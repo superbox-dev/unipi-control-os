@@ -1,7 +1,22 @@
-#!/bin/sh
+#!/bin/bash
 
 set -u
 set -e
+
+BOARD_DIR=${2}
+. "${BR2_EXTERNAL_UNIPI_PATH}/meta"
+. "${BOARD_DIR}/meta"
+. post-helpers.sh
+
+# Write os-release
+(
+    echo "NAME=\"${OS_NAME}\""
+    echo "VERSION=\"$(os_version) (${BOARD_NAME})\""
+    echo "ID=${OS_ID}"
+    echo "VERSION_ID=$(os_version)"
+    echo "PRETTY_NAME=\"${OS_NAME} $(os_version)\""
+    echo "HOME_URL=https://github.com/superbox-dev"
+) > "${TARGET_DIR}/usr/lib/os-release"
 
 # Update motd
 cat > "${TARGET_DIR}/etc/motd" <<EOL
@@ -23,12 +38,12 @@ setup_mosquitto() {
   sed -i 's/#allow_anonymous false/allow_anonymous true/g' "${TARGET_DIR}/etc/mosquitto/mosquitto.conf"
 }
 
-setup_user() {
+function setup_user() {
   # Allow members of group wheel to execute any command
   sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' "${TARGET_DIR}/etc/sudoers"
 }
 
-setup_systemd() {
+function setup_systemd() {
   sed -i 's/#Storage=auto/Storage=volatile/' "${TARGET_DIR}/etc/systemd/journald.conf"
   sed -i 's/#SystemMaxUse=/SystemMaxUse=500M/' "${TARGET_DIR}/etc/systemd/journald.conf"
   sed -i 's/#FallbackNTP=.*/FallbackNTP=time.cloudflare.com/' "${TARGET_DIR}/etc/systemd/timesyncd.conf"
@@ -36,11 +51,11 @@ setup_systemd() {
   sed -i 's/#DNSStubListener=yes/DNSStubListener=no/' "${TARGET_DIR}/etc/systemd/resolved.conf"
 }
 
-setup_zsh() {
+function setup_zsh() {
   sed -i '/^root:/s,:/bin/dash$,:/bin/zsh,' "${TARGET_DIR}/etc/passwd"
 }
 
-fix_rootfs() {
+function fix_rootfs() {
   # Cleanup etc
   rm -rf "${TARGET_DIR:?}/etc/init.d"
   rm -rf "${TARGET_DIR:?}/etc/X11"

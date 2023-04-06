@@ -1,19 +1,24 @@
-#!/bin/sh
+#!/bin/bash
+# shellcheck disable=SC2155
 
 set -u
 set -e
 
-HDD_IMG="${BINARIES_DIR}/sdcard.img"
+BOARD_DIR=${2}
+. "${BR2_EXTERNAL_UNIPI_PATH}/meta"
+. "${BOARD_DIR}/meta"
+. post-helpers.sh
+
 BOOT_IMG="${BINARIES_DIR}/boot.vfat"
 ROOTFS_IMG="${BINARIES_DIR}/rootfs.ext4"
 BOOT_DATA="${BINARIES_DIR}/boot"
 
-pre_image() {
+function pre_image() {
   mkdir -p "${TARGET_DIR}/boot"
-  cp "${BR2_EXTERNAL_UNIPI_PATH}/board/neuron-rpi3-64/boot.cmd" "${TARGET_DIR}/"
+  cp "${BR2_EXTERNAL_UNIPI_PATH}/board/common/boot.cmd" "${TARGET_DIR}/"
 }
 
-create_boot_image() {
+function create_boot_image() {
   rm -rf "${BOOT_DATA}"
   mkdir "${BOOT_DATA}"
 
@@ -31,13 +36,14 @@ create_boot_image() {
   mcopy -i "${BOOT_IMG}" -sv "${BOOT_DATA}"/* ::
 }
 
-create_disk_mbr() {
-  disk_layout="${BINARIES_DIR}/disk.layout"
-  data_img="${BINARIES_DIR}/data.ext4"
-  overlay_img="${BINARIES_DIR}/overlay.ext4"
+function create_disk_mbr() {
+  local image_name="$(os_image_name img)"
+  local disk_layout="${BINARIES_DIR}/disk.layout"
+  local data_img="${BINARIES_DIR}/data.ext4"
+  local overlay_img="${BINARIES_DIR}/overlay.ext4"
 
-  rm -f "${HDD_IMG}"
-  truncate --size="1778MiB" "${HDD_IMG}"
+  rm -f "${image_name}"
+  truncate --size="1778MiB" "${image_name}"
 
   (
      echo "label: dos"
@@ -52,28 +58,30 @@ create_disk_mbr() {
      echo "overlay   : start=1578MiB,   size=100MiB,    type=83"            # Make a logical Linux partition
   ) > "${disk_layout}"
 
-  sfdisk "${HDD_IMG}" < "${disk_layout}"
+  sfdisk "${image_name}" < "${disk_layout}"
 
-  dd if="${BOOT_IMG}" of="${HDD_IMG}" conv=notrunc,sparse bs=512 seek=2048
-  dd if="${ROOTFS_IMG}" of="${HDD_IMG}" conv=notrunc,sparse bs=512 seek=81920
+  dd if="${BOOT_IMG}" of="${image_name}" conv=notrunc,sparse bs=512 seek=2048
+  dd if="${ROOTFS_IMG}" of="${image_name}" conv=notrunc,sparse bs=512 seek=81920
 
   rm -f "${data_img}"
   truncate --size="100MiB" "${data_img}"
   mkfs.ext4 "${data_img}"
-  dd if="${data_img}" of="${HDD_IMG}" conv=notrunc,sparse bs=512 seek=3436544
+  dd if="${data_img}" of="${image_name}" conv=notrunc,sparse bs=512 seek=3436544
 
   rm -f "${overlay_img}"
   truncate --size="100MiB" "${overlay_img}"
   mkfs.ext4 "${overlay_img}"
-  dd if="${overlay_img}" of="${HDD_IMG}" conv=notrunc,sparse bs=512 seek=3231744
+  dd if="${overlay_img}" of="${image_name}" conv=notrunc,sparse bs=512 seek=3231744
 }
 
-convert_disk_image_xz() {
-    rm -f "${HDD_IMG}.xz"
-    xz -3 -T0 "${HDD_IMG}"
+function convert_disk_image_xz() {
+  local image_name="$(os_image_name img)"
+
+  rm -f "${image_name}.xz"
+  xz -3 -T0 "${image_name}"
 }
 
 pre_image
 create_boot_image
 create_disk_mbr
-# convert_disk_image_xz
+convert_disk_image_xz

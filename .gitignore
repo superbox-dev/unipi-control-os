@@ -6,5 +6,6 @@
 .idea
 
 # Build output dirs
-/release
+cache/
+release/
 output/

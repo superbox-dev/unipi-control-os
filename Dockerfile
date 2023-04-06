@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM debian:bullseye
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]

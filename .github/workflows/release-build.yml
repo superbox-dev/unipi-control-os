@@ -7,7 +7,7 @@ on:
       - '*'
 
 jobs:
-  validate_release:
+  validate:
     name: Validate release
     runs-on: ubuntu-latest
     outputs:
@@ -17,15 +17,14 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
-      - name: Initialization environment
+      - name: Run shellcheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          format: gcc
+          ignore: buildroot
+      - name: Check buildroot-external packages
         run: |
-          sudo -E apt-get -qq update
-          sudo -E apt-get -qq upgrade
-          sudo apt install shellcheck
-      - name: Check shell scripts
-        run: |
-          for file in $(find buildroot/board -type f -name "*.sh"); do shellcheck --format=gcc $file; done;
-          for file in $(find buildroot/package -type f -name "*.sh"); do shellcheck --format=gcc $file; done;
+          buildroot/utils/check-package --exclude PackageHeader --br2-external buildroot-external/package/*/*
       - name: Validate version
         id: version_check
         run: |
@@ -61,9 +60,9 @@ jobs:
   build:
     name: Build image for ${{ matrix.board.id }}
     needs:
-      - validate_release
+      - validate
     strategy:
-      matrix: ${{ fromJson(needs.validate_release.outputs.matrix) }}
+      matrix: ${{ fromJson(needs.validate.outputs.matrix) }}
     runs-on: ${{ matrix.board.runner }}
     steps:
       - name: Check out repository
@@ -75,31 +74,31 @@ jobs:
       - name: Build image
         run: |
           docker run --rm --privileged -v "${GITHUB_WORKSPACE}:/build" ucos-builder \
-          make BUILDDIR=/build VERSION_DEV=${{ needs.validate_release.outputs.version_dev }} ${{ matrix.board.defconfig }}
+          make BUILDDIR=/build VERSION_DEV=${{ needs.validate.outputs.version_dev }} ${{ matrix.board.defconfig }}
       - name: Upload image
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ needs.validate_release.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate_release.outputs.version }}.img.xz
-          path: ${{ github.workspace }}/release/${{ needs.validate_release.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate_release.outputs.version }}.img.xz
+          name: ${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}.img.xz
+          path: ${{ github.workspace }}/release/${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}.img.xz
 
   release:
     name: Release image
     needs:
-      - validate_release
+      - validate
       - build
     strategy:
-      matrix: ${{ fromJson(needs.validate_release.outputs.matrix) }}
+      matrix: ${{ fromJson(needs.validate.outputs.matrix) }}
     runs-on: ubuntu-latest
     if: |
       github.event.name != 'workflow_dispatch'
-      && needs.validate_release.outputs.version_dev == ''
+      && needs.validate.outputs.version_dev == ''
     steps:
       - name: Download image
         uses: actions/download-artifact@v3
         with:
-          name: ${{ needs.validate_release.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate_release.outputs.version }}.img.xz
+          name: ${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}.img.xz
       - name: Release image
         uses: softprops/action-gh-release@v1
         with:
-          name: ${{ needs.validate_release.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate_release.outputs.version }}
-          files: ${{ needs.validate_release.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate_release.outputs.version }}.img.xz
+          name: ${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}
+          files: ${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}.img.xz

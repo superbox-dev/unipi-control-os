@@ -8,7 +8,7 @@ on:
 
 jobs:
   validate_release:
-    name: Create build matrix
+    name: Validate release
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.generate_matrix.outputs.result }}

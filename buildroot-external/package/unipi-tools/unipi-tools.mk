@@ -10,11 +10,10 @@ UNIPI_TOOLS_SITE = https://github.com/UniPiTechnology/unipi-tools/archive/refs/t
 
 UNIPI_TOOLS_DEPENDENCIES += libmodbus libtool unipi-kernel-modules-v1
 
-MODBUS_USR_LIB = $(STAGING_DIR)/usr/lib
 BINFILES = unipi_tcp_server fwspi fwserial unipihostname unipicheck
 
 define UNIPI_TOOLS_BUILD_CMDS
-	cd $(@D)/src; $(MAKE) $(TARGET_CONFIGURE_OPTS) LDFLAGS="-L$(MODBUS_USR_LIB) -lmodbus -lm" PROJECT_VERSION=$(UNIPI_TOOLS_VERSION)
+	cd $(@D)/src; $(MAKE) $(TARGET_CONFIGURE_OPTS) LDFLAGS="-L$(STAGING_DIR)/usr/lib -lmodbus -lm" PROJECT_VERSION=$(UNIPI_TOOLS_VERSION)
 	cd $(@D)/overlays; $(MAKE) $(TARGET_CONFIGURE_OPTS) LINUX_DIR_PATH=$(LINUX_DIR)
 endef
 

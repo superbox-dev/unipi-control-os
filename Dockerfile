@@ -17,9 +17,5 @@ RUN apt install -y --no-install-recommends bash bc binutils build-essential bzip
 
 RUN rm -rf /var/lib/apt/lists/*
 
-# Init entry
-COPY scripts/entry.sh /usr/sbin/
-ENTRYPOINT ["/usr/sbin/entry.sh"]
-
 # Get buildroot
 WORKDIR /build

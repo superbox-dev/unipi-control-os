@@ -42,7 +42,7 @@ jobs:
           tag_dev=$(echo "${{ github.ref_name }}" | cut -d '.' -f 3)
 
           if [ "${major}.${build}" != "${tag_major}.${tag_build}" ]; then
-            echo "Version number in Buildroot metadata is does not match tag (${major}.${build} vs ${{ github.ref_name }})."
+            echo "Version number in Buildroot metadata does not match tag! (${major}.${build} vs. ${{ github.ref_name }})."
             exit 1
           fi
 
@@ -74,22 +74,41 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: true
-      - name: Build docker container
-        run: docker build -t ucos-builder .
+      - name: Initialization environment
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo -E apt-get -qq update
+          sudo -E apt-get -qq upgrade
+          sudo apt install wget git bc binutils bison linux-headers-$(uname -r) xz-utils
+          sudo timedatectl set-timezone "Europe/Vienna"
       - name: Build image
         run: |
-          docker run --rm --privileged -v "${GITHUB_WORKSPACE}:/build" ucos-builder \
-          make BUILDDIR=/build VERSION_DEV=${{ needs.validate.outputs.version_dev }} ${{ matrix.board.defconfig }}
+          make BUILDDIR=${GITHUB_WORKSPACE} VERSION_DEV=${{ needs.validate.outputs.version_dev }} ${{ matrix.board.defconfig }}
       - name: Upload image
         uses: actions/upload-artifact@v3
         with:
           name: ${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}.img.xz
           path: ${{ github.workspace }}/release/${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}.img.xz
+
+  release:
+    name: Release image for ${{ matrix.board.id }}
+    needs:
+      - validate
+      - build
+    strategy:
+      matrix: ${{ fromJson(needs.validate.outputs.matrix) }}
+    runs-on: ubuntu-latest
+    if: |
+      github.event.name != 'workflow_dispatch'
+      && needs.validate.outputs.version_dev == ''
+    steps:
+      - name: Download image
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}.img.xz
       - name: Release image
         uses: softprops/action-gh-release@v1
-        if: |
-          github.event.name != 'workflow_dispatch'
-          && needs.validate.outputs.version_dev == ''
         with:
           name: ${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}
           files: ${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}.img.xz

@@ -17,7 +17,7 @@ BOOT_DATA="${BINARIES_DIR}/boot"
 
 function pre_image() {
   mkdir -p "${TARGET_DIR}/boot"
-  cp "${BR2_EXTERNAL_UNIPI_PATH}/board/common/boot.cmd" "${TARGET_DIR}/"
+  cp "${BR2_EXTERNAL_UNIPI_PATH}/board/neuron/boot.cmd" "${TARGET_DIR}/"
 }
 
 function create_boot_image() {

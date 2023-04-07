@@ -21,15 +21,6 @@ all: $(TARGETS)
 $(RELEASE_DIR):
 	mkdir -p $(RELEASE_DIR)
 
-uboot-menuconfig:
-	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) uboot-menuconfig
-
-busybox-menuconfig:
-	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) busybox-menuconfig
-
-menuconfig:
-	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) menuconfig
-
 $(TARGETS_SAVE): %_savedefconfig:
 	@echo "Save $* configuration"
 	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) BR2_DEFCONFIG=$(DEFCONFIG_DIR)/$*_defconfig savedefconfig

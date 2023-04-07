@@ -74,21 +74,21 @@ function create_disk_mbr() {
   local boot_start=$(size2sectors "1MiB")
   local boot_size=$(size2sectors "30MiB")
   local bootstate_size=$(size2sectors "8MiB")
-  local bootstate_start=$((boot_size+$(size2sectors "1MiB")))
-  local extended_start=$((boot_start+boot_size+bootstate_size))
   local system0_size=$(size2sectors "768MiB")
   local system1_size=$(size2sectors "768MiB")
   local overlay_size=$(size2sectors "100MiB")
-
-  local system0_start=$((extended_start+$(size2sectors "1M")))
-  local system1_start=$((system0_start+system0_size+$(size2sectors "1M")))
-  local overlay_start=$((system1_start+system1_size+$(size2sectors "1M")))
-  local extended_size=$((system0_size+system1_size+overlay_size+3*$(size2sectors "1M")))
-  local data_start=$((extended_start+extended_size))
   local data_size=$(size2sectors "100MiB")
+  
+  local bootstate_start=$((boot_size+$(size2sectors "1MiB")))
+  local extended_start=$((bootstate_start+bootstate_size+$(size2sectors "1MiB")))
+  local system0_start=$((extended_start+$(size2sectors "1MiB")))
+  local system1_start=$((system0_start+system0_size+$(size2sectors "1MiB")))
+  local overlay_start=$((system1_start+system1_size+$(size2sectors "1MiB")))
+  local extended_size=$((system0_size+system1_size+overlay_size+3*$(size2sectors "1MiB")))
+  local data_start=$((extended_start+extended_size))
 
   rm -f "${image_name}"
-  truncate --size="1778MiB" "${image_name}"
+  truncate --size="1782MiB" "${image_name}"
 
   (
      echo "label: dos"

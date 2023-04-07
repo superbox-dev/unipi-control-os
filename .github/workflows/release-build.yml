@@ -85,25 +85,11 @@ jobs:
         with:
           name: ${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}.img.xz
           path: ${{ github.workspace }}/release/${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}.img.xz
-
-  release:
-    name: Release image for ${{ matrix.board.id }}
-    needs:
-      - validate
-      - build
-    strategy:
-      matrix: ${{ fromJson(needs.validate.outputs.matrix) }}
-    runs-on: ubuntu-latest
-    if: |
-      github.event.name != 'workflow_dispatch'
-      && needs.validate.outputs.version_dev == ''
-    steps:
-      - name: Download image
-        uses: actions/download-artifact@v3
-        with:
-          name: ${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}.img.xz
       - name: Release image
         uses: softprops/action-gh-release@v1
+        if: |
+          github.event.name != 'workflow_dispatch'
+          && needs.validate.outputs.version_dev == ''
         with:
           name: ${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}
           files: ${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}.img.xz

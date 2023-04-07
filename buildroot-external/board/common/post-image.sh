@@ -86,7 +86,7 @@ function create_disk_mbr() {
   local overlay_start=$((system1_start+system1_size+$(size2sectors "1MiB")))
   local extended_size=$((system0_size+system1_size+overlay_size+3*$(size2sectors "1MiB")))
   local data_start=$((extended_start+extended_size))
-  
+
   rm -f "${image_name}"
   truncate --size="1782MiB" "${image_name}"
 
@@ -97,10 +97,10 @@ function create_disk_mbr() {
      echo "boot      : start=${boot_start},       size=${boot_size},       type=c, bootable"   # Create the boot partition
      echo "bootstate : start=${bootstate_start},  size=${bootstate_size},  type=83"            # Make a Linux partition
      echo "data      : start=${data_start},       size=${data_size},       type=83"            # Make a Linux partition
-     echo "extended  : start=${extended_start},    size=${extended_size},  type=5"             # Make an extended partition
-     echo "system    : start=${system0_start},     size=${system0_size},   type=83"            # Make a logical Linux partition
-     echo "system    : start=${system1_start},     size=${system1_size},   type=83"            # Make a logical Linux partition
-     echo "overlay   : start=${overlay_start},     size=${overlay_size},   type=83"            # Make a logical Linux partition
+     echo "extended  : start=${extended_start},   size=${extended_size},   type=5"             # Make an extended partition
+     echo "system    : start=${system0_start},    size=${system0_size},    type=83"            # Make a logical Linux partition
+     echo "system    : start=${system1_start},    size=${system1_size},    type=83"            # Make a logical Linux partition
+     echo "overlay   : start=${overlay_start},    size=${overlay_size},    type=83"            # Make a logical Linux partition
   ) > "${disk_layout}"
 
   sfdisk "${image_name}" < "${disk_layout}"

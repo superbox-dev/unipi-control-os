@@ -123,7 +123,7 @@ function convert_disk_image_xz() {
   local image_name="$(os_image_name img)"
 
   rm -f "${image_name}.xz"
-  xz -3 -T0 "${image_name}"
+  xz -v -3 -T0 "${image_name}"
 }
 
 pre_image

@@ -32,7 +32,7 @@ $(TARGETS_CONFIG): %_defconfig:
 $(TARGETS): %: $(RELEASE_DIR) %_defconfig
 	@echo "Build image for $@"
 	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) BR2_CCACHE_DIR=$(BUILDDIR)/cache/cc BR2_DL_DIR=$(BUILDDIR)/cache/dl BR2_TARGET_GENERIC_ISSUE="Unipi Control OS $(VERSION_DEV)" VERSION_DEV=$(VERSION_DEV)
-	cp -f $(O)/images/unipi-control-os-* $(RELEASE_DIR)/
+	cp -fv $(O)/images/unipi-control-os-* $(RELEASE_DIR)/
 	@echo "Finished $@"
 
 clean:

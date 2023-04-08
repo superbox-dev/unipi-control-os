@@ -5,6 +5,7 @@ gpu_mem=64
 
 # enable UART for U-Boot
 enable_uart=1
+uart_2ndstage=1
 
 # enable 64bits support
 arm_64bit=1

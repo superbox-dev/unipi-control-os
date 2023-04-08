@@ -4,6 +4,9 @@ set -e
 
 mkdir -p /mnt/overlay/etc
 mkdir -p /mnt/overlay/home
+mkdir -p /mnt/overlay/root
+mkdir -p /mnt/overlay/etc/systemd/network
+mkdir -p /mnt/overlay/var/lib/docker
 
 if [ ! -f /mnt/overlay/etc/hostname ]; then
   cp -fp /etc/hostname /mnt/overlay/etc/hostname
@@ -22,14 +25,9 @@ if [ ! -f /mnt/overlay/etc/systemd/network/25-wireless.network ]; then
 fi
 
 if [ ! -f /mnt/overlay/etc/systemd/timesyncd.conf ]; then
-  mkdir -p /mnt/overlay/etc/systemd
   cp -fp /etc/systemd/timesyncd.conf /mnt/overlay/etc/systemd/timesyncd.conf
 fi
 
 if [ ! -f /mnt/overlay/home ]; then
   cp -rfp /home/* /mnt/overlay/home
-fi
-
-if [ ! -f /mnt/overlay/root ]; then
-  cp -rfp /root/* /mnt/overlay/root
 fi

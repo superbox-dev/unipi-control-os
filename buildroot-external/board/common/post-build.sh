@@ -39,16 +39,6 @@ mkdir -pv "${TARGET_DIR}/mnt/boot"
 mkdir -pv "${TARGET_DIR}/mnt/data"
 mkdir -pv "${TARGET_DIR}/mnt/overlay"
 
-setup_mosquitto() {
-  sed -i 's/#listener/listener 1883 0.0.0.0/g' "${TARGET_DIR}/etc/mosquitto/mosquitto.conf"
-  sed -i 's/#allow_anonymous false/allow_anonymous true/g' "${TARGET_DIR}/etc/mosquitto/mosquitto.conf"
-}
-
-function setup_user() {
-  # Allow members of group wheel to execute any command
-  sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' "${TARGET_DIR}/etc/sudoers"
-}
-
 function setup_systemd() {
   sed -i 's/#Storage=auto/Storage=volatile/' "${TARGET_DIR}/etc/systemd/journald.conf"
   sed -i 's/#SystemMaxUse=/SystemMaxUse=500M/' "${TARGET_DIR}/etc/systemd/journald.conf"
@@ -83,8 +73,6 @@ function fix_rootfs() {
   cp -fv "${BINARIES_DIR}/Image" "${TARGET_DIR}/boot/"
 }
 
-# setup_mosquitto
-setup_user
 setup_systemd
 setup_zsh
 setup_sshd

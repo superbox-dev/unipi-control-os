@@ -21,10 +21,13 @@ BOARD_DIR=${2}
     echo "HOME_URL=https://github.com/superbox-dev"
 ) > "${TARGET_DIR}/usr/lib/os-release"
 
+# Write issue
+echo "${OS_NAME} $(os_version)" > "${TARGET_DIR}/etc/issue"
+
 # Update motd
 cat > "${TARGET_DIR}/etc/motd" <<EOL
 ---------------------------------------------------------------------
-Hello, this is $(cat "${TARGET_DIR}/etc/issue")
+Hello, this is ${OS_NAME} $(os_version)
 Run os-tools.sh to install or update Unipi Control
 
 Documentation: https://github.com/superbox-dev/unipi-control#readme

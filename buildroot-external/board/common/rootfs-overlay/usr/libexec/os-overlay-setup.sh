@@ -12,7 +12,6 @@ LOG="${OVERLAY}/var/log"
 
 mkdir -p $ETC
 mkdir -p $HOME
-mkdir -p $ROOT
 mkdir -p $NETWORK
 mkdir -p $LOG
 

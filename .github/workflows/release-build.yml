@@ -33,7 +33,7 @@ jobs:
       - name: Validate version
         id: version_check
         run: |
-          os_id=$(cat ${GITHUB_WORKSPACE}/buildroot-external/meta | grep OS_ID | cut -d'=' -f2)
+          os_id=$(cat ${GITHUB_WORKSPACE}/buildroot-external/meta | grep OS_ID | cut -d'=' -f2 | tr -d '"')
           major=$(cat ${GITHUB_WORKSPACE}/buildroot-external/meta | grep VERSION_MAJOR | cut -d'=' -f2)
           build=$(cat ${GITHUB_WORKSPACE}/buildroot-external/meta | grep VERSION_BUILD | cut -d'=' -f2)
 

@@ -1,7 +1,7 @@
 [Unit]
 Description=Persistent network configuration
-Requires=overlay.mount
-After=overlay.mount os-overlay.service
+Requires=mnt-overlay.mount
+After=mnt-overlay.mount os-overlay.service
 Before=network.target
 
 [Mount]

@@ -1,7 +1,7 @@
 [Unit]
 Description=Persistent systemd
-Requires=overlay.mount
-After=overlay.mount
+Requires=mnt-overlay.mount
+After=mnt-overlay.mount
 
 [Mount]
 What=/mnt/overlay/var/lib/systemd

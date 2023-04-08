@@ -4,6 +4,7 @@ set -e
 
 OVERLAY="/mnt/overlay"
 ETC="${OVERLAY}/etc"
+SSH="${OVERLAY}/etc/ssh"
 DOCKER="${OVERLAY}/etc/docker"
 SYSTEMD="${OVERLAY}/etc/systemd"
 NETWORK="${SYSTEMD}/network"
@@ -11,8 +12,9 @@ HOME="${OVERLAY}/home"
 LOG="${OVERLAY}/var/log"
 
 mkdir -p $ETC
-mkdir -p $HOME
+mkdir -p $SSH
 mkdir -p $NETWORK
+mkdir -p $HOME
 mkdir -p $LOG
 
 if [ ! -f "${ETC}/hostname" ]; then
@@ -24,7 +26,7 @@ if [ ! -f "${ETC}/hosts" ]; then
 fi
 
 if [ ! -d ${DOCKER} ]; then
-  cp -fp /etc/docker "${DOCKER}/"
+  cp -rfp /etc/docker "${DOCKER}/"
 fi
 
 if [ ! -f "${SYSTEMD}/timesyncd.conf" ]; then

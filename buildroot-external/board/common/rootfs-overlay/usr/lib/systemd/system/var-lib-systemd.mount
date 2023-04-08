@@ -1,5 +1,5 @@
 [Unit]
-Description=Systemd persistent state
+Description=Persistent systemd
 Requires=mnt-overlay.mount
 After=mnt-overlay.mount
 

@@ -1,12 +1,12 @@
 [Unit]
-Description=Persistent docker data
+Description=Persistent logging
 Requires=mnt-data.mount
 After=mnt-data.mount
 Before=docker.service
 
 [Mount]
-What=/mnt/data/var/lib/docker
-Where=/var/lib/docker
+What=/mnt/data/var/log
+Where=/var/log
 Type=none
 Options=bind
 

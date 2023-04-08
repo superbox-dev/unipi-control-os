@@ -1,5 +1,5 @@
 [Unit]
-Description=Hosts persistent configuration
+Description=Persistent hosts configuration
 Requires=mnt-overlay.mount
 After=mnt-overlay.mount os-overlay.service
 Before=network.target

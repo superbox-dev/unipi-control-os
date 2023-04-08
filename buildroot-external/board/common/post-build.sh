@@ -83,7 +83,7 @@ function fix_rootfs() {
   cp -fv "${BINARIES_DIR}/Image" "${TARGET_DIR}/boot/"
 }
 
-setup_mosquitto
+# setup_mosquitto
 setup_user
 setup_systemd
 setup_zsh

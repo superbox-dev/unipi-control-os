@@ -55,7 +55,6 @@ function setup_sshd() {
   sed -i 's/#HostKey \/etc\/ssh\/ssh_host_rsa_key/HostKey \/mnt\/overlay\/etc\/ssh\/ssh_host_rsa_key/' "${TARGET_DIR}/etc/ssh/sshd_config"
   sed -i 's/#HostKey \/etc\/ssh\/ssh_host_rsa_key/HostKey \/mnt\/overlay\/etc\/ssh\/ssh_host_ecdsa_key/' "${TARGET_DIR}/etc/ssh/ssh_host_ecdsa_key"
   sed -i 's/#HostKey \/etc\/ssh\/ssh_host_rsa_key/HostKey \/mnt\/overlay\/etc\/ssh\/ssh_host_ed25519_key/' "${TARGET_DIR}/etc/ssh/ssh_host_ed25519_key"
-  HostKey /mnt/overlay/etc/ssh/ssh_host_rsa_key
 }
 
 function fix_rootfs() {
@@ -70,6 +69,7 @@ function fix_rootfs() {
 
   sed -i "/srv/d" "${TARGET_DIR}/usr/lib/tmpfiles.d/home.conf"
 
+  mkdir -pv "${TARGET_DIR}/boot/"
   cp -fv "${BINARIES_DIR}/Image" "${TARGET_DIR}/boot/"
 }
 

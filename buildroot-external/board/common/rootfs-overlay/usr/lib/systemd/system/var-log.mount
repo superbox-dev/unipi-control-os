@@ -5,7 +5,7 @@ After=data.mount
 Before=docker.service mosquitto.service
 
 [Mount]
-What=/mnt/data/var/log
+What=/mnt/overlay/var/log
 Where=/var/log
 Type=none
 Options=bind

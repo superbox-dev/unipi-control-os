@@ -21,10 +21,11 @@ function pre_image() {
 }
 
 function create_boot_image() {
-  rm -rf "${BOOT_DATA}"
-  mkdir "${BOOT_DATA}"
+  rm -rfv "${BOOT_DATA}"
+  mkdir -v "${BOOT_DATA}"
 
   cp -t "${BOOT_DATA}" \
+    "${BINARIES_DIR}/Image" \
     "${BINARIES_DIR}/u-boot.bin" \
     "${BINARIES_DIR}/boot.scr"
   cp "${BINARIES_DIR}"/*.dtb "${BOOT_DATA}/"
@@ -32,7 +33,7 @@ function create_boot_image() {
   rm "${BOOT_DATA}/cmdline.txt"
 
   echo "mtools_skip_check=1" > ~/.mtoolsrc
-  rm -f "${BOOT_IMG}"
+  rm -fv "${BOOT_IMG}"
   truncate --size=30MiB "${BOOT_IMG}"
   mkfs -t vfat -n "BOOT" "${BOOT_IMG}"
   mcopy -i "${BOOT_IMG}" -sv "${BOOT_DATA}"/* ::
@@ -87,7 +88,7 @@ function create_disk_mbr() {
   local extended_size=$((system0_size+system1_size+overlay_size+3*$(size2sectors "1MiB")))
   local data_start=$((extended_start+extended_size))
 
-  rm -f "${image_name}"
+  rm -fv "${image_name}"
   truncate --size="1782MiB" "${image_name}"
 
   (
@@ -108,12 +109,12 @@ function create_disk_mbr() {
   dd if="${BOOT_IMG}" of="${image_name}" conv=notrunc,sparse bs=512 seek="${boot_start}"
   dd if="${ROOTFS_IMG}" of="${image_name}" conv=notrunc,sparse bs=512 seek="${system0_start}"
 
-  rm -f "${data_img}"
+  rm -fv "${data_img}"
   truncate --size="100MiB" "${data_img}"
   mkfs.ext4 "${data_img}"
   dd if="${data_img}" of="${image_name}" conv=notrunc,sparse bs=512 seek="${data_start}"
 
-  rm -f "${overlay_img}"
+  rm -fv "${overlay_img}"
   truncate --size="100MiB" "${overlay_img}"
   mkfs.ext4 "${overlay_img}"
   dd if="${overlay_img}" of="${image_name}" conv=notrunc,sparse bs=512 seek="${overlay_start}"
@@ -122,7 +123,7 @@ function create_disk_mbr() {
 function convert_disk_image_xz() {
   local image_name="$(os_image_name img)"
 
-  rm -f "${image_name}.xz"
+  rm -fv "${image_name}.xz"
   xz -v -3 -T0 "${image_name}"
 }
 

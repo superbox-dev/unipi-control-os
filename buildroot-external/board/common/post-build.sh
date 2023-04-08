@@ -60,16 +60,18 @@ function setup_zsh() {
 
 function fix_rootfs() {
   # Cleanup etc
-  rm -rf "${TARGET_DIR:?}/etc/init.d"
-  rm -rf "${TARGET_DIR:?}/etc/X11"
-  rm -rf "${TARGET_DIR:?}/etc/xdg"
+  rm -rfv "${TARGET_DIR:?}/etc/init.d"
+  rm -rfv "${TARGET_DIR:?}/etc/X11"
+  rm -rfv "${TARGET_DIR:?}/etc/xdg"
 
   # Cleanup root
-  rm -rf "${TARGET_DIR:?}/media"
-  rm -rf "${TARGET_DIR:?}/srv"
-  rm -rf "${TARGET_DIR:?}/opt"
+  rm -rfv "${TARGET_DIR:?}/media"
+  rm -rfv "${TARGET_DIR:?}/srv"
+  rm -rfv "${TARGET_DIR:?}/opt"
 
   sed -i "/srv/d" "${TARGET_DIR}/usr/lib/tmpfiles.d/home.conf"
+
+  cp -fv "${BINARIES_DIR}/Image" "${TARGET_DIR}/boot/"
 }
 
 setup_mosquitto

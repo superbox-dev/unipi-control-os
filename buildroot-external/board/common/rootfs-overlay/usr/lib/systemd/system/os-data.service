@@ -1,0 +1,14 @@
+[Unit]
+Description=Data setup
+DefaultDependencies=no
+RefuseManualStart=true
+RefuseManualStop=true
+After=mnt-data.mount
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/os-data-setup.sh
+RemainAfterExit=true
+
+[Install]
+WantedBy=local-fs.target

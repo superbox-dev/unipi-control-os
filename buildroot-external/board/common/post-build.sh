@@ -39,6 +39,19 @@ mkdir -pv "${TARGET_DIR}/mnt/boot"
 mkdir -pv "${TARGET_DIR}/mnt/data"
 mkdir -pv "${TARGET_DIR}/mnt/overlay"
 
+setup_mosquitto() {
+  sed -i 's/#listener/listener 1883 0.0.0.0/g' "${TARGET_DIR}/etc/mosquitto/mosquitto.conf"
+  sed -i 's/#allow_anonymous false/allow_anonymous true/g' "${TARGET_DIR}/etc/mosquitto/mosquitto.conf"
+}
+
+function setup_systemd() {
+  sed -i 's/#Storage=auto/Storage=volatile/' "${TARGET_DIR}/etc/systemd/journald.conf"
+  sed -i 's/#SystemMaxUse=/SystemMaxUse=500M/' "${TARGET_DIR}/etc/systemd/journald.conf"
+  sed -i 's/#FallbackNTP=.*/FallbackNTP=time.cloudflare.com/' "${TARGET_DIR}/etc/systemd/timesyncd.conf"
+  sed -i 's/#DNSOverTLS=opportunistic/DNSOverTLS=no/' "${TARGET_DIR}/etc/systemd/resolved.conf"
+  sed -i 's/#DNSStubListener=yes/DNSStubListener=no/' "${TARGET_DIR}/etc/systemd/resolved.conf"
+}
+
 function setup_zsh() {
   sed -i '/^root:/s,:/bin/dash$,:/bin/zsh,' "${TARGET_DIR}/etc/passwd"
 }
@@ -65,6 +78,8 @@ function fix_rootfs() {
   cp -fv "${BINARIES_DIR}/Image" "${TARGET_DIR}/boot/"
 }
 
+setup_mosquitto
+setup_systemd
 setup_zsh
 setup_sshd
 fix_rootfs

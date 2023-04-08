@@ -13,6 +13,7 @@ jobs:
     outputs:
       matrix: ${{ steps.generate_matrix.outputs.result }}
       version: ${{ steps.version_check.outputs.version }}
+      release: ${{ steps.version_check.outputs.release }}
       os_id: ${{ steps.version_check.outputs.os_id }}
     steps:
       - name: Check out repository
@@ -48,11 +49,13 @@ jobs:
 
           if [ "${tag_dev}" != "" ]; then
             echo "version=${major}.${build}.${tag_dev}" >> $GITHUB_OUTPUT
+            release=0
           else
             echo "version=${major}.${build}" >> $GITHUB_OUTPUT
+            release=1
           fi
 
-          echo "version_dev=${tag_dev}" >> $GITHUB_OUTPUT
+          echo "release=${release}" >> $GITHUB_OUTPUT
           echo "os_id=${os_id}" >> $GITHUB_OUTPUT
       - name: Create build matrix
         uses: actions/github-script@v6
@@ -84,7 +87,7 @@ jobs:
           sudo timedatectl set-timezone "Europe/Vienna"
       - name: Build image
         run: |
-          make BUILDDIR=${GITHUB_WORKSPACE} VERSION_DEV=${{ needs.validate.outputs.version_dev }} ${{ matrix.board.defconfig }}
+          make BUILDDIR=${GITHUB_WORKSPACE} VERSION=${{ needs.validate.outputs.version }} ${{ matrix.board.defconfig }}
       - name: Upload image
         uses: actions/upload-artifact@v3
         with:
@@ -101,7 +104,7 @@ jobs:
     runs-on: ubuntu-latest
     if: |
       github.event.name != 'workflow_dispatch'
-      && needs.validate.outputs.version_dev == ''
+      && needs.validate.outputs.release == 1
     steps:
       - name: Download image
         uses: actions/download-artifact@v3

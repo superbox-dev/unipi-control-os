@@ -13,7 +13,6 @@ LOG="${OVERLAY}/var/log"
 mkdir -p $ETC
 mkdir -p $SSH
 mkdir -p $NETWORK
-mkdir -p $HOME
 mkdir -p $LOG
 
 if [ ! -f "${ETC}/hostname" ]; then

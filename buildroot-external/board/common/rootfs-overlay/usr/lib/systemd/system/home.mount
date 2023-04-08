@@ -1,7 +1,7 @@
 [Unit]
 Description=Home partition
-Requires=mnt-overlay.mount
-After=mnt-overlay.mount os-overlay.service
+Requires=os-data.service
+After=mnt-overlay.mount os-data.service
 Before=network.target
 
 [Mount]

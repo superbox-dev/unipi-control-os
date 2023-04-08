@@ -1,6 +1,6 @@
 [Unit]
 Description=Persistent docker configuration
-Requires=mnt-overlay.mount
+Requires=os-overlay.service
 After=mnt-overlay.mount os-overlay.service
 Before=network.target
 

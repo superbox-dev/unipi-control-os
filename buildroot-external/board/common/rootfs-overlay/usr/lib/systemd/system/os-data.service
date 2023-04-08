@@ -3,6 +3,7 @@ Description=Data setup
 DefaultDependencies=no
 RefuseManualStart=true
 RefuseManualStop=true
+Requires=mnt-data.mount
 After=mnt-data.mount
 
 [Service]

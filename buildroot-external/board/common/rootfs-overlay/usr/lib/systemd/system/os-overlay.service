@@ -3,6 +3,7 @@ Description=Overlay setup
 DefaultDependencies=no
 RefuseManualStart=true
 RefuseManualStop=true
+Requires=mnt-overlay.mount
 After=mnt-overlay.mount
 
 [Service]

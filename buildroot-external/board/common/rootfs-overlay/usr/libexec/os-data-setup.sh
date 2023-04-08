@@ -6,5 +6,5 @@ DATA="/mnt/data"
 HOME="${DATA}/users"
 
 if [ ! -d $HOME ]; then
-  cp -rfp /home/* "${HOME}/"
+  cp -rfp /home ${HOME}
 fi

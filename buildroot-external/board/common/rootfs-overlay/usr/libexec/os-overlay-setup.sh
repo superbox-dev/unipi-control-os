@@ -8,12 +8,10 @@ SSH="${ETC}/ssh"
 DOCKER="${ETC}/docker"
 SYSTEMD="${ETC}/systemd"
 NETWORK="${SYSTEMD}/network"
-LOG="${OVERLAY}/var/log"
 
 mkdir -p $ETC
 mkdir -p $SSH
 mkdir -p $NETWORK
-mkdir -p $LOG
 
 if [ ! -f "${ETC}/hostname" ]; then
   cp -fp /etc/hostname "${ETC}/hostname"
@@ -24,7 +22,7 @@ if [ ! -f "${ETC}/hosts" ]; then
 fi
 
 if [ ! -d ${DOCKER} ]; then
-  cp -fp /etc/docker/* "${DOCKER}/"
+  cp -rfp /etc/docker ${DOCKER}
 fi
 
 if [ ! -f "${SYSTEMD}/timesyncd.conf" ]; then

@@ -16,7 +16,7 @@ ROOTFS_IMG="${BINARIES_DIR}/rootfs.ext4"
 BOOT_DATA="${BINARIES_DIR}/boot"
 
 function pre_image() {
-  mkdir -p "${TARGET_DIR}/boot"
+  mkdir -pv "${TARGET_DIR}/boot"
   cp "${BR2_EXTERNAL_UNIPI_PATH}/board/neuron/boot.cmd" "${TARGET_DIR}/"
 }
 

@@ -6,7 +6,6 @@ mkdir -p /mnt/overlay/etc
 mkdir -p /mnt/overlay/home
 mkdir -p /mnt/overlay/root
 mkdir -p /mnt/overlay/etc/systemd/network
-mkdir -p /mnt/overlay/var/lib/docker
 mkdir -p /mnt/overlay/var/log
 
 if [ ! -f /mnt/overlay/etc/hostname ]; then

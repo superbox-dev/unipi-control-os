@@ -47,12 +47,12 @@ jobs:
             exit 1
           fi
 
-          if [ "${tag_dev}" != "" ]; then
-            echo "version=${major}.${build}.${tag_dev}" >> $GITHUB_OUTPUT
-            release=0
-          else
+          if [ "${tag_dev}" == "" ]; then
             echo "version=${major}.${build}" >> $GITHUB_OUTPUT
             release=1
+          else
+            echo "version=${major}.${build}.${tag_dev}" >> $GITHUB_OUTPUT
+            release=0
           fi
 
           echo "release=${release}" >> $GITHUB_OUTPUT

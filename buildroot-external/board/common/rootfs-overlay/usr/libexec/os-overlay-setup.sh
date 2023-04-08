@@ -2,37 +2,40 @@
 
 set -e
 
-mkdir -p /mnt/overlay/etc
-mkdir -p /mnt/overlay/home
-mkdir -p /mnt/overlay/root
-mkdir -p /mnt/overlay/etc/systemd/network
-mkdir -p /mnt/overlay/var/log
-mkdir -p /mnt/overlay/opt/unipi
+OVERLAY="/mnt/overlay"
+ETC="${OVERLAY}/etc"
+HOME="${OVERLAY}/home"
+ROOT="${OVERLAY}/root"
+SYSTEMD="${OVERLAY}/etc/systemd"
+NETWORK="${SYSTEMD}/network"
+LOG="${OVERLAY}/var/log"
 
-if [ ! -f /mnt/overlay/etc/hostname ]; then
-  cp -fp /etc/hostname /mnt/overlay/etc/hostname
+mkdir -p $ETC
+mkdir -p $HOME
+mkdir -p $ROOT
+mkdir -p $NETWORK
+mkdir -p $LOG
+
+if [ ! -f "${ETC}/hostname" ]; then
+  cp -fp /etc/hostname "${ETC}/hostname"
 fi
 
-if [ ! -f /mnt/overlay/etc/hosts ]; then
-  cp -fp /etc/hosts /mnt/overlay/etc/hosts
+if [ ! -f "${ETC}/hosts" ]; then
+  cp -fp /etc/hosts "${ETC}/hosts"
 fi
 
-if [ ! -f /mnt/overlay/etc/systemd/network/20-wired.network ]; then
-  cp -fp /etc/systemd/network/20-wired.network /mnt/overlay/etc/systemd/network/20-wired.network
+if [ ! -f "${NETWORK}/20-wired.network" ]; then
+  cp -fp /etc/systemd/network/20-wired.network "${NETWORK}/20-wired.network"
 fi
 
-if [ ! -f /mnt/overlay/etc/systemd/network/25-wireless.network ]; then
-  cp -fp /etc/systemd/network/25-wireless.network /mnt/overlay/etc/systemd/network/25-wireless.network
+if [ ! -f "${NETWORK}/25-wireless.network" ]; then
+  cp -fp /etc/systemd/network/25-wireless.network "${NETWORK}/25-wireless.network"
 fi
 
-if [ ! -f /mnt/overlay/etc/systemd/timesyncd.conf ]; then
-  cp -fp /etc/systemd/timesyncd.conf /mnt/overlay/etc/systemd/timesyncd.conf
+if [ ! -f "${SYSTEMD}/timesyncd.conf" ]; then
+  cp -fp /etc/systemd/timesyncd.conf "${SYSTEMD}/timesyncd.conf"
 fi
 
-if [ ! -d /mnt/overlay/home ]; then
-  cp -rfp /home /mnt/overlay/
-fi
-
-if [ ! -d /mnt/overlay/opt/unipi ]; then
-  cp -rfp /opt/unipi /mnt/overlay/opt/
+if [ ! -d $HOME ]; then
+  cp -rfp /home "${OVERLAY}/"
 fi

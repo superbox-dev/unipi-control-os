@@ -58,8 +58,8 @@ function setup_zsh() {
 
 function setup_sshd() {
   sed -i 's/#HostKey \/etc\/ssh\/ssh_host_rsa_key/HostKey \/mnt\/overlay\/etc\/ssh\/ssh_host_rsa_key/' "${TARGET_DIR}/etc/ssh/sshd_config"
-  sed -i 's/#HostKey \/etc\/ssh\/ssh_host_rsa_key/HostKey \/mnt\/overlay\/etc\/ssh\/ssh_host_ecdsa_key/' "${TARGET_DIR}/etc/ssh/ssh_host_ecdsa_key"
-  sed -i 's/#HostKey \/etc\/ssh\/ssh_host_rsa_key/HostKey \/mnt\/overlay\/etc\/ssh\/ssh_host_ed25519_key/' "${TARGET_DIR}/etc/ssh/ssh_host_ed25519_key"
+  sed -i 's/#HostKey \/etc\/ssh\/ssh_host_ecdsa_key/HostKey \/mnt\/overlay\/etc\/ssh\/ssh_host_ecdsa_key/' "${TARGET_DIR}/etc/ssh/sshd_config"
+  sed -i 's/#HostKey \/etc\/ssh\/ssh_host_ed25519_key/HostKey \/mnt\/overlay\/etc\/ssh\/ssh_host_ed25519_key/' "${TARGET_DIR}/etc/ssh/sshd_config"
 }
 
 function fix_rootfs() {

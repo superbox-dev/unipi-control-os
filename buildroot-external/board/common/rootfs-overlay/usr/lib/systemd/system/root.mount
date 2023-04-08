@@ -1,12 +1,12 @@
 [Unit]
 Description=Root partition
-Requires=mnt-overlay.mount
-After=mnt-overlay.mount os-overlay.service
+Requires=overlay.mount
+After=overlay.mount os-overlay.service
 Before=network.target
 
 [Mount]
 What=/mnt/overlay/root
-Where=/home
+Where=/root
 Type=none
 Options=bind
 

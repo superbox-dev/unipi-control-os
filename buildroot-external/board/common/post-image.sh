@@ -25,7 +25,6 @@ function create_boot_image() {
   mkdir -v "${BOOT_DATA}"
 
   cp -t "${BOOT_DATA}" \
-    "${BINARIES_DIR}/Image" \
     "${BINARIES_DIR}/u-boot.bin" \
     "${BINARIES_DIR}/boot.scr"
   cp "${BINARIES_DIR}"/*.dtb "${BOOT_DATA}/"

@@ -7,6 +7,7 @@ mkdir -p /mnt/overlay/home
 mkdir -p /mnt/overlay/root
 mkdir -p /mnt/overlay/etc/systemd/network
 mkdir -p /mnt/overlay/var/log
+mkdir -p /mnt/overlay/opt/unipi
 
 if [ ! -f /mnt/overlay/etc/hostname ]; then
   cp -fp /etc/hostname /mnt/overlay/etc/hostname
@@ -28,6 +29,10 @@ if [ ! -f /mnt/overlay/etc/systemd/timesyncd.conf ]; then
   cp -fp /etc/systemd/timesyncd.conf /mnt/overlay/etc/systemd/timesyncd.conf
 fi
 
-if [ ! -f /mnt/overlay/home ]; then
-  cp -rfp /home/* /mnt/overlay/home
+if [ ! -d /mnt/overlay/home ]; then
+  cp -rfp /home /mnt/overlay/
+fi
+
+if [ ! -d /mnt/overlay/opt/unipi ]; then
+  cp -rfp /opt/unipi /mnt/overlay/opt/
 fi

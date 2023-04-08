@@ -70,7 +70,6 @@ function fix_rootfs() {
   # Cleanup root
   rm -rfv "${TARGET_DIR:?}/media"
   rm -rfv "${TARGET_DIR:?}/srv"
-  rm -rfv "${TARGET_DIR:?}/opt"
 
   sed -i "/srv/d" "${TARGET_DIR}/usr/lib/tmpfiles.d/home.conf"
 

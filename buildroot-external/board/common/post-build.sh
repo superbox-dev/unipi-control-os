@@ -61,6 +61,13 @@ function setup_zsh() {
   sed -i '/^root:/s,:/bin/dash$,:/bin/zsh,' "${TARGET_DIR}/etc/passwd"
 }
 
+function setup_sshd() {
+  sed -i 's/#HostKey \/etc\/ssh\/ssh_host_rsa_key/HostKey \/mnt\/overlay\/etc\/ssh\/ssh_host_rsa_key/' "${TARGET_DIR}/etc/ssh/sshd_config"
+  sed -i 's/#HostKey \/etc\/ssh\/ssh_host_rsa_key/HostKey \/mnt\/overlay\/etc\/ssh\/ssh_host_ecdsa_key/' "${TARGET_DIR}/etc/ssh/ssh_host_ecdsa_key"
+  sed -i 's/#HostKey \/etc\/ssh\/ssh_host_rsa_key/HostKey \/mnt\/overlay\/etc\/ssh\/ssh_host_ed25519_key/' "${TARGET_DIR}/etc/ssh/ssh_host_ed25519_key"
+  HostKey /mnt/overlay/etc/ssh/ssh_host_rsa_key
+}
+
 function fix_rootfs() {
   # Cleanup etc
   rm -rfv "${TARGET_DIR:?}/etc/init.d"
@@ -80,6 +87,7 @@ setup_mosquitto
 setup_user
 setup_systemd
 setup_zsh
+setup_sshd
 fix_rootfs
 
 "${HOST_DIR}/bin/systemctl" --root="${TARGET_DIR}" preset-all

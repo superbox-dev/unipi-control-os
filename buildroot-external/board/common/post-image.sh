@@ -142,10 +142,12 @@ function create_update_bundle() {
     cp -fv "${rootfs}" "${rauc_folder}/rootfs.img"
     # cp -fv "${BR2_EXTERNAL_UNIPI_PATH}/ota/rauc-hook" "${rauc_folder}/hook"
 
-    export bundle_compatible bundle_version
-
     (
-        "${HOST_DIR}/bin/tempio" -template "${BR2_EXTERNAL_UNIPI_PATH}/bundle/manifest.raucm.gtpl"
+      echo "[update]"
+      echo "compatible=${bundle_compatible}"
+      echo "version=${bundle_version}"
+      echo "[image.rootfs]"
+      echo "filename=rootfs.img"
     ) > "${rauc_folder}/manifest.raucm"
 
     rauc bundle -d --cert="${cert}" --key="${key}" --keyring="${keyring}" "${rauc_folder}" "${bundle_file}"

@@ -38,11 +38,6 @@ if [ "${PART_LABEL}" = "dos" ]; then
 
   resize2fs "${DEVICE_CHILD}"
 
-  if ! systemctl start "dev-disk-by\\x2dlabel-data.device"; then
-    echo "[ERROR] Data partition not found!"
-    exit 1
-  fi
-
   echo "[INFO] Finished data partition resizing"
 fi
 

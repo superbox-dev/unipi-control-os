@@ -5,6 +5,8 @@ gpu_mem=64
 
 # enable UART for U-Boot
 enable_uart=1
+
+# Enable early debugging info
 uart_2ndstage=1
 
 # enable 64bits support
@@ -17,6 +19,9 @@ arm_64bit=1
 dtparam=i2c_arm=on
 dtoverlay=i2c-rtc,mcp7941x
 dtoverlay=neuron-spi-new
+
+# Enable watchdog, system will reset if U-Boot and Linux do not boot within 16 seconds
+dtparam=watchdog
 
 [pi4]
 arm_boost=1

@@ -10,6 +10,7 @@ TARGETS := $(notdir $(patsubst %_defconfig,%,$(wildcard $(DEFCONFIG_DIR)/*_defco
 TARGETS_CONFIG := $(notdir $(wildcard $(DEFCONFIG_DIR)/*_defconfig))
 TARGETS_SAVE := $(notdir $(patsubst %_defconfig,%_savedefconfig,$(wildcard $(DEFCONFIG_DIR)/*_defconfig)))
 
+HOSTNAME := "unipi-dev"
 VERSION_DATE := $(shell date --utc +'%Y%m%d')
 VERSION := dev-$(VERSION_DATE)
 
@@ -31,7 +32,7 @@ $(TARGETS_CONFIG): %_defconfig:
 
 $(TARGETS): %: $(RELEASE_DIR) %_defconfig
 	@echo "Build image for $@"
-	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) BR2_CCACHE_DIR=$(BUILDDIR)/cache/cc BR2_DL_DIR=$(BUILDDIR)/cache/dl VERSION=$(VERSION)
+	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) BR2_CCACHE_DIR=$(BUILDDIR)/cache/cc BR2_DL_DIR=$(BUILDDIR)/cache/dl BR2_TARGET_GENERIC_HOSTNAME=$(HOSTNAME) VERSION=$(VERSION)
 	cp -fv $(O)/images/unipi-control-os-* $(RELEASE_DIR)/
 	@echo "Finished $@"
 

@@ -9,3 +9,6 @@
 cache/
 release/
 output/
+
+# Keys
+*.pem

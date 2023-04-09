@@ -61,7 +61,21 @@ function fix_rootfs() {
   mkdir -pv "${TARGET_DIR}/var/monit/"
 }
 
+function write_rauc_config() {
+    mkdir -pv "${TARGET_DIR}/etc/rauc"
+
+    local bundle_compatible
+    bundle_compatible="$(rauc_compatible)"
+
+    export bundle_compatible
+
+    (
+        "${HOST_DIR}/bin/tempio" -template "${BR2_EXTERNAL_UNIPI_PATH}/bundle/system.conf.gtpl"
+    ) > "${TARGET_DIR}/etc/rauc/system.conf"}
+}
+
 setup_zsh
 fix_rootfs
+write_rauc_config
 
 "${HOST_DIR}/bin/systemctl" --root="${TARGET_DIR}" preset-all

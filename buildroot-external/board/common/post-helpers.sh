@@ -11,3 +11,7 @@ function os_version() {
     echo "${VERSION_MAJOR}.${VERSION_BUILD}.${VERSION}"
   fi
 }
+
+function rauc_compatible() {
+    echo "${OS_ID}-${BOARD_ID}"
+}

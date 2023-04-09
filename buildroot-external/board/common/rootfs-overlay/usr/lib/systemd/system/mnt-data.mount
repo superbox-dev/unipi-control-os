@@ -2,6 +2,7 @@
 Description=Data partition
 DefaultDependencies=no
 Before=umount.target local-fs.target
+Requires=os-data-expand.service
 Conflicts=umount.target
 After=systemd-fsck@dev-disk-by\x2dpartlabel-data.service
 Wants=systemd-fsck@dev-disk-by\x2dpartlabel-data.service

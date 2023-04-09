@@ -1,8 +1,11 @@
+part start mmc 0 2 dev_env
+
 # Default environments
 setenv console "serial"
 setenv verbosity "6"
 
-env import -t 0x4000
+mmc read ${ramdisk_addr_r} ${dev_env} 0x20
+env import -c ${ramdisk_addr_r} 0x4000
 
 test -n "${BOOT_ORDER}" || setenv BOOT_ORDER "A B"
 test -n "${BOOT_A_LEFT}" || setenv BOOT_A_LEFT 3
@@ -44,12 +47,14 @@ for BOOT_SLOT in "${BOOT_ORDER}"; do
 done
 
 if test -n "${bootargs}"; then
-  env export -t 0x4000
+  env export -c -s 0x4000 ${ramdisk_addr_r} BOOT_ORDER BOOT_A_LEFT BOOT_B_LEFT
+  mmc write ${ramdisk_addr_r} ${dev_env} 0x20
 else
   echo "No valid slot found, resetting tries to 3"
   setenv BOOT_A_LEFT 3
   setenv BOOT_B_LEFT 3
-  env export -t 0x4000
+  env export -c -s 0x4000 ${ramdisk_addr_r} BOOT_ORDER BOOT_A_LEFT BOOT_B_LEFT
+  mmc write ${ramdisk_addr_r} ${dev_env} 0x20
   reset
 fi
 

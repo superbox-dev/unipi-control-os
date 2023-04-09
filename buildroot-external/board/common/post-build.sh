@@ -57,6 +57,8 @@ function fix_rootfs() {
 
   mkdir -pv "${TARGET_DIR}/boot/"
   cp -fv "${BINARIES_DIR}/Image" "${TARGET_DIR}/boot/"
+
+  mkdir -pv "${TARGET_DIR}/var/monit/"
 }
 
 setup_zsh

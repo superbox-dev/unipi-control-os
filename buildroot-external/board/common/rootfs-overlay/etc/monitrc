@@ -31,13 +31,13 @@ set log syslog
 ## Set the location of the Monit lock file which stores the process id of the
 ## running Monit instance. By default this file is stored in $HOME/.monit.pid
 #
-# set pidfile /var/run/monit.pid
+set pidfile /var/run/monit.pid
 #
 ## Set the location of the Monit id file which stores the unique id for the
 ## Monit instance. The id is generated and stored on first Monit start. By
 ## default the file is placed in $HOME/.monit.id.
 #
-# set idfile /var/.monit.id
+set idfile /var/monit/id
 #
 ## Set the location of the Monit state file which saves monitoring states
 ## on each cycle. By default the file is placed in $HOME/.monit.state. If
@@ -45,7 +45,7 @@ set log syslog
 ## the monitoring state across reboots. If it is on temporary filesystem, the
 ## state will be lost on reboot which may be convenient in some situations.
 #
-# set statefile /var/.monit.state
+set statefile /var/monit/state
 #
 #
 

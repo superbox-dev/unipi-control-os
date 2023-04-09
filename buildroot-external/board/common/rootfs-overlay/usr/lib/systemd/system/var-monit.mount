@@ -1,0 +1,13 @@
+[Unit]
+Description=Persistent monit
+Requires=mnt-overlay.mount
+After=mnt-overlay.mount
+
+[Mount]
+What=/mnt/overlay/var/monit
+Where=/var/monit
+Type=None
+Options=bind
+
+[Install]
+WantedBy=os-bind.target

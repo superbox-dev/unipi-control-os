@@ -14,6 +14,8 @@ BOARD_DIR=${2}
 BOOT_IMG="${BINARIES_DIR}/boot.vfat"
 ROOTFS_IMG="${BINARIES_DIR}/rootfs.ext4"
 BOOT_DATA="${BINARIES_DIR}/boot"
+GENIMAGE_ROOTPATH="$(mktemp -d)"
+
 
 function pre_image() {
   mkdir -pv "${TARGET_DIR}/boot"
@@ -27,17 +29,15 @@ function create_disk_image() {
   local genimage_tmp="${BUILD_DIR}/genimage.tmp"
 
   # Pass an empty rootpath. genimage makes a full copy of the given rootpath to
-  # ${genimage_tmp}/root so passing TARGET_DIR would be a waste of time and disk
+  # ${GENIMAGE_ROOTPATH}/root so passing TARGET_DIR would be a waste of time and disk
   # space. We don't rely on genimage to build the rootfs image, just to insert a
   # pre-built one in the disk image.
-
-  trap 'rm -rf "${rootpath_tmp}"' EXIT
-  local rootpath_tmp="$(mktemp -d)"
+  trap 'rm -rf "${GENIMAGE_ROOTPATH}"' EXIT
 
   # Generate the boot filesystem image
-  rm -rfv "${genimage_tmp}"
+  rm -rfv "${GENIMAGE_ROOTPATH}"
   genimage \
-	  --rootpath "${rootpath_tmp}" \
+	  --rootpath "${GENIMAGE_ROOTPATH}" \
 	  --tmppath "${genimage_tmp}" \
 	  --inputpath "${BINARIES_DIR}" \
 	  --outputpath "${BINARIES_DIR}" \
@@ -46,7 +46,7 @@ function create_disk_image() {
   # Generate the sdcard image
   rm -rfv "${genimage_tmp}"
   genimage \
-    --rootpath "${rootpath_tmp}"   \
+    --rootpath "${GENIMAGE_ROOTPATH}"   \
     --tmppath "${genimage_tmp}"    \
     --inputpath "${BINARIES_DIR}"  \
     --outputpath "${BINARIES_DIR}" \

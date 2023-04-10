@@ -20,24 +20,6 @@ function pre_image() {
   cp "$(dirname ${BOARD_DIR})/boot.cmd" "${TARGET_DIR}/"
 }
 
-#function create_boot_image() {
-#  rm -rfv "${BOOT_DATA}"
-#  mkdir -v "${BOOT_DATA}"
-#
-#  cp -t "${BOOT_DATA}" \
-#    "${BINARIES_DIR}/u-boot.bin" \
-#    "${BINARIES_DIR}/boot.scr"
-#  cp "${BINARIES_DIR}"/*.dtb "${BOOT_DATA}/"
-#  cp -r "${BINARIES_DIR}/rpi-firmware/"* "${BOOT_DATA}/"
-#  rm "${BOOT_DATA}/cmdline.txt"
-#
-#  echo "mtools_skip_check=1" > ~/.mtoolsrc
-#  rm -fv "${BOOT_IMG}"
-#  truncate --size=30MiB "${BOOT_IMG}"
-#  mkfs -t vfat -n "BOOT" "${BOOT_IMG}"
-#  mcopy -i "${BOOT_IMG}" -sv "${BOOT_DATA}"/* ::
-#}
-
 function size2sectors() {
   local f=0
 
@@ -98,59 +80,7 @@ function create_disk_image() {
     --config "${genimage_cfg}"
 
   rm -fv "${image_name}"
-  mv -v "${BINARIES_DIR}/sdcard.img" "${BINARIES_DIR}/${image_name}"
-
-  #  local image_name="$(os_image_name img)"
-  #  local disk_layout="${BINARIES_DIR}/disk.layout"
-  #  local data_img="${BINARIES_DIR}/data.ext4"
-  #  local overlay_img="${BINARIES_DIR}/overlay.ext4"
-  #
-  #  local boot_start=$(size2sectors "1MiB")
-  #  local boot_size=$(size2sectors "30MiB")
-  #  local bootstate_size=$(size2sectors "8MiB")
-  #  local system0_size=$(size2sectors "768MiB")
-  #  local system1_size=$(size2sectors "768MiB")
-  #  local overlay_size=$(size2sectors "100MiB")
-  #  local data_size=$(size2sectors "100MiB")
-  #
-  #  local bootstate_start=$((boot_size+$(size2sectors "1MiB")))
-  #  local extended_start=$((bootstate_start+bootstate_size))
-  #  local system0_start=$((extended_start+$(size2sectors "1MiB")))
-  #  local system1_start=$((system0_start+system0_size+$(size2sectors "1MiB")))
-  #  local overlay_start=$((system1_start+system1_size+$(size2sectors "1MiB")))
-  #  local extended_size=$((system0_size+system1_size+overlay_size+3*$(size2sectors "1MiB")))
-  #  local data_start=$((extended_start+extended_size))
-  #
-  #  rm -fv "${image_name}"
-  #  truncate --size="1782MiB" "${image_name}"
-  #
-  #  (
-  #     echo "label: dos"
-  #     echo "label-id: 0x20230403"
-  #     echo "unit: sectors"
-  #     echo "boot      : start=${boot_start},       size=${boot_size},       type=c, bootable"   # Create the boot partition
-  #     echo "bootstate : start=${bootstate_start},  size=${bootstate_size},  type=83"            # Make a Linux partition
-  #     echo "data      : start=${data_start},       size=${data_size},       type=83"            # Make a Linux partition
-  #     echo "extended  : start=${extended_start},   size=${extended_size},   type=5"             # Make an extended partition
-  #     echo "system    : start=${system0_start},    size=${system0_size},    type=83"            # Make a logical Linux partition
-  #     echo "system    : start=${system1_start},    size=${system1_size},    type=83"            # Make a logical Linux partition
-  #     echo "overlay   : start=${overlay_start},    size=${overlay_size},    type=83"            # Make a logical Linux partition
-  #  ) > "${disk_layout}"
-  #
-  #  sfdisk "${image_name}" < "${disk_layout}"
-  #
-  #  dd if="${BOOT_IMG}" of="${image_name}" conv=notrunc,sparse bs=512 seek="${boot_start}"
-  #  dd if="${ROOTFS_IMG}" of="${image_name}" conv=notrunc,sparse bs=512 seek="${system0_start}"
-  #
-  #  rm -fv "${data_img}"
-  #  truncate --size="100MiB" "${data_img}"
-  #  mkfs.ext4 "${data_img}"
-  #  dd if="${data_img}" of="${image_name}" conv=notrunc,sparse bs=512 seek="${data_start}"
-  #
-  #  rm -fv "${overlay_img}"
-  #  truncate --size="100MiB" "${overlay_img}"
-  #  mkfs.ext4 "${overlay_img}"
-  #  dd if="${overlay_img}" of="${image_name}" conv=notrunc,sparse bs=512 seek="${overlay_start}"
+  mv -v "${BINARIES_DIR}/sdcard.img" "${image_name}"
 }
 
 function create_update_bundle() {
@@ -196,7 +126,6 @@ function convert_disk_image_xz() {
 
 pre_image
 
-# create_boot_image
 create_disk_image
 # create_update_bundle
 

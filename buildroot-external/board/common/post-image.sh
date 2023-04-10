@@ -35,7 +35,7 @@ function create_disk_image() {
   trap 'rm -rf "${GENIMAGE_ROOTPATH}"' EXIT
 
   # Generate the boot filesystem image
-  rm -rfv "${GENIMAGE_ROOTPATH}"
+  rm -rfv "${genimage_tmp}"
   genimage \
 	  --rootpath "${GENIMAGE_ROOTPATH}" \
 	  --tmppath "${genimage_tmp}" \

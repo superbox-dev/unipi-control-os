@@ -11,4 +11,4 @@ release/
 output/
 
 # Keys
-*.pem
+openssl-ca

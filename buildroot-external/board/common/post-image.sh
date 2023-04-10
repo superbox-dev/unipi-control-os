@@ -20,33 +20,6 @@ function pre_image() {
   cp "$(dirname ${BOARD_DIR})/boot.cmd" "${TARGET_DIR}/"
 }
 
-function size2sectors() {
-  local f=0
-
-  for v in "${@}"
-  do
-    local p=$(echo "$v" | awk \
-      'BEGIN{IGNORECASE = 1}
-       function printsectors(n,b,p) {printf "%u\n", n*b^p/512}
-       /B$/{     printsectors($1,  1, 0)};
-       /K(iB)?$/{printsectors($1,  2, 10)};
-       /M(iB)?$/{printsectors($1,  2, 20)};
-       /G(iB)?$/{printsectors($1,  2, 30)};
-       /T(iB)?$/{printsectors($1,  2, 40)};
-       /KB$/{    printsectors($1, 10,  3)};
-       /MB$/{    printsectors($1, 10,  6)};
-       /GB$/{    printsectors($1, 10,  9)};
-       /TB$/{    printsectors($1, 10, 12)}')
-
-    for s in $p
-    do
-      f=$((f+s))
-    done
-  done
-
-  echo $f
-}
-
 function create_disk_image() {
   local image_name="$(os_image_name img)"
   local genbootfs_cfg="$(dirname ${BOARD_DIR})/genbootfs-$(basename ${BOARD_DIR}).cfg"

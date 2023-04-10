@@ -19,7 +19,6 @@ GENIMAGE_ROOTPATH="$(mktemp -d)"
 
 function pre_image() {
   mkdir -pv "${TARGET_DIR}/boot"
-  cp "$(dirname ${BOARD_DIR})/boot.cmd" "${TARGET_DIR}/"
 }
 
 function create_disk_image() {

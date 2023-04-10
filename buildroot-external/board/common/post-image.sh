@@ -66,6 +66,7 @@ function size2sectors() {
 }
 
 function create_disk_image() {
+  local image_name="$(os_image_name img)"
   local genbootfs_cfg="$(dirname ${BOARD_DIR})/genbootfs-$(basename ${BOARD_DIR}).cfg"
   local genimage_cfg="${BR2_EXTERNAL_UNIPI_PATH}/board/common/genimage.cfg"
   local genimage_tmp="${BUILD_DIR}/genimage.tmp"

@@ -80,6 +80,7 @@ function create_disk_image() {
   local rootpath_tmp="$(mktemp -d)"
 
   # Generate the boot filesystem image
+  rm -rfv "${genimage_tmp}"
   genimage \
 	  --rootpath "${rootpath_tmp}" \
 	  --tmppath "${genimage_tmp}" \
@@ -89,7 +90,6 @@ function create_disk_image() {
 
   # Generate the sdcard image
   rm -rfv "${genimage_tmp}"
-
   genimage \
     --rootpath "${rootpath_tmp}"   \
     --tmppath "${genimage_tmp}"    \

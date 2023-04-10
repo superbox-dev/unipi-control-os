@@ -74,16 +74,19 @@ function create_update_bundle() {
     rm -rfv "${rauc_folder}" "${bundle_file}"
     mkdir -pv "${rauc_folder}"
 
-    cp -fv "${boot}" "${rauc_folder}/boot.vfat"
-    cp -fv "${rootfs}" "${rauc_folder}/rootfs.img"
+    ln -Lv "${boot}" "${rauc_folder}/"
+    ln -Lv "${rootfs}" "${rauc_folder}/"
+
     # cp -fv "${BR2_EXTERNAL_UNIPI_PATH}/ota/rauc-hook" "${rauc_folder}/hook"
 
     (
       echo "[update]"
       echo "compatible=${bundle_compatible}"
       echo "version=${bundle_version}"
+      echo "[bundle]"
+      echo "format=verity"
       echo "[image.rootfs]"
-      echo "filename=rootfs.img"
+      echo "filename=rootfs.ext4"
     ) > "${rauc_folder}/manifest.raucm"
 
     rauc bundle -d --cert="${cert}" --key="${key}" --keyring="${keyring}" "${rauc_folder}" "${bundle_file}"

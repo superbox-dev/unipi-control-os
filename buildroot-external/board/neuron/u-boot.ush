@@ -23,7 +23,7 @@ for BOOT_SLOT in "${BOOT_ORDER}"; do
       echo "Trying to boot slot A, ${BOOT_A_LEFT} attempts remaining. Loading kernel ..."
       setexpr BOOT_A_LEFT ${BOOT_A_LEFT} - 1
       if load mmc 0:5 ${kernel_addr_r} /boot/Image; then
-        raucargs="root=/dev/mmcblk0p5 rauc.slot=A"
+        raucargs="root=PARTUUID=20230403-05 rauc.slot=A"
       fi
     fi
   elif test "x${BOOT_SLOT}" = "xB"; then
@@ -31,7 +31,7 @@ for BOOT_SLOT in "${BOOT_ORDER}"; do
       echo "Trying to boot slot B, ${BOOT_B_LEFT} attempts remaining. Loading kernel ..."
       setexpr BOOT_B_LEFT ${BOOT_B_LEFT} - 1
       if load mmc 0:6 ${kernel_addr_r} /boot/Image; then
-        raucargs="root=/dev/mmcblk0p6 rauc.slot=B"
+        raucargs="root=PARTUUID=20230403-06 rauc.slot=B"
       fi
     fi
   fi

@@ -55,41 +55,34 @@ function create_disk_image() {
   mv -v "${BINARIES_DIR}/sdcard.img" "${image_name}"
 }
 
-function create_update_bundle() {
+function create_rauc_bundle() {
     local bundle_file="$(os_image_name raucb)"
-    local bundle_compatible="$(rauc_compatible)"
-    local bundle_version="$(os_version)"
-    local rauc_folder="${BINARIES_DIR}/rauc"
-    local boot="${BINARIES_DIR}/boot.vfat"
-    local rootfs="${BINARIES_DIR}/rootfs.ext4"
-    local key="${BR2_EXTERNAL_UNIPI_PATH}/key.pem"
-    local cert="${BR2_EXTERNAL_UNIPI_PATH}/cert.pem"
-    local keyring="${TARGET_DIR}/etc/rauc/keyring.pem"
+    local rauc_tmp="${BINARIES_DIR}/rauc"
 
-    if [ ! -f "${key}" ]; then
-        echo "Skip creating update bundle because of missing key ${key}!"
-        return 0
-    fi
+    rm -rfv "${rauc_tmp}" "${bundle_file}"
+    mkdir -pv "${rauc_tmp}"
 
-    rm -rfv "${rauc_folder}" "${bundle_file}"
-    mkdir -pv "${rauc_folder}"
-
-    ln -Lv "${boot}" "${rauc_folder}/"
-    ln -Lv "${rootfs}" "${rauc_folder}/"
-
-    # cp -fv "${BR2_EXTERNAL_UNIPI_PATH}/ota/rauc-hook" "${rauc_folder}/hook"
+    ln -Lv "${BINARIES_DIR}/boot.vfat" "${rauc_tmp}/"
+    ln -Lv "${BINARIES_DIR}/rootfs.ext4" "${rauc_tmp}/"
 
     (
       echo "[update]"
-      echo "compatible=${bundle_compatible}"
-      echo "version=${bundle_version}"
+      echo "compatible=$(rauc_compatible)"
+      echo "version=$(os_version)"
+      echo "[image.bootloader]"
+      echo "filename=boot.vfat"
       echo "[bundle]"
       echo "format=verity"
       echo "[image.rootfs]"
       echo "filename=rootfs.ext4"
-    ) > "${rauc_folder}/manifest.raucm"
+    ) > "${rauc_tmp}/manifest.raucm"
 
-    rauc bundle -d --cert="${cert}" --key="${key}" --keyring="${keyring}" "${rauc_folder}" "${bundle_file}"
+    rauc bundle \
+	    --cert ${BR2_EXTERNAL_UNIPI_PATH}/openssl-ca/dev/development-1.cert.pem \
+	    --key ${BR2_EXTERNAL_UNIPI_PATH}/openssl-ca/dev/private/development-1.key.pem \
+	    --keyring ${TARGET_DIR}/etc/rauc/keyring.pem \
+	    "${rauc_tmp}" \
+	    "${bundle_file}"
 }
 
 function convert_disk_image_xz() {
@@ -102,6 +95,6 @@ function convert_disk_image_xz() {
 pre_image
 
 create_disk_image
-# create_update_bundle
+create_rauc_bundle
 
 convert_disk_image_xz

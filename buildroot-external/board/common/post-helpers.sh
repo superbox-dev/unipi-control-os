@@ -13,5 +13,5 @@ function os_version() {
 }
 
 function rauc_compatible() {
-    echo "${OS_ID}-${BOARD_ID}"
+    echo "${BOARD_ID}"
 }

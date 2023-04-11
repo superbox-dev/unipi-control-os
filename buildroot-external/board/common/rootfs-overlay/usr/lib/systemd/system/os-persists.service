@@ -1,0 +1,13 @@
+[Unit]
+Description=Persistent uboot enviroment data
+After=sysinit.target
+RefuseManualStart=true
+RefuseManualStop=true
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/os-persists.sh
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target

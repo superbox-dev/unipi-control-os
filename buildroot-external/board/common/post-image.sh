@@ -12,7 +12,7 @@ BOARD_DIR=${2}
 . "${SCRIPT_DIR}/post-helpers.sh"
 
 BOOT_IMG="${BINARIES_DIR}/boot.vfat"
-ROOTFS_IMG="${BINARIES_DIR}/rootfs.ext4"
+ROOTFS_IMG="${BINARIES_DIR}/rootfs.squashfs"
 BOOT_DATA="${BINARIES_DIR}/boot"
 GENIMAGE_ROOTPATH="$(mktemp -d)"
 
@@ -62,8 +62,8 @@ function create_rauc_bundle() {
     rm -rfv "${rauc_tmp}" "${bundle_file}"
     mkdir -pv "${rauc_tmp}"
 
-    ln -Lv "${BINARIES_DIR}/boot.vfat" "${rauc_tmp}/"
-    ln -Lv "${BINARIES_DIR}/rootfs.ext4" "${rauc_tmp}/"
+    ln -Lv "${BOOT_IMG}" "${rauc_tmp}/"
+    ln -Lv "${ROOTFS_IMG}" "${rauc_tmp}/"
 
     (
       echo "[update]"
@@ -74,7 +74,7 @@ function create_rauc_bundle() {
       echo "[bundle]"
       echo "format=verity"
       echo "[image.system]"
-      echo "filename=rootfs.ext4"
+      echo "filename=rootfs.squashfs"
     ) > "${rauc_tmp}/manifest.raucm"
 
     rauc bundle \

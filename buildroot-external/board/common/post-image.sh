@@ -73,7 +73,7 @@ function create_rauc_bundle() {
       echo "filename=boot.vfat"
       echo "[bundle]"
       echo "format=verity"
-      echo "[image.rootfs]"
+      echo "[image.system]"
       echo "filename=rootfs.ext4"
     ) > "${rauc_tmp}/manifest.raucm"
 

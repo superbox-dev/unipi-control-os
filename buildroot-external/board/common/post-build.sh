@@ -46,8 +46,8 @@ function setup_zsh() {
 function setup_rauc() {
   local ca_cert="${BR2_EXTERNAL_UNIPI_PATH}/openssl-ca/dev/ca.cert.pem"
 
-  if [ -e ca_cert ]; then
-	  cp -v ca_cert "${TARGET_DIR}/etc/rauc/keyring.pem"
+  if [ -e "${ca_cert}" ]; then
+	  cp -v "${ca_cert}" "${TARGET_DIR}/etc/rauc/keyring.pem"
   else
     echo "RAUC CA certificate not found!"
     echo "...did you run the openssl-ca.sh script?"

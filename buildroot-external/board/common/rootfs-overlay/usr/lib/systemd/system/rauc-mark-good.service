@@ -1,0 +1,11 @@
+[Unit]
+Description=Rauc mark good service
+ConditionKernelCommandLine=|rauc.slot
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/rauc status mark-good
+
+[Install]
+WantedBy=multi-user.target

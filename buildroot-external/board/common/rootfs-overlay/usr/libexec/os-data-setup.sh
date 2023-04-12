@@ -3,7 +3,12 @@
 set -e
 
 DATA="/mnt/data"
-HOME="${DATA}/users"
+ROOT="${DATA}/root"
+HOME="${DATA}/home"
+
+if [ ! -d $ROOT ]; then
+  cp -rfp /root ${ROOT}
+fi
 
 if [ ! -d $HOME ]; then
   cp -rfp /home ${HOME}

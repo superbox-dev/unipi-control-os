@@ -7,7 +7,6 @@ test -n "${BOOT_A_LEFT}" || setenv BOOT_A_LEFT 3
 test -n "${BOOT_B_LEFT}" || setenv BOOT_B_LEFT 3
 test -n "${MACHINE_ID}" || setenv BOOT_CONDITION "systemd.condition-first-boot=true"
 
-
 # Set console arguments
 test "${console}" = "display" && setenv consoleargs "console=tty1"
 test "${console}" = "serial" && setenv consoleargs "console=tty1 console=ttyS0,115200"
@@ -20,6 +19,7 @@ for BOOT_SLOT in "${BOOT_ORDER}"; do
   if test "x${bootargs}" != "x"; then
     # skip remaining slots
   elif test "x${BOOT_SLOT}" = "xA"; then
+    if test ${BOOT_A_LEFT} -gt 0; then
       echo "Trying to boot slot A, ${BOOT_A_LEFT} attempts remaining. Loading kernel ..."
       setexpr BOOT_A_LEFT ${BOOT_A_LEFT} - 1
       if load mmc 0:2 ${kernel_addr_r} /boot/Image; then
@@ -27,7 +27,7 @@ for BOOT_SLOT in "${BOOT_ORDER}"; do
       fi
     fi
   elif test "x${BOOT_SLOT}" = "xB"; then
-    if test 0x${BOOT_B_LEFT} -gt 0; then
+    if test ${BOOT_B_LEFT} -gt 0; then
       echo "Trying to boot slot B, ${BOOT_B_LEFT} attempts remaining. Loading kernel ..."
       setexpr BOOT_B_LEFT ${BOOT_B_LEFT} - 1
       if load mmc 0:3 ${kernel_addr_r} /boot/Image; then

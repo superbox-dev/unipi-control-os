@@ -6,7 +6,7 @@ set -euo pipefail
 # Environment
 
 _ME="$(basename "${0}")"
-#UNIPI_CONFIG="/etc/unipi"
+UNIPI_CONFIG="/mnt/data/config"
 VIRTUAL_ENV="/mnt/data/venv"
 SOURCE="/mnt/data/src"
 
@@ -40,27 +40,19 @@ HEREDOC
 ###############################################################################
 # Program Functions
 
-#install_config() {
-#  if [ -d "$UNIPI_CONFIG" ]; then
-#    echo -e "${SKIP_TEXT} ${UNIPI_CONFIG} already exists! Can't write config files."
-#  else
-#    mkdir ${UNIPI_CONFIG}
-#    cp -R "$(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')/unipi_control/config${UNIPI_CONFIG}/"* ${UNIPI_CONFIG}
-#    echo -e "${OK_TEXT} Installed config files to ${UNIPI_CONFIG}"
-#  fi
-#}
-
 function install_packages() {
-  echo -e "${COLOR_BOLD_WHITE}[1/3] Create virtualenv ${VIRTUAL_ENV}${COLOR_RESET}"
+  echo -e "${COLOR_BOLD_WHITE}[1/4] Create virtualenv ${VIRTUAL_ENV}${COLOR_RESET}"
   create_virtualenv "$@"
-  echo -e "${COLOR_BOLD_WHITE}[2/3] Install unipi-control${COLOR_RESET}"
+  echo -e "${COLOR_BOLD_WHITE}[2/4] Install unipi-control to ${SOURCE}${COLOR_RESET}"
   install_unipi_control "$@"
-  echo -e "${COLOR_BOLD_WHITE}[3/3] Install superbox-utils${COLOR_RESET}"
+  echo -e "${COLOR_BOLD_WHITE}[3/4] Install superbox-utils to ${SOURCE}${COLOR_RESET}"
   install_superbox_utils "$@"
+  echo -e "${COLOR_BOLD_WHITE}[4/4] Install config files to ${UNIPI_CONFIG}${COLOR_RESET}"
+  install_config "$@"
 }
 
 function create_virtualenv() {
-  if [ -z "$(ls -A ${VIRTUAL_ENV})" ]; then
+  if [ -d "${VIRTUAL_ENV}" ] && [ -z "$(ls -A ${VIRTUAL_ENV})" ]; then
     su - unipi -s /bin/bash -c "
       python -m venv '${VIRTUAL_ENV}' \
       && source '${VIRTUAL_ENV}/bin/activate' \
@@ -71,12 +63,12 @@ function create_virtualenv() {
 function install_unipi_control() {
   local unipi_control="${SOURCE}/unipi-control"
 
-  if [ "$(ls -A ${unipi_control})" ]; then
-    echo -e "${SKIP_TEXT} ${unipi_control} is not empty! Can't install unipi-control."
+  if [ -d "${unipi_control}" ] && [ "$(ls -A ${unipi_control})" ]; then
+    echo -e "${SKIP_TEXT} Directory ${unipi_control} is not empty! Can't install unipi-control."
   else
     su - unipi -s /bin/bash -c " \
       git clone git@github.com:mh-superbox/unipi-control.git '${unipi_control}/' \
-      source '${VIRTUAL_ENV}/bin/activate' \
+      && source '${VIRTUAL_ENV}/bin/activate' \
       && pip install -e '${unipi_control}'"
   fi
 }
@@ -84,16 +76,28 @@ function install_unipi_control() {
 function install_superbox_utils() {
   local superbox_utils="${SOURCE}/superbox-utils"
 
-  if [ "$(ls -A ${superbox_utils})" ]; then
-    echo -e "${SKIP_TEXT} ${superbox_utils} is not empty! Can't install superbox-utils."
+  if [ -d "${superbox_utils}" ] && [ "$(ls -A ${superbox_utils})" ]; then
+    echo -e "${SKIP_TEXT} Directory ${superbox_utils} is not empty! Can't install superbox-utils."
   else
-    chown unipi:unipi "${superbox_utils}"
     su - unipi -s /bin/bash -c " \
       git clone git@github.com:mh-superbox/superbox-utils.git '${superbox_utils}' \
-      source '${VIRTUAL_ENV}/bin/activate' \
+      && source '${VIRTUAL_ENV}/bin/activate' \
       && pip install -e '${superbox_utils}'"
   fi
 }
+
+function install_config() {
+  local unipi_control="${SOURCE}/unipi-control"
+
+  if [ -d "$UNIPI_CONFIG" ] && [ "$(ls -A ${UNIPI_CONFIG})" ]; then
+    echo -e "${SKIP_TEXT} Configuration files in ${UNIPI_CONFIG} already exists! Can't write config files."
+  else
+    su - unipi -s /bin/bash -c " \
+      cp -R '${unipi_control}/src/unipi_control/config/etc/unipi/'* '${UNIPI_CONFIG}'"
+    echo -e "${OK_TEXT} Installed config files to ${UNIPI_CONFIG}"
+  fi
+}
+
 
 ###############################################################################
 # Main

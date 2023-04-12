@@ -1,5 +1,5 @@
 [Unit]
-Description=Persistent network configuration
+Description=Persistent /etc/systemd/network
 Requires=os-overlay.service
 After=mnt-overlay.mount os-overlay.service
 Before=network.target

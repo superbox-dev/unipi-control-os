@@ -1,0 +1,15 @@
+[Unit]
+Description=Unipi Control
+After=multi-user.target
+Requires=unipitcp.service
+ConditionPathExists=/mnt/data/venv/bin/unipi-control
+ConditionPathExists=/mnt/data/config/control.yaml
+
+[Service]
+Type=simple
+ExecStart=/mnt/data/venv/bin/unipi-control --log systemd
+Environment=PYTHONUNBUFFERED=1
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

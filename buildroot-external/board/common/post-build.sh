@@ -18,7 +18,7 @@ BOARD_DIR=${2}
     echo "ID=${OS_ID}"
     echo "VERSION_ID=$(os_version)"
     echo "PRETTY_NAME=\"${OS_NAME} $(os_version)\""
-    echo "HOME_URL=https://github.com/superbox-dev"
+    echo "HOME_URL=\"https://github.com/superbox-dev\""
 ) > "${TARGET_DIR}/usr/lib/os-release"
 
 # Write issue
@@ -73,6 +73,7 @@ function fix_rootfs() {
   cp -fv "${BINARIES_DIR}/Image" "${TARGET_DIR}/boot/"
 
   mkdir -pv "${TARGET_DIR}/var/monit/"
+  mkdir -pv "${TARGET_DIR}/usr/src/"
 }
 
 setup_zsh

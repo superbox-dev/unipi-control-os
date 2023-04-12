@@ -1,5 +1,5 @@
 [Unit]
-Description=Persistent logging
+Description=Persistent /var/log
 Requires=mnt-data.mount
 After=mnt-data.mount
 Before=docker.service mosquitto.service

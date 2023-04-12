@@ -1,5 +1,5 @@
 [Unit]
-Description=Persistent docker configuration
+Description=Persistent /etc/docker
 Requires=os-overlay.service
 After=mnt-overlay.mount os-overlay.service
 Before=network.target

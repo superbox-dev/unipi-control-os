@@ -1,5 +1,5 @@
 [Unit]
-Description=Root partition
+Description=Persistent /root
 Requires=os-data.service
 After=mnt-data.mount os-data.service
 Before=network.target

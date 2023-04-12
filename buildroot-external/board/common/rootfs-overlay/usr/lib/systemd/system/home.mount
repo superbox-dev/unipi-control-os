@@ -1,5 +1,5 @@
 [Unit]
-Description=Home partition
+Description=Persistent /home
 Requires=os-data.service
 After=mnt-data.mount os-data.service
 Before=network.target

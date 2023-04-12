@@ -1,5 +1,5 @@
 [Unit]
-Description=Persistent hostname configuration
+Description=Persistent /etc/hostname
 Requires=os-overlay.service
 After=mnt-overlay.mount os-overlay.service
 Before=network.target

@@ -6,7 +6,7 @@ Before=network.target
 
 [Mount]
 What=/mnt/data/root
-Where=/home
+Where=/root
 Type=none
 Options=bind
 

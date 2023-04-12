@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 set -e
 
@@ -19,8 +19,7 @@ if [ "${PART_LABEL}" = "dos" ]; then
 
   echo "[INFO] Last usable logical block ${LAST_USABLE_LBA}"
 
-  JQ_FILTER=".partitiontable.partitions[] | select ( .node == \"${DEVICE_CHILD}\" ) | .start + .size"
-  DATA_PARTITION_END="$(echo "${PART_TABLE}" | jq "${JQ_FILTER}")"
+  DATA_PARTITION_END="$(echo "${PART_TABLE}" | jq ".partitiontable.partitions[] | select ( .node == \"${DEVICE_CHILD}\" ) | .start + .size")"
   echo "[INFO] Data partition end block ${DATA_PARTITION_END}"
 
   UNUSED_BLOCKS=$((LAST_USABLE_LBA - DATA_PARTITION_END))
@@ -29,7 +28,11 @@ if [ "${PART_LABEL}" = "dos" ]; then
     exit 0
   fi
 
+  EXTENDED_PARTITION="$(echo "${PART_TABLE}" | jq ".partitiontable.partitions[] | select ( .type == \"f\" ) | .node")"
+  EXTENDED_PAR_NUM=${EXTENDED_PARTITION//${DEVICE_ROOT}p/}
+
   echo "[INFO] Update data partition ${PART_NUM}"
+  echo ", +" | sfdisk --no-reread --no-tell-kernel -N "${EXTENDED_PAR_NUM}" "${DEVICE_ROOT}"
   echo ", +" | sfdisk --no-reread --no-tell-kernel -N "${PART_NUM}" "${DEVICE_ROOT}"
   sfdisk -V "${DEVICE_ROOT}"
 

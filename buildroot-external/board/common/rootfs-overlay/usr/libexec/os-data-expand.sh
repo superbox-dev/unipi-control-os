@@ -28,7 +28,7 @@ if [ "${PART_LABEL}" = "dos" ]; then
     exit 0
   fi
 
-  EXTENDED_PARTITION="$(echo "${PART_TABLE}" | jq ".partitiontable.partitions[] | select ( .type == \"f\" ) | .node")"
+  EXTENDED_PARTITION="$(echo "${PART_TABLE}" | jq -r ".partitiontable.partitions[] | select ( .type == \"f\" ) | .node")"
   EXTENDED_PAR_NUM=${EXTENDED_PARTITION//${DEVICE_ROOT}p/}
 
   echo "[INFO] Update data partition ${PART_NUM}"

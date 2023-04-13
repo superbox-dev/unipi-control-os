@@ -3,16 +3,12 @@
 set -e
 
 OVERLAY="/mnt/overlay"
-ETC="${OVERLAY}/etc"
-SSH="${ETC}/ssh"
-DOCKER="${ETC}/docker"
-SYSTEMD="${ETC}/systemd"
-NETWORK="${SYSTEMD}/network"
+DOCKER="${OVERLAY}/etc/docker"
 
 overlay_paths=(
-  "$ETC"
-  "$SSH"
-  "$NETWORK"
+  "${OVERLAY}/etc"
+  "${OVERLAY}/etc/ssh"
+  "${OVERLAY}/etc/systemd/network/$NETWORK"
 )
 
 file_names=(
@@ -21,9 +17,9 @@ file_names=(
   "passwd"
   "group"
   "shadow"
-  "${SYSTEMD}/timesyncd.conf"
-  "${NETWORK}/20-wired.network"
-  "${NETWORK}/25-wireless.network"
+  "systemd/timesyncd.conf"
+  "systemd/network/20-wired.network"
+  "systemd/network/25-wireless.network"
 )
 
 for overlay_path in "${overlay_paths[@]}"; do
@@ -32,7 +28,7 @@ done
 
 for file_name in "${file_names[@]}"; do
   if [ ! -f "/etc/${file_name}" ]; then
-    cp -fp "/etc/${file_name}" "${ETC}/${file_name}"
+    cp -fp "/etc/${file_name}" "${OVERLAY}/etc/${file_name}"
   fi
 done
 

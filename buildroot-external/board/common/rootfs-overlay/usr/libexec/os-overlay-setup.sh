@@ -9,30 +9,33 @@ DOCKER="${ETC}/docker"
 SYSTEMD="${ETC}/systemd"
 NETWORK="${SYSTEMD}/network"
 
-mkdir -p $ETC
-mkdir -p $SSH
-mkdir -p $NETWORK
+overlay_paths=(
+  "$ETC"
+  "$SSH"
+  "$NETWORK"
+)
 
-if [ ! -f "${ETC}/hostname" ]; then
-  cp -fp /etc/hostname "${ETC}/hostname"
-fi
+file_names=(
+  "hostname"
+  "hosts"
+  "passwd"
+  "group"
+  "shadow"
+  "${SYSTEMD}/timesyncd.conf"
+  "${NETWORK}/20-wired.network"
+  "${NETWORK}/25-wireless.network"
+)
 
-if [ ! -f "${ETC}/hosts" ]; then
-  cp -fp /etc/hosts "${ETC}/hosts"
-fi
+for overlay_path in "${overlay_paths[@]}"; do
+  mkdir -p "${overlay_path}"
+done
+
+for file_name in "${file_names[@]}"; do
+  if [ ! -f "/etc/${file_name}" ]; then
+    cp -fp "/etc/${file_name}" "${ETC}/${file_name}"
+  fi
+done
 
 if [ ! -d ${DOCKER} ]; then
   cp -rfp /etc/docker ${DOCKER}
-fi
-
-if [ ! -f "${SYSTEMD}/timesyncd.conf" ]; then
-  cp -fp /etc/systemd/timesyncd.conf "${SYSTEMD}/timesyncd.conf"
-fi
-
-if [ ! -f "${NETWORK}/20-wired.network" ]; then
-  cp -fp /etc/systemd/network/20-wired.network "${NETWORK}/20-wired.network"
-fi
-
-if [ ! -f "${NETWORK}/25-wireless.network" ]; then
-  cp -fp /etc/systemd/network/25-wireless.network "${NETWORK}/25-wireless.network"
 fi

@@ -14,8 +14,13 @@ if [ ! -d "${HOME}" ]; then
   cp -rfp /home "${HOME}"
 fi
 
-for path in "${DATA}/src" "${DATA}/venv" "${DATA}/config"
-do
+paths=(
+  "${DATA}/src"
+  "${DATA}/venv"
+  "${DATA}/config"
+)
+
+for path in "${paths[@]}"; do
   if [ ! -d "${path}" ]; then
     mkdir -pv "${path}"
     chown unipi:unipi "${path}"

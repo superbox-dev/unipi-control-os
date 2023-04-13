@@ -78,8 +78,8 @@ function create_rauc_bundle() {
     ) > "${rauc_tmp}/manifest.raucm"
 
     rauc bundle \
-	    --cert ${BR2_EXTERNAL_UNIPI_PATH}/openssl-ca/dev/development-1.cert.pem \
-	    --key ${BR2_EXTERNAL_UNIPI_PATH}/openssl-ca/dev/private/development-1.key.pem \
+	    --cert ${BR2_EXTERNAL_UNIPI_PATH}/rauc.crt \
+	    --key ${BR2_EXTERNAL_UNIPI_PATH}/rauc.key \
 	    --keyring ${TARGET_DIR}/etc/rauc/keyring/c5641738.N \
 	    "${rauc_tmp}" \
 	    "${bundle_file}"

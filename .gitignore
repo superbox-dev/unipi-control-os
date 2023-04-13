@@ -11,4 +11,5 @@ release/
 output/
 
 # Keys
-openssl-ca
+rauc.crt
+rauc.key

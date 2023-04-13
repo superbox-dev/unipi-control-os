@@ -27,7 +27,7 @@ for overlay_path in "${overlay_paths[@]}"; do
 done
 
 for file_name in "${file_names[@]}"; do
-  if [ ! -f "/etc/${file_name}" ]; then
+  if [ ! -f "${OVERLAY}/etc/${file_name}" ]; then
     cp -fp "/etc/${file_name}" "${OVERLAY}/etc/${file_name}"
   fi
 done

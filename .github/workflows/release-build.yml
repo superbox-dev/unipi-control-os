@@ -14,6 +14,7 @@ jobs:
       matrix: ${{ steps.generate_matrix.outputs.result }}
       hostname: ${{ steps.version_check.outputs.hostname }}
       version: ${{ steps.version_check.outputs.version }}
+      version_dev: ${{ steps.version_check.outputs.version_dev }}
       release: ${{ steps.version_check.outputs.release }}
       os_id: ${{ steps.version_check.outputs.os_id }}
     steps:
@@ -42,25 +43,24 @@ jobs:
 
           tag_major=$(echo "${{ github.ref_name }}" | cut -d '.' -f 1)
           tag_build=$(echo "${{ github.ref_name }}" | cut -d '.' -f 2)
-          tag_dev=$(echo "${{ github.ref_name }}" | cut -d '.' -f 3)
+          version_dev=$(echo "${{ github.ref_name }}" | cut -d '.' -f 3)
 
           if [ "${major}.${build}" != "${tag_major}.${tag_build}" ]; then
             echo "Version number in Buildroot metadata does not match tag! (${major}.${build} vs. ${{ github.ref_name }})."
             exit 1
           fi
 
-          if [ "${tag_dev}" == "" ]; then
+          if [ "${version_dev}" == "" ]; then
             echo "hostname=${os_hostname}" >> $GITHUB_OUTPUT
             echo "version=${major}.${build}" >> $GITHUB_OUTPUT
-            echo "version=${major}.${build}"
             release=1
           else
             echo "hostname=${os_hostname}-dev" >> $GITHUB_OUTPUT
-            echo "version=${major}.${build}.${tag_dev}" >> $GITHUB_OUTPUT
-            echo "version=${major}.${build}.${tag_dev}"
+            echo "version=${major}.${build}.${version_dev}" >> $GITHUB_OUTPUT
             release=0
           fi
 
+          echo "version_dev=${version_dev}" >> $GITHUB_OUTPUT
           echo "release=${release}" >> $GITHUB_OUTPUT
           echo "os_id=${os_id}" >> $GITHUB_OUTPUT
       - name: Create build matrix
@@ -100,7 +100,7 @@ jobs:
           echo "${RAUC_PRIVATE_KEY}" > buildroot-external/key.pem
       - name: Build image
         run: |
-          make BUILDDIR=${GITHUB_WORKSPACE} HOSTNAME=${{ needs.validate.outputs.hostname }} VERSION=${{ needs.validate.outputs.version }} ${{ matrix.board.defconfig }}
+          make BUILDDIR=${GITHUB_WORKSPACE} HOSTNAME=${{ needs.validate.outputs.hostname }} VERSION=${{ needs.validate.outputs.version_dev }} ${{ matrix.board.defconfig }}
       - name: Upload image
         uses: actions/upload-artifact@v3
         with:

@@ -5,10 +5,10 @@ function os_image_name() {
 }
 
 function os_version() {
-  if [ -z "${VERSION}" ]; then
+  if [ -z "${VERSION_DEV}" ]; then
     echo "${VERSION_MAJOR}.${VERSION_BUILD}"
   else
-    echo "${VERSION_MAJOR}.${VERSION_BUILD}.${VERSION}"
+    echo "${VERSION_MAJOR}.${VERSION_BUILD}.${VERSION_DEV}"
   fi
 }
 

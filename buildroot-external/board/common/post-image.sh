@@ -13,7 +13,6 @@ BOARD_DIR=${2}
 
 BOOT_IMG="${BINARIES_DIR}/boot.vfat"
 ROOTFS_IMG="${BINARIES_DIR}/rootfs.squashfs"
-BOOT_DATA="${BINARIES_DIR}/boot"
 GENIMAGE_ROOTPATH="$(mktemp -d)"
 
 
@@ -23,7 +22,7 @@ function pre_image() {
 
 function create_disk_image() {
   local image_name="$(os_image_name img)"
-  local genbootfs_cfg="$(dirname ${BOARD_DIR})/genbootfs-$(basename ${BOARD_DIR}).cfg"
+  local genbootfs_cfg="$(dirname "${BOARD_DIR}")/genbootfs-$(basename "${BOARD_DIR}").cfg"
   local genimage_cfg="${BR2_EXTERNAL_UNIPI_PATH}/board/common/genimage.cfg"
   local genimage_tmp="${BUILD_DIR}/genimage.tmp"
 
@@ -78,9 +77,9 @@ function create_rauc_bundle() {
     ) > "${rauc_tmp}/manifest.raucm"
 
     rauc bundle \
-	    --cert ${BR2_EXTERNAL_UNIPI_PATH}/cert.pem \
-	    --key ${BR2_EXTERNAL_UNIPI_PATH}/key.pem \
-	    --keyring ${TARGET_DIR}/etc/rauc/keyring.pem \
+	    --cert "${BR2_EXTERNAL_UNIPI_PATH}/cert.pem" \
+	    --key "${BR2_EXTERNAL_UNIPI_PATH}/key.pem" \
+	    --keyring "${TARGET_DIR}/etc/rauc/keyring.pem" \
 	    "${rauc_tmp}" \
 	    "${bundle_file}"
 }

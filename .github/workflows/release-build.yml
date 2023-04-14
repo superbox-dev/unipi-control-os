@@ -94,8 +94,8 @@ jobs:
           RAUC_CERTIFICATE: ${{ secrets.RAUC_CERTIFICATE }}
           RAUC_PRIVATE_KEY: ${{ secrets.RAUC_PRIVATE_KEY }}
         run: |
-          echo ${RAUC_CERTIFICATE} > buildroot-external/cert.pem
-          echo ${RAUC_PRIVATE_KEY} > buildroot-external/key.pem
+          echo "${RAUC_CERTIFICATE}" > buildroot-external/cert.pem
+          echo "${RAUC_PRIVATE_KEY}" > buildroot-external/key.pem
       - name: Build image
         run: |
           make BUILDDIR=${GITHUB_WORKSPACE} HOSTNAME=${{ needs.validate.outputs.hostname }} VERSION=${{ needs.validate.outputs.version }} ${{ matrix.board.defconfig }}

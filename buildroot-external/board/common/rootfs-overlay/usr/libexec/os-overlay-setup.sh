@@ -15,6 +15,7 @@ file_names=(
   "adjtime"
   "hostname"
   "hosts"
+  "machine-info"
   "passwd"
   "group"
   "shadow"

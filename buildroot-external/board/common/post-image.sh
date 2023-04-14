@@ -78,18 +78,11 @@ function create_rauc_bundle() {
     ) > "${rauc_tmp}/manifest.raucm"
 
     rauc bundle \
-	    --cert ${BR2_EXTERNAL_UNIPI_PATH}/rauc.crt \
-	    --key ${BR2_EXTERNAL_UNIPI_PATH}/rauc.key \
+	    --cert ${BR2_EXTERNAL_UNIPI_PATH}/cert.pem \
+	    --key ${BR2_EXTERNAL_UNIPI_PATH}/key.pem \
 	    --keyring ${TARGET_DIR}/etc/rauc/keyring.pem \
 	    "${rauc_tmp}" \
 	    "${bundle_file}"
-
-#    rauc bundle \
-#	    --cert ${BR2_EXTERNAL_UNIPI_PATH}/openssl-ca/dev/development-1.cert.pem \
-#	    --key ${BR2_EXTERNAL_UNIPI_PATH}/openssl-ca/dev/private/development-1.key.pem \
-#	    --keyring ${TARGET_DIR}/etc/rauc/keyring.pem \
-#	    "${rauc_tmp}" \
-#	    "${bundle_file}"
 }
 
 function convert_disk_image_xz() {

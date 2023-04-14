@@ -11,5 +11,4 @@ release/
 output/
 
 # Keys
-rauc.crt
-rauc.key
+buildroot-external/*.pem

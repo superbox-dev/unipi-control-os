@@ -44,7 +44,7 @@ function setup_zsh() {
 }
 
 function setup_rauc() {
-  sed -i "/compatible/s/=.*\$/=$(rauc_compatible)/" $"{TARGET_DIR}/etc/rauc/system.conf"
+  sed -i "/compatible/s/=.*\$/=$(rauc_compatible)/" "${TARGET_DIR}/etc/rauc/system.conf"
 }
 
 function fix_rootfs() {

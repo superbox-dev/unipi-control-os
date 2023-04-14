@@ -33,7 +33,6 @@ $(TARGETS_CONFIG): %_defconfig:
 $(TARGETS): %: $(RELEASE_DIR) %_defconfig
 	@echo "Build image for $@"
 	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) BR2_CCACHE_DIR=$(BUILDDIR)/cache/cc BR2_DL_DIR=$(BUILDDIR)/cache/dl BR2_TARGET_GENERIC_HOSTNAME=$(HOSTNAME) VERSION_DEV=$(VERSION_DEV)
-	rm -rf $(RELEASE_DIR)/*
 	mv -v $(O)/images/unipi-control-os-* $(RELEASE_DIR)/
 	@echo "Finished $@"
 

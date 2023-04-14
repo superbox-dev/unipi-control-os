@@ -12,6 +12,7 @@ overlay_paths=(
 )
 
 file_names=(
+  "adjtime"
   "hostname"
   "hosts"
   "passwd"

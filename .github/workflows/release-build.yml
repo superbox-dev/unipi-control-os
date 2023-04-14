@@ -89,6 +89,13 @@ jobs:
           sudo -E apt-get -qq upgrade
           sudo apt install wget git bc binutils bison linux-headers-$(uname -r) xz-utils
           sudo timedatectl set-timezone "Europe/Vienna"
+      - name: Add RAUC release PKI certs
+        env:
+          RAUC_CERTIFICATE: ${{ secrets.RAUC_CERTIFICATE }}
+          RAUC_PRIVATE_KEY: ${{ secrets.RAUC_PRIVATE_KEY }}
+        run: |
+          echo ${RAUC_CERTIFICATE} > buildroot-external/cert.pem
+          echo ${RAUC_PRIVATE_KEY} > buildroot-external/key.pem
       - name: Build image
         run: |
           make BUILDDIR=${GITHUB_WORKSPACE} HOSTNAME=${{ needs.validate.outputs.hostname }} VERSION=${{ needs.validate.outputs.version }} ${{ matrix.board.defconfig }}
@@ -97,6 +104,11 @@ jobs:
         with:
           name: ${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}.img.xz
           path: ${{ github.workspace }}/release/${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}.img.xz
+      - name: Upload RAUC bundle
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}.raucb
+          path: ${{ github.workspace }}/release/${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}.raucb
 
   release:
     name: Release image for ${{ matrix.board.id }}
@@ -117,5 +129,14 @@ jobs:
       - name: Release image
         uses: softprops/action-gh-release@v1
         with:
-          name: ${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}
+          name: ${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}.img.xz
           files: ${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}.img.xz
+      - name: Download RAUC bundle
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}.raucb
+      - name: Release RAUC bundle
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}.raucb
+          files: ${{ needs.validate.outputs.os_id }}-${{ matrix.board.id }}-${{ needs.validate.outputs.version }}.raucb

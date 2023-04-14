@@ -52,10 +52,12 @@ jobs:
           if [ "${tag_dev}" == "" ]; then
             echo "hostname=${os_hostname}" >> $GITHUB_OUTPUT
             echo "version=${major}.${build}" >> $GITHUB_OUTPUT
+            echo "version=${major}.${build}"
             release=1
           else
             echo "hostname=${os_hostname}-dev" >> $GITHUB_OUTPUT
             echo "version=${major}.${build}.${tag_dev}" >> $GITHUB_OUTPUT
+            echo "version=${major}.${build}.${tag_dev}"
             release=0
           fi
 

@@ -6,8 +6,8 @@ set -euo pipefail
 # Environment
 
 _ME="$(basename "${0}")"
-UNIPI_CONFIG="/mnt/data/config"
-VIRTUAL_ENV="/mnt/data/venv"
+UNIPI_CONFIG="/mnt/data/config/unipi-control"
+VIRTUAL_ENV="/mnt/data/venv/unipi-control"
 SOURCE="/mnt/data/src"
 
 COLOR_GREEN="\033[1;92m"
@@ -54,7 +54,8 @@ function install_packages() {
 function create_virtualenv() {
   if [ -d "${VIRTUAL_ENV}" ] && [ -z "$(ls -A ${VIRTUAL_ENV})" ]; then
     su - unipi -s /bin/bash -c "
-      python -m venv '${VIRTUAL_ENV}' \
+      mkdir -pv '${VIRTUAL_ENV}' \
+      && python -m venv '${VIRTUAL_ENV}' \
       && source '${VIRTUAL_ENV}/bin/activate' \
       && pip install --upgrade pip"
   fi
@@ -93,7 +94,8 @@ function install_config() {
     echo -e "${SKIP_TEXT} Configuration files in ${UNIPI_CONFIG} already exists! Can't write config files."
   else
     su - unipi -s /bin/bash -c " \
-      cp -R '${unipi_control}/src/unipi_control/config/etc/unipi/'* '${UNIPI_CONFIG}'"
+      mkdir -pv '${UNIPI_CONFIG}' \
+      && cp -R '${unipi_control}/src/unipi_control/config/etc/unipi/'* '${UNIPI_CONFIG}'"
     echo -e "${OK_TEXT} Installed config files to ${UNIPI_CONFIG}"
   fi
 }

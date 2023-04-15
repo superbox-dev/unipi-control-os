@@ -7,8 +7,8 @@ ConditionPathExists=/mnt/data/config/control.yaml
 
 [Service]
 Type=simple
-ExecStart=/mnt/data/venv/bin/unipi-control \
-    --config /mnt/data/config \
+ExecStart=/mnt/data/venv/unipi-control/bin/unipi-control \
+    --config /mnt/data/config/unipi-control \
     --log systemd
 Environment=PYTHONUNBUFFERED=1
 

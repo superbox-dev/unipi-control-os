@@ -52,7 +52,7 @@ function install_packages() {
 }
 
 function create_virtualenv() {
-  if [ -d "${VIRTUAL_ENV}" ] && [ -z "$(ls -A ${VIRTUAL_ENV})" ]; then
+  if [ ! -f "${VIRTUAL_ENV}/bin/python" ]; then
     su - unipi -s /bin/bash -c "
       mkdir -pv '${VIRTUAL_ENV}' \
       && python -m venv '${VIRTUAL_ENV}' \

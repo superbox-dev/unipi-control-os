@@ -100,7 +100,7 @@ jobs:
           echo "${RAUC_PRIVATE_KEY}" > buildroot-external/key.pem
       - name: Build image
         run: |
-          make BUILDDIR=${GITHUB_WORKSPACE} HOSTNAME=${{ needs.validate.outputs.hostname }} VERSION=${{ needs.validate.outputs.version_dev }} ${{ matrix.board.defconfig }}
+          make BUILDDIR=${GITHUB_WORKSPACE} HOSTNAME=${{ needs.validate.outputs.hostname }} VERSION_DEV=${{ needs.validate.outputs.version_dev }} ${{ matrix.board.defconfig }}
       - name: Upload image
         uses: actions/upload-artifact@v3
         with:

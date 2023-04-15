@@ -1,5 +1,5 @@
 #!/bin/sh
 
-export PATH="/mnt/data/venv/unipi-control/bin:${PATH}"
+export PATH="${PATH}:/mnt/data/venv/unipi-control/bin"
 
 /usr/bin/check-unipi-control-version.sh

@@ -18,6 +18,10 @@ paths=(
   "${DATA}/src"
   "${DATA}/venv"
   "${DATA}/config"
+  "${DATA}/usr/local"
+  "${DATA}/usr/local/etc"
+  "${DATA}/usr/local/src"
+  "${DATA}/usr/local/opt"
 )
 
 for path in "${paths[@]}"; do

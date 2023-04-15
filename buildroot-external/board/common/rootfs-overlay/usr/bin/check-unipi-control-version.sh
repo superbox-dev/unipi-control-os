@@ -6,7 +6,7 @@ if ! command -v unipi-control &> /dev/null; then
     exit 1
 fi
 
-LATEST_RELEASE=$(curl -s -L https://api.github.com/repos/mh-superbox/unipi-control/releases/latest | jq --raw-output '.tag_name')
+LATEST_RELEASE=$(curl -s -L https://api.github.com/repos/superbox-dev/unipi-control/releases/latest | jq --raw-output '.tag_name')
 CURRENT_RELEASE=$(unipi-control --version | cut -d " " -f 2)
 
 COLOR_BOLD_WHITE="\033[1;97m"

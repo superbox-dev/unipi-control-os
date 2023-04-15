@@ -20,11 +20,11 @@ paths=(
   "${DATA}/usr/local/src"
   "${DATA}/usr/local/opt"
   "${DATA}/usr/local/opt/venv"
+  "${DATA}/var/log"
 )
 
 for path in "${paths[@]}"; do
   if [ ! -d "${path}" ]; then
     mkdir -pv "${path}"
-    chown unipi:unipi "${path}"
   fi
 done

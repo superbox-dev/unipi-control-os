@@ -6,9 +6,9 @@ set -euo pipefail
 # Environment
 
 _ME="$(basename "${0}")"
-UNIPI_CONFIG="/mnt/data/config/unipi-control"
-VIRTUAL_ENV="/mnt/data/venv/unipi-control"
-SOURCE="/mnt/data/src"
+UNIPI_CONFIG="/usr/local/etc/unipi"
+VIRTUAL_ENV="/usr/local/opt/venv/unipi-control"
+SOURCE="/usr/local/src"
 
 COLOR_GREEN="\033[1;92m"
 COLOR_RED="\033[1;91m"
@@ -21,7 +21,7 @@ OK_TEXT="${COLOR_BOLD_WHITE}[${COLOR_RESET}${COLOR_GREEN}OK${COLOR_RESET}${COLOR
 ERROR_TEXT="${COLOR_BOLD_WHITE}[${COLOR_RESET}${COLOR_RED}ERROR${COLOR_RESET}${COLOR_BOLD_WHITE}]${COLOR_RESET}"
 
 export SOURCE
-export PATH="${VIRTUAL_ENV}/bin:${PATH}"
+export PATH="${PATH}:${VIRTUAL_ENV}/bin"
 
 ###############################################################################
 # Help

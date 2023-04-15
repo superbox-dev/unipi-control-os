@@ -1,3 +1,3 @@
 #!/bin/sh
 
-export PYTHONUSERBASE=/usr/local/
+export PYTHONUSERBASE=/usr/local

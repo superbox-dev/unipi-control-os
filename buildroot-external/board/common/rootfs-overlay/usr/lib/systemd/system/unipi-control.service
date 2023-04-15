@@ -2,13 +2,13 @@
 Description=Unipi Control
 After=multi-user.target
 Requires=unipitcp.service
-ConditionPathExists=/mnt/data/venv/unipi-control/bin/unipi-control
-ConditionPathExists=/mnt/data/config/unipi-control/control.yaml
+ConditionPathExists=/usr/local/opt/venv/unipi-control/bin/unipi-control
+ConditionPathExists=/usr/local/etc/unipi/control.yaml
 
 [Service]
 Type=simple
-ExecStart=/mnt/data/venv/unipi-control/bin/unipi-control \
-    --config /mnt/data/config/unipi-control \
+ExecStart=/usr/local/opt/venv/unipi-control/bin/unipi-control \
+    --config /usr/local/etc/unipi \
     --log systemd
 Environment=PYTHONUNBUFFERED=1
 

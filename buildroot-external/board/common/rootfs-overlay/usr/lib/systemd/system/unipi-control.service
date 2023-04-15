@@ -2,7 +2,7 @@
 Description=Unipi Control
 After=multi-user.target
 Requires=unipitcp.service
-ConditionPathExists=/mnt/data/venv/bin/unipi-control
+ConditionPathExists=/mnt/data/venv/unipi-control/bin/unipi-control
 ConditionPathExists=/mnt/data/config/unipi-control/control.yaml
 
 [Service]

@@ -9,7 +9,9 @@ Wants=network-online.target
 [Service]
 Type=oneshot
 Environment=PIP_REQUIRE_VIRTUALENV=0
-ExecStart=/bin/pip install unipi-control-os-helpers --upgrade
+ExecStart=/bin/pip install unipi-control-os-helpers \
+    --upgrade \
+    --quiet
 RemainAfterExit=true
 
 [Install]

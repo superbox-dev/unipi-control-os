@@ -1,0 +1,16 @@
+[Unit]
+Description=os-tools setup
+RefuseManualStart=true
+RefuseManualStop=true
+Requires=usr-local.mount
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+Environment=PIP_REQUIRE_VIRTUALENV=0
+ExecStart=/bin/pip install unipi-control-os-helpers --upgrade
+RemainAfterExit=true
+
+[Install]
+WantedBy=local-fs.target

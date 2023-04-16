@@ -2,4 +2,4 @@
 
 export PATH="${PATH}:/usr/local/opt/venv/unipi-control/bin"
 
-/usr/bin/check-unipi-control-version.sh
+/usr/local/bin/os-tools check-version unipi-control

@@ -7,4 +7,3 @@
 /usr/libexec/systemd-zram.sh               f       755     0       0       -       -       -       -       -
 /usr/bin/check-container.sh                f       755     0       0       -       -       -       -       -
 /usr/sbin/os-tools.sh                      f       755     0       0       -       -       -       -       -
-/usr/bin/check-unipi-control-version.sh    f       755     0       0       -       -       -       -       -

@@ -26,12 +26,10 @@ echo "${OS_NAME} $(os_version)" > "${TARGET_DIR}/etc/issue"
 
 # Update motd
 cat > "${TARGET_DIR}/etc/motd" <<EOL
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Hello, this is ${OS_NAME} $(os_version)
-Run os-tools.sh to install or update Unipi Control
-
-Documentation: https://github.com/superbox-dev/unipi-control#readme
-
+┌───────────────────────────────────────────────────────────────┐
+│ Welcome to ${OS_NAME} $(os_version)                           │
+│ Docs: https://github.com/superbox-dev/unipi-control#readme    │
+└───────────────────────────────────────────────────────────────┘
 EOL
 
 # Create mount point directories

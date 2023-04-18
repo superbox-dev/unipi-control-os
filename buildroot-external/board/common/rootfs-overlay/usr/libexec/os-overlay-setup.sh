@@ -3,7 +3,6 @@
 set -e
 
 OVERLAY="/mnt/overlay"
-DOCKER="${OVERLAY}/etc/docker"
 
 overlay_paths=(
   "${OVERLAY}/etc"
@@ -32,7 +31,3 @@ for file_name in "${file_names[@]}"; do
     cp -fp "/etc/${file_name}" "${OVERLAY}/etc/${file_name}"
   fi
 done
-
-if [ ! -d ${DOCKER} ]; then
-  cp -rfp /etc/docker ${DOCKER}
-fi

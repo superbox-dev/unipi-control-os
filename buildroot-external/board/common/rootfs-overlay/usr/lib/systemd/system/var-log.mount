@@ -2,7 +2,7 @@
 Description=Persistent /var/log
 Requires=mnt-data.mount
 After=mnt-data.mount
-Before=docker.service mosquitto.service
+Before=unipi-control.service mosquitto.service
 
 [Mount]
 What=/mnt/data/var/log

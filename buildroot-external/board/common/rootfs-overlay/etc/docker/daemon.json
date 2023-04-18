@@ -1,6 +1,0 @@
-{
-  "storage-driver": "fuse-overlayfs",
-  "log-driver": "journald",
-  "data-root": "/mnt/data/docker",
-  "userland-proxy": false
-}

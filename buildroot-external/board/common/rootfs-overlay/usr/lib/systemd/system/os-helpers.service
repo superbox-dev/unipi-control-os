@@ -1,5 +1,5 @@
 [Unit]
-Description=os-tools setup
+Description=os-helpers setup
 RefuseManualStart=true
 RefuseManualStop=true
 Requires=usr-local.mount

@@ -1,0 +1,22 @@
+commit 3099235f178df0df49394454801a93485297f023
+Author: Michael Hacker <mh@superbox.one>
+Date:   Tue Apr 18 19:32:19 2023 +0200
+
+    Add patch
+
+diff --git a/buildroot-external/patches/opkg-utils/0.4.5/01-fixed-install-target-cmd.patch b/buildroot-external/patches/opkg-utils/0.4.5/01-fixed-install-target-cmd.patch
+new file mode 100644
+index 0000000..e0db72c
+--- /dev/null
++++ b/buildroot-external/patches/opkg-utils/0.4.5/01-fixed-install-target-cmd.patch
+@@ -0,0 +1,10 @@
++--- a/package/opkg-utils/opkg-utils.mk.orig
+++++ b/package/opkg-utils/opkg-utils.mk
++@@ -16,7 +16,7 @@ HOST_OPKG_UTILS_DEPENDENCIES = \
++        host-xz
++
++ # Nothing to build; only scripts to install.
++-define OPKG_UTILS_INSTALL_CMDS
+++define OPKG_UTILS_INSTALL_TARGET_CMDS
++        $(MAKE) -C $(@D) PREFIX=$(TARGET_DIR) install-utils
++ endef

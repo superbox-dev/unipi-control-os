@@ -1,0 +1,13 @@
+[Unit]
+Description=Persistent /var/lib/opkg
+Requires=mnt-overlay.mount
+After=mnt-overlay.mount
+
+[Mount]
+What=/mnt/overlay/var/lib/opkg
+Where=/var/lib/opkg
+Type=None
+Options=bind
+
+[Install]
+WantedBy=os-bind.target

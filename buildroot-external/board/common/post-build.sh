@@ -24,14 +24,6 @@ BOARD_DIR=${2}
 # Write issue
 echo "${OS_NAME} $(os_version)" > "${TARGET_DIR}/etc/issue"
 
-# Update motd
-cat > "${TARGET_DIR}/etc/motd" <<EOL
-┌───────────────────────────────────────────────────────────────┐
-│ Welcome to ${OS_NAME} $(os_version)                           │
-│ Docs: https://github.com/superbox-dev/unipi-control#readme    │
-└───────────────────────────────────────────────────────────────┘
-EOL
-
 # Create mount point directories
 mkdir -pv "${TARGET_DIR}/mnt/boot"
 mkdir -pv "${TARGET_DIR}/mnt/data"

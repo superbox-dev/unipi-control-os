@@ -5,4 +5,4 @@
 /usr/libexec/os-overlay-setup.sh           f       755     0       0       -       -       -       -       -
 /usr/libexec/os-persists.sh                f       755     0       0       -       -       -       -       -
 /usr/libexec/systemd-zram.sh               f       755     0       0       -       -       -       -       -
-/usr/sbin/os-tools.sh                      f       755     0       0       -       -       -       -       -
+/usr/sbin/os-develop.sh                    f       755     0       0       -       -       -       -       -

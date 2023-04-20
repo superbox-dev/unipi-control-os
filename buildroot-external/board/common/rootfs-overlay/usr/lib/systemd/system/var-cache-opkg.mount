@@ -1,0 +1,13 @@
+[Unit]
+Description=Persistent /var/cache/opkg
+Requires=mnt-overlay.mount
+After=mnt-overlay.mount
+
+[Mount]
+What=/mnt/overlay/var/cache/opkg
+Where=/var/cache/opkg
+Type=None
+Options=bind
+
+[Install]
+WantedBy=os-bind.target

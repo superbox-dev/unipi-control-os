@@ -8,6 +8,7 @@ overlay_paths=(
   "${OVERLAY}/etc"
   "${OVERLAY}/etc/ssh"
   "${OVERLAY}/etc/systemd/network/$NETWORK"
+  "${OVERLAY}/var/cache/opkg"
   "${OVERLAY}/var/lib/opkg"
 )
 

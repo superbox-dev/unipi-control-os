@@ -2,12 +2,12 @@
 Description=Unipi Control
 After=multi-user.target
 Requires=unipitcp.service
-ConditionPathExists=/usr/local/opt/venv/unipi-control/bin/unipi-control
+ConditionPathExists=/usr/local/bin/unipi-control
 ConditionPathExists=/usr/local/etc/unipi/control.yaml
 
 [Service]
 Type=simple
-ExecStart=/usr/local/opt/venv/unipi-control/bin/unipi-control \
+ExecStart=/usr/local/bin/unipi-control \
     --config /usr/local/etc/unipi \
     --log systemd
 Environment=PYTHONUNBUFFERED=1

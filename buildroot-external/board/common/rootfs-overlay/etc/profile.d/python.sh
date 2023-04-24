@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Start os-shell on login.
 OS_SHELL="/usr/local/bin/os-shell"
 [ ! -f "${OS_SHELL}" ] || PYTHONUSERBASE=/usr/local ${OS_SHELL}

@@ -6,6 +6,7 @@ OVERLAY="/mnt/overlay"
 
 overlay_paths=(
   "${OVERLAY}/etc"
+  "${OVERLAY}/etc/opkg"
   "${OVERLAY}/etc/ssh"
   "${OVERLAY}/etc/systemd/network/$NETWORK"
   "${OVERLAY}/var/cache/opkg"
@@ -19,6 +20,7 @@ file_names=(
   "passwd"
   "group"
   "shadow"
+  "opkg/opkg.conf"
   "systemd/timesyncd.conf"
   "systemd/network/20-wired.network"
   "systemd/network/25-wireless.network"

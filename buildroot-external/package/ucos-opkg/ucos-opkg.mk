@@ -5,6 +5,7 @@
 ################################################################################
 
 UCOS_OPKG_VERSION = 0.6.1
+UCOS_OPKG_SOURCE = opkg-$(UCOS_OPKG_VERSION).tar.gz
 UCOS_OPKG_SITE = https://downloads.yoctoproject.org/releases/opkg
 UCOS_OPKG_DEPENDENCIES = host-pkgconf libarchive libgpgme libgpg-error
 UCOS_OPKG_LICENSE = GPL-2.0+

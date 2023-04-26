@@ -5,3 +5,6 @@ source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-tools/Config.in"
 comment "Shell optimizations"
 source "$BR2_EXTERNAL_UNIPI_PATH/package/zsh-autosuggestions/Config.in"
 source "$BR2_EXTERNAL_UNIPI_PATH/package/zsh-history-substring-search/Config.in"
+
+comment "Package manager"
+source "$BR2_EXTERNAL_UNIPI_PATH/package/ucos-opkg/Config.in"

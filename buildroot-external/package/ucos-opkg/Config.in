@@ -1,0 +1,14 @@
+config BR2_PACKAGE_UCOS_OPKG
+	bool "opkg"
+	depends on BR2_USE_MMU
+	depends on BR2_USE_WCHAR # libarchive
+	depends on BR2_PACKAGE_LIBGPG_ERROR_ARCH_SUPPORTS # libgpg-error
+	select BR2_PACKAGE_LIBARCHIVE
+	select BR2_PACKAGE_LIBGPGME
+	select BR2_PACKAGE_LIBGPG_ERROR
+	select BR2_PACKAGE_LIBCURL_CURL
+	help
+	  Opkg is a lightweight package management system, based on
+	  ipkg.
+
+	  https://code.google.com/archive/p/opkg/

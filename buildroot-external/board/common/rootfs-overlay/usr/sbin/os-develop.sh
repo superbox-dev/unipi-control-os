@@ -28,7 +28,7 @@ export PATH="${PATH}:${VIRTUAL_ENV}/bin"
 
 function print_help() {
   cat <<HEREDOC
-Unipi Control OS Tools
+Unipi Control OS Develop
 Usage: ${_ME} [-h] [-i]
 
 Options:

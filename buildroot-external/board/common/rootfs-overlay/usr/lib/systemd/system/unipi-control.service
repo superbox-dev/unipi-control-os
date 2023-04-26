@@ -4,6 +4,7 @@ After=multi-user.target
 Requires=unipitcp.service
 ConditionPathExists=/usr/local/bin/unipi-control
 ConditionPathExists=/usr/local/etc/unipi/control.yaml
+Conflicts=unipi-control-dev.service
 
 [Service]
 Type=simple

@@ -6,7 +6,7 @@ After=mnt-data.mount
 [Mount]
 What=/mnt/data/usr/local/opt/unipi/firmware
 Where=/opt/unipi/firmware
-Type=None
+Options=bind
 
 [Install]
 WantedBy=os-bind.target

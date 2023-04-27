@@ -10,8 +10,7 @@ Wants=systemd-fsck@dev-disk-by\x2dpartlabel-data.service
 [Mount]
 What=/dev/disk/by-partlabel/data
 Where=/mnt/data
-Type=ext4
-Options=defaults,noatime,commit=30
+Options=bind
 
 [Install]
 WantedBy=local-fs.target

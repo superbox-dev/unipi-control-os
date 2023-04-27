@@ -24,6 +24,16 @@ BOARD_DIR=${2}
 # Write issue
 echo "${OS_NAME} $(os_version)" > "${TARGET_DIR}/etc/issue"
 
+# Update motd
+cat > "${TARGET_DIR}/etc/motd" <<EOL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Hello, this is ${OS_NAME} $(os_version)
+Run 'opkg install unipi-control' to install Unipi Control
+
+Documentation: https://github.com/superbox-dev/unipi-control#readme
+
+EOL
+
 # Create mount point directories
 mkdir -pv "${TARGET_DIR}/mnt/boot"
 mkdir -pv "${TARGET_DIR}/mnt/data"

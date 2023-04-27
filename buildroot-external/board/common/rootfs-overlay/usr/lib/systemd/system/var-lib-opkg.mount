@@ -6,8 +6,8 @@ After=mnt-overlay.mount
 [Mount]
 What=/mnt/overlay/var/lib/opkg
 Where=/var/lib/opkg
-Type=None
-Options=bind
+Type=ext4
+Options=defaults,noatime,commit=30
 
 [Install]
 WantedBy=os-bind.target

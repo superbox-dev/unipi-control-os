@@ -6,8 +6,8 @@ After=mnt-overlay.mount
 [Mount]
 What=/mnt/overlay/var/monit
 Where=/var/monit
-Type=None
-Options=bind
+Type=ext4
+Options=defaults,noatime,commit=30
 
 [Install]
 WantedBy=os-bind.target

@@ -52,11 +52,13 @@ function fix_rootfs() {
   mkdir -pv "${TARGET_DIR}/boot/"
   cp -fv "${BINARIES_DIR}/Image" "${TARGET_DIR}/boot/"
 
-  mkdir -pv "${TARGET_DIR}/var/monit/"
+  mkdir -pv "${TARGET_DIR}/opt/unipi/firmware/"
   mkdir -pv "${TARGET_DIR}/usr/local/"
   mkdir -pv "${TARGET_DIR}/var/cache/opkg/"
+  mkdir -pv "${TARGET_DIR}/var/monit/"
   mkdir -pv "${TARGET_DIR}/var/lib/opkg/"
 }
+
 
 setup_zsh
 setup_rauc

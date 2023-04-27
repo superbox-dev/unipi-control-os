@@ -7,8 +7,8 @@ Before=network.target
 [Mount]
 What=/mnt/data/usr/local
 Where=/usr/local
-Type=none
-Options=bind
+Type=ext4
+Options=defaults,noatime,commit=30
 
 [Install]
 WantedBy=os-bind.target

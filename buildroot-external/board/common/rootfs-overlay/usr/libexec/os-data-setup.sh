@@ -20,6 +20,7 @@ paths=(
   "${DATA}/usr/local/src"
   "${DATA}/usr/local/opt"
   "${DATA}/usr/local/opt/venv"
+  "${DATA}/usr/local/opt/unipi/firmware"
   "${DATA}/var/log"
 )
 

@@ -1,0 +1,12 @@
+[Unit]
+Description=Persistent /opt/unipi/firmware
+Requires=mnt-data.mount
+After=mnt-data.mount
+
+[Mount]
+What=/mnt/data/usr/local/opt/unipi/firmware
+Where=/opt/unipi/firmware
+Type=None
+
+[Install]
+WantedBy=os-bind.target

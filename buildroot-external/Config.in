@@ -1,6 +1,5 @@
 comment "Unipi packages"
 source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-kernel-modules-v1/Config.in"
-source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-tools/Config.in"
 
 comment "Shell optimizations"
 source "$BR2_EXTERNAL_UNIPI_PATH/package/zsh-autosuggestions/Config.in"

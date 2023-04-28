@@ -10,4 +10,4 @@ Where=/etc2
 Options=lowerdir=/etc2,upperdir=/mnt/overlay/etc,workdir=/mnt/overlay/.atomic
 
 [Install]
-WantedBy=local-fs.target
+WantedBy=os-bind.target

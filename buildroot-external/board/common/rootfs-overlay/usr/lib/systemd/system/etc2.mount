@@ -1,0 +1,13 @@
+[Unit]
+Description=Overlay for /etc2
+Requires=os-overlay.service
+After=mnt-overlay.mount os-overlay.service
+Before=network.target
+
+[Mount]
+What=overlay
+Where=/etc2
+Options=noauto,x-systemd.automount,lowerdir=/etc2,upperdir=/mnt/overlay/etc,workdir=/mnt/overlay/.atomic
+
+[Install]
+WantedBy=os-bind.target

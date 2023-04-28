@@ -7,7 +7,7 @@ Before=network.target
 [Mount]
 What=overlay
 Where=/etc2
-Options=noauto,x-systemd.automount,lowerdir=/etc2,upperdir=/mnt/overlay/etc,workdir=/mnt/overlay/.atomic
+Options=lowerdir=/etc2,upperdir=/mnt/overlay/etc,workdir=/mnt/overlay/.atomic
 
 [Install]
-WantedBy=os-bind.target
+WantedBy=local-fs.target

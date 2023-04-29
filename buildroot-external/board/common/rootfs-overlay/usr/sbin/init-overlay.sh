@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DEVICE_OVERLAY="$(findfs PARTLABEL=overlay)"
+DEVICE_OVERLAY="$(findfs PARTUUID=20230403-05)"
 mount -t ext4 -o defaults,noatime,commit=30 "$DEVICE_OVERLAY" /mnt/overlay
 
 function setup_overlay() {

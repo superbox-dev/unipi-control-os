@@ -10,6 +10,7 @@ overlay_paths=(
   "${OVERLAY}/root"
   "${OVERLAY}/opt/unipi"
   "${OVERLAY}/usr/local"
+  "${OVERLAY}/var"
   "${OVERLAY}/.atomic"
 )
 

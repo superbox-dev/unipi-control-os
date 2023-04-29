@@ -1,6 +1,5 @@
 [Unit]
 Description=Update hostname
-After=etc.mount
 DefaultDependencies=no
 
 [Service]

@@ -11,7 +11,7 @@ test "${console}" = "display" && setenv consoleargs "console=tty1"
 test "${console}" = "serial" && setenv consoleargs "console=tty1 console=ttyS0,115200"
 
 # Default bootargs
-setenv bootargs_default "rootfstype=squashfs rootwait ro loglevel=${verbosity} fsck.repair=yes 8250.nr_uarts=1 cgroup_enable=memory ${consoleargs}"
+setenv bootargs_default "init=/sbin/init-overlay.sh rootfstype=squashfs rootwait ro loglevel=${verbosity} fsck.repair=yes 8250.nr_uarts=1 cgroup_enable=memory ${consoleargs}"
 setenv bootargs
 
 for BOOT_SLOT in "${BOOT_ORDER}"; do

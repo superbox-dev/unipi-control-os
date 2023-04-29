@@ -1,6 +1,5 @@
 [Unit]
 Description=Update hostname
-Before=systemd-networkd.target
 After=etc.mount
 DefaultDependencies=no
 
@@ -9,4 +8,4 @@ Type=simple
 ExecStart=/usr/bin/hostname -F /etc/hostname
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=local-fs.target

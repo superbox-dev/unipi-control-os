@@ -1,12 +1,12 @@
 [Unit]
 Description=Overlay for /opt/unipi
-After=mnt-data.mount os-data.service
+After=mnt-overlay.mount os-overlay.service
 
 [Mount]
 What=overlay
 Where=/opt/unipi
 Type=overlay
-Options=lowerdir=/opt/unipi,upperdir=/mnt/data/opt/unipi,workdir=/mnt/data/.atomic
+Options=lowerdir=/opt/unipi,upperdir=/mnt/overlay/opt/unipi,workdir=/mnt/overlay/.atomic
 
 [Install]
 WantedBy=local-fs.target

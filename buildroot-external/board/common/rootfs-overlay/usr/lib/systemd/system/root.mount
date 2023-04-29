@@ -1,14 +1,14 @@
 [Unit]
-Description=Persistent /root
-Requires=os-data.service
-After=mnt-data.mount os-data.service
+Description=Overlay for /root
+Requires=os-overlay.service
+After=mnt-overlay.mount os-overlay.service
 Before=network.target
 
 [Mount]
-What=/mnt/data/root
+What=overlay
 Where=/root
-Type=none
-Options=bind
+Type=overlay
+Options=lowerdir=/root,upperdir=/mnt/overlay/root,workdir=/mnt/overlay/.atomic
 
 [Install]
-WantedBy=os-bind.target
+WantedBy=local-fs.target

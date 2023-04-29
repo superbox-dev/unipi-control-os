@@ -2,7 +2,7 @@
 
 set -e
 
-DEVICE_CHILD="$(findfs PARTLABEL=data)"
+DEVICE_CHILD="$(findfs PARTLABEL=overlay)"
 DEVICE_CHILD_NAME="$(basename "${DEVICE_CHILD}")"
 DEVICE_ROOT_NAME="$(lsblk -no pkname "${DEVICE_CHILD}")"
 DEVICE_ROOT="/dev/${DEVICE_ROOT_NAME}"
@@ -19,19 +19,19 @@ if [ "${PART_LABEL}" = "dos" ]; then
 
   echo "[INFO] Last usable logical block ${LAST_USABLE_LBA}"
 
-  DATA_PARTITION_END="$(echo "${PART_TABLE}" | jq ".partitiontable.partitions[] | select ( .node == \"${DEVICE_CHILD}\" ) | .start + .size")"
-  echo "[INFO] Data partition end block ${DATA_PARTITION_END}"
+  OVERLAY_PARTITION_END="$(echo "${PART_TABLE}" | jq ".partitiontable.partitions[] | select ( .node == \"${DEVICE_CHILD}\" ) | .start + .size")"
+  echo "[INFO] Overlay partition end block ${OVERLAY_PARTITION_END}"
 
-  UNUSED_BLOCKS=$((LAST_USABLE_LBA - DATA_PARTITION_END))
+  UNUSED_BLOCKS=$((LAST_USABLE_LBA - OVERLAY_PARTITION_END))
   if [ "${UNUSED_BLOCKS}" -le "16384" ]; then
-    echo "[INFO] No resize of data partition needed"
+    echo "[INFO] No resize of overlay partition needed"
     exit 0
   fi
 
   EXTENDED_PARTITION="$(echo "${PART_TABLE}" | jq -r ".partitiontable.partitions[] | select ( .type == \"f\" ) | .node")"
   EXTENDED_PAR_NUM=${EXTENDED_PARTITION//${DEVICE_ROOT}p/}
 
-  echo "[INFO] Update data partition ${PART_NUM}"
+  echo "[INFO] Update overlay partition ${PART_NUM}"
   echo ", +" | sfdisk --no-reread --no-tell-kernel -N "${EXTENDED_PAR_NUM}" "${DEVICE_ROOT}"
   echo ", +" | sfdisk --no-reread --no-tell-kernel -N "${PART_NUM}" "${DEVICE_ROOT}"
   sfdisk -V "${DEVICE_ROOT}"
@@ -41,6 +41,6 @@ if [ "${PART_LABEL}" = "dos" ]; then
 
   resize2fs "${DEVICE_CHILD}"
 
-  echo "[INFO] Finished data partition resizing"
+  echo "[INFO] Finished overlay partition resizing"
 fi
 

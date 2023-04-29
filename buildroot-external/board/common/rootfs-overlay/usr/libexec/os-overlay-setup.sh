@@ -6,6 +6,10 @@ OVERLAY="/mnt/overlay"
 
 overlay_paths=(
   "${OVERLAY}/etc"
+  "${OVERLAY}/home"
+  "${OVERLAY}/root"
+  "${OVERLAY}/opt/unipi"
+  "${OVERLAY}/usr/local"
   "${OVERLAY}/.atomic"
 )
 

@@ -1,7 +1,0 @@
-[Unit]
-Description=Bind targets
-Documentation=man:systemd.target(5)
-Before=sysinit.target
-
-[Install]
-WantedBy=multi-user.target

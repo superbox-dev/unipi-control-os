@@ -1,13 +1,13 @@
 [Unit]
 Description=Overlay for /var
-Requires=os-data.service
-After=mnt-data.mount os-data.service
+Requires=os-overlay.service
+After=mnt-overlay.mount os-overlay.service
 
 [Mount]
 What=overlay
 Where=/var
 Type=overlay
-Options=lowerdir=/var,upperdir=/mnt/data/var,workdir=/mnt/data/.atomic
+Options=lowerdir=/var,upperdir=/mnt/overlay/var,workdir=/mnt/overlay/.atomic
 
 [Install]
 WantedBy=local-fs.target

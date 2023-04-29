@@ -1,12 +1,12 @@
 [Unit]
 Description=Overlay for /usr/local
-After=mnt-data.mount os-data.service
+After=mnt-overlay.mount os-overlay.service
 
 [Mount]
 What=overlay
 Where=/usr/local
 Type=overlay
-Options=lowerdir=/usr/local,upperdir=/mnt/data/usr/local,workdir=/mnt/data/.atomic
+Options=lowerdir=/usr/local,upperdir=/mnt/overlay/usr/local,workdir=/mnt/overlay/.atomic
 
 [Install]
 WantedBy=local-fs.target

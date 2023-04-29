@@ -1,6 +1,6 @@
 [Unit]
 Description=Overlay for /etc
-After=mnt-overlay.mount
+After=mnt-overlay.mount os-overlay.service
 
 [Mount]
 What=overlay

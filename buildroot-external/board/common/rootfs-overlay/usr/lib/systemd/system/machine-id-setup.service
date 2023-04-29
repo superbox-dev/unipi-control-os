@@ -2,6 +2,7 @@
 Description=Set up machine-id
 DefaultDependencies=no
 After=etc.mount
+DefaultDependencies=no
 ConditionPathIsReadWrite=/etc
 ConditionFileNotEmpty=!/etc/machine-id
 

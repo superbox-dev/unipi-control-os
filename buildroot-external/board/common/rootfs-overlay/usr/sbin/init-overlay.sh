@@ -1,7 +1,6 @@
 #!/bin/bash
 
-DEVICE_OVERLAY="$(findfs PARTUUID=20230403-05)"
-mount -t ext4 -o defaults,noatime,commit=30 "$DEVICE_OVERLAY" /mnt/overlay
+mount -t ext4 -o defaults,noatime,commit=30 /dev/mmcblk0p5 /mnt/overlay
 
 function setup_overlay() {
   mkdir -p "/mnt/overlay/$1"

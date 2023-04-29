@@ -3,13 +3,12 @@ Description=Overlay resizing
 DefaultDependencies=no
 RefuseManualStart=true
 RefuseManualStop=true
-Before=mnt-overlay.mount
 Requires=dev-disk-by\x2dpartlabel-overlay.device
 After=dev-disk-by\x2dpartlabel-overlay.device systemd-fsck@dev-disk-by\x2dpartlabel-overlay.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/libexec/os-overlay-expand.sh
+ExecStart=/usr/libexec/overlay-expand.sh
 RemainAfterExit=true
 
 [Install]

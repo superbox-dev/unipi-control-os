@@ -1,8 +1,5 @@
 [Unit]
 Description=Boot partition
-DefaultDependencies=no
-Before=umount.target local-fs.target
-Conflicts=umount.target
 After=systemd-fsck@dev-disk-by\x2dpartlabel-boot.service
 Wants=systemd-fsck@dev-disk-by\x2dpartlabel-boot.service
 

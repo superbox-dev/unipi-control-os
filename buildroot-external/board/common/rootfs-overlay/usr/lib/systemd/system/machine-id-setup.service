@@ -1,0 +1,10 @@
+[Unit]
+Description=Set up machine-id
+DefaultDependencies=no
+After=etc.mount
+ConditionPathIsReadWrite=/etc
+ConditionFileNotEmpty=!/etc/machine-id
+
+[Service]
+Type=simple
+ExecStart=systemd-machine-id-setup

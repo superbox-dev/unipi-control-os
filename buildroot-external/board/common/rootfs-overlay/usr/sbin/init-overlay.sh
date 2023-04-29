@@ -17,4 +17,5 @@ setup_overlay "root" ".work-root"
 setup_overlay "usr/local" ".work-usr-local"
 setup_overlay "var" ".work-var"
 
-exec switch_root / /sbin/init
+pivot_root . old-root
+exec chroot . /sbin/init

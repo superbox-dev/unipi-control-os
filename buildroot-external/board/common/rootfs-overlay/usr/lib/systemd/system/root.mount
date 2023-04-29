@@ -8,7 +8,7 @@ Before=network.target
 What=overlay
 Where=/root
 Type=overlay
-Options=lowerdir=/root,upperdir=/mnt/overlay/root,workdir=/mnt/overlay/.atomic
+Options=lowerdir=/root,upperdir=/mnt/overlay/root,workdir=/mnt/overlay/.work-root
 
 [Install]
 WantedBy=local-fs.target

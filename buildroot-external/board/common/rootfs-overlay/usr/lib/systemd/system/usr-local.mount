@@ -6,7 +6,7 @@ After=mnt-overlay.mount os-overlay.service
 What=overlay
 Where=/usr/local
 Type=overlay
-Options=lowerdir=/usr/local,upperdir=/mnt/overlay/usr/local,workdir=/mnt/overlay/.atomic
+Options=lowerdir=/usr/local,upperdir=/mnt/overlay/usr/local,workdir=/mnt/overlay/.work-usr-local
 
 [Install]
 WantedBy=local-fs.target

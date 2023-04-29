@@ -7,7 +7,7 @@ After=mnt-overlay.mount os-overlay.service
 What=overlay
 Where=/var
 Type=overlay
-Options=lowerdir=/var,upperdir=/mnt/overlay/var,workdir=/mnt/overlay/.atomic
+Options=lowerdir=/var,upperdir=/mnt/overlay/var,workdir=/mnt/overlay/.work-var
 
 [Install]
 WantedBy=local-fs.target

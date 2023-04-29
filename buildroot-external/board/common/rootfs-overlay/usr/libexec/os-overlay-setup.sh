@@ -11,7 +11,12 @@ overlay_paths=(
   "${OVERLAY}/opt/unipi"
   "${OVERLAY}/usr/local"
   "${OVERLAY}/var"
-  "${OVERLAY}/.atomic"
+  "${OVERLAY}/.work-etc"
+  "${OVERLAY}/.work-home"
+  "${OVERLAY}/.work-root"
+  "${OVERLAY}/.work-opt-unipi"
+  "${OVERLAY}/.work-opt-usr-local"
+  "${OVERLAY}/.work-var"
 )
 
 for overlay_path in "${overlay_paths[@]}"; do

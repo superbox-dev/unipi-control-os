@@ -4,9 +4,9 @@ After=mnt-overlay.mount os-overlay.service
 
 [Mount]
 What=overlay
-Where=/etc2
+Where=/etc
 Type=overlay
-Options=lowerdir=/etc2,upperdir=/mnt/overlay/etc,workdir=/mnt/overlay/.atomic
+Options=lowerdir=/etc,upperdir=/mnt/overlay/etc,workdir=/mnt/overlay/.atomic
 
 [Install]
 WantedBy=local-fs.target

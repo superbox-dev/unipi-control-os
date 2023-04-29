@@ -65,8 +65,6 @@ function fix_rootfs() {
   mkdir -pv "${TARGET_DIR}/var/cache/opkg/"
   mkdir -pv "${TARGET_DIR}/var/monit/"
   mkdir -pv "${TARGET_DIR}/var/lib/opkg/"
-
-  mkdir -pv "${TARGET_DIR}/etc2/"
 }
 
 

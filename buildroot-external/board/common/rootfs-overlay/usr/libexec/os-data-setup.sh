@@ -20,8 +20,9 @@ paths=(
   "${DATA}/usr/local/src"
   "${DATA}/usr/local/opt"
   "${DATA}/usr/local/opt/venv"
-  "${DATA}/usr/local/opt/unipi/firmware"
+  "${DATA}/usr/local/opt/unipi"
   "${DATA}/var/log"
+  "${DATA}/.atomic"
 )
 
 for path in "${paths[@]}"; do

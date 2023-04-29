@@ -1,6 +1,6 @@
 [Unit]
 Description=Overlay for /opt/unipi
-After=mnt-data.mount
+After=mnt-data.mount os-data.service
 
 [Mount]
 What=overlay

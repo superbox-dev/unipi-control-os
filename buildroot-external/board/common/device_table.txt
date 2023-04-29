@@ -1,7 +1,6 @@
 # <name>                                   <type>  <mode>  <uid>   <gid>   <major> <minor> <start> <inc>   <count>
 /etc/monitrc                               f       700     0       0       -       -       -       -       -
-/usr/libexec/os-data-expand.sh             f       755     0       0       -       -       -       -       -
-/usr/libexec/os-data-setup.sh              f       755     0       0       -       -       -       -       -
+/usr/libexec/os-overlay-expand.sh          f       755     0       0       -       -       -       -       -
 /usr/libexec/os-overlay-setup.sh           f       755     0       0       -       -       -       -       -
 /usr/libexec/systemd-zram.sh               f       755     0       0       -       -       -       -       -
 /usr/sbin/os-develop.sh                    f       755     0       0       -       -       -       -       -

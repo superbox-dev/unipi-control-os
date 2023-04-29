@@ -15,7 +15,7 @@ overlay_paths=(
   "${OVERLAY}/.work-home"
   "${OVERLAY}/.work-root"
   "${OVERLAY}/.work-opt-unipi"
-  "${OVERLAY}/.work-opt-usr-local"
+  "${OVERLAY}/.work-usr-local"
   "${OVERLAY}/.work-var"
 )
 

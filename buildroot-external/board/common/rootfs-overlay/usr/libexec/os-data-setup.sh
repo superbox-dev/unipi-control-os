@@ -16,12 +16,8 @@ fi
 
 paths=(
   "${DATA}/usr/local"
-  "${DATA}/usr/local/etc"
-  "${DATA}/usr/local/src"
-  "${DATA}/usr/local/opt"
-  "${DATA}/usr/local/opt/venv"
-  "${DATA}/usr/local/opt/unipi"
-  "${DATA}/var/log"
+  "${DATA}/opt/unipi"
+  "${DATA}/var"
   "${DATA}/.atomic"
 )
 

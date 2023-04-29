@@ -1,13 +1,12 @@
 [Unit]
-Description=Persistent /usr/local
-Requires=os-data.service
+Description=Overlay for /usr/local
 After=mnt-data.mount os-data.service
-Before=network.target
 
 [Mount]
-What=/mnt/data/usr/local
+What=overlay
 Where=/usr/local
-Options=bind
+Type=overlay
+Options=lowerdir=/usr/local,upperdir=/mnt/data/usr/local,workdir=/mnt/data/.atomic
 
 [Install]
-WantedBy=os-bind.target
+WantedBy=local-fs.target

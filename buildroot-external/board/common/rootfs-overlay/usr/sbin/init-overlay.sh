@@ -17,4 +17,4 @@ setup_overlay "root" ".work-root"
 setup_overlay "usr/local" ".work-usr-local"
 setup_overlay "var" ".work-var"
 
-exec /sbin/init
+exec switch_root / /sbin/init

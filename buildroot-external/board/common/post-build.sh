@@ -35,7 +35,7 @@ Documentation: https://github.com/superbox-dev/unipi-control#readme
 EOL
 
 # Create mount point directories
-mkdir -pv "${TARGET_DIR}/mnt/"{boot,overlay}
+mkdir -pv "${TARGET_DIR}/mnt/"{boot,overlay,rootfs}
 
 function setup_zsh() {
   sed -i '/^root:/s,:/bin/dash$,:/bin/zsh,' "${TARGET_DIR}/etc/passwd"

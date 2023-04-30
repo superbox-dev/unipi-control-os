@@ -1,4 +1,8 @@
 #!/bin/bash
+# shellcheck disable=SC2155
+
+set -u
+set -e
 
 function fail() {
 	echo -e "$1"
@@ -20,7 +24,7 @@ function setup_chroot() {
   local root_mount_opt=$(awk '$2 == "/" {print $4}' /proc/mounts)
   local root_fs_type=$(awk '$2 == "/" {print $3}' /proc/mounts)
 
-  mount -t ${root_fs_type} -p ${root_mount_opt} ${root_device} "${CHROOT}"
+  mount -t ${root_fs_type} -o ${root_mount_opt} ${root_device} "${CHROOT}"
   if [ $? -ne 0 ]; then
     fail "ERROR: could not mount original root partition"
   fi

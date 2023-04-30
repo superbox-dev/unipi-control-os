@@ -15,7 +15,6 @@ BOOT_IMG="${BINARIES_DIR}/boot.vfat"
 ROOTFS_IMG="${BINARIES_DIR}/rootfs.squashfs"
 GENIMAGE_ROOTPATH="$(mktemp -d)"
 
-
 function pre_image() {
   mkdir -pv "${TARGET_DIR}/boot"
 }

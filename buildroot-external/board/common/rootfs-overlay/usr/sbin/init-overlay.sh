@@ -13,7 +13,9 @@ CHROOT=/mnt
 OVERLAY_DEVICE=/dev/mmcblk0p5
 
 mount -t proc proc /proc
+echo "TEST1"
 mount -t tmpfs inittemp "${CHROOT}"
+echo "TEST2"
 
 if [ $? -ne 0 ]; then
   fail "ERROR: could not create a temporary filesystem to mount the base filesystems for overlayFS"
@@ -29,6 +31,7 @@ function setup_chroot() {
     fail "ERROR: could not mount original root partition"
   fi
 
+  mkdir "${CHROOT}/overlay"
   mount -t ext4 -o defaults,noatime,commit=30 $OVERLAY_DEVICE "${CHROOT}/overlay"
   if [ $? -ne 0 ]; then
     fail "ERROR: could not mount overlay partition"

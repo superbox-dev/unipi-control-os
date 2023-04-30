@@ -6,7 +6,7 @@ set -e
 
 function fail() {
 	echo -e "$1"
-	/bin/bash
+	exit 1
 }
 
 CHROOT=/mnt

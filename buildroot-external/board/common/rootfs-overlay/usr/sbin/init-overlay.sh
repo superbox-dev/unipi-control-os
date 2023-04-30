@@ -29,10 +29,6 @@ function setup_chroot() {
   if [ $? -ne 0 ]; then
     fail "ERROR: could not mount overlay partition"
   fi
-
-  mount -t proc /proc "${CHROOT}/proc"
-  mount --rbind /sys "${CHROOT}/sys"
-  mount --rbind /dev "${CHROOT}/dev"
 }
 
 function setup_overlay() {

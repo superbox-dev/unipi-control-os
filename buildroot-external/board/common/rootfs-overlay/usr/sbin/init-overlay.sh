@@ -1,26 +1,19 @@
 #!/bin/sh
-# shellcheck disable=SC2155
-exec /bin/bash
 
-set -u
-set -e
-
-fail() {
-	echo "$1"
-	exit 1
-}
-
-if ! mount -t tmpfs inittemp /mnt; then
-  fail "ERROR: could not create a temporary filesystem to mount the base filesystems for overlayFS"
-fi
+mount -t proc proc /proc
 
 setup_overlay() {
+  mount -t ext4 -o defaults,noatime,commit=30 /dev/mmcblk0p5 /mnt/overlay
+
   mkdir -p "/mnt/overlay/$1"
   mkdir -p "/mnt/overlay/$2"
 
-  if ! mount overlay -t overlay -o "lowerdir=/$1,upperdir=/mnt/overlay/$1,workdir=/mnt/overlay/$2" "/$1"; then
-    fail "ERROR: could not mount overlayFS for $1"
-  fi
+  mount overlay -t overlay -o "lowerdir=/$1,upperdir=/mnt/overlay/$1,workdir=/mnt/overlay/$2" "/$1"
+}
+
+teardown_overlay() {
+  umount /mnt/overlay
+  umount /proc
 }
 
 setup_overlay "etc" ".work-etc"
@@ -30,8 +23,6 @@ setup_overlay "root" ".work-root"
 setup_overlay "usr/local" ".work-usr-local"
 setup_overlay "var" ".work-var"
 
-umount /mnt/overlay
-umount /mnt
-umount /proc
+teardown_overlay
 
 exec /sbin/init

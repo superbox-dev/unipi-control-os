@@ -36,6 +36,7 @@ EOL
 
 # Create mount point directories
 mkdir -pv "${TARGET_DIR}/mnt/boot"
+mkdir -pv "${TARGET_DIR}/overlay"
 
 function setup_zsh() {
   sed -i '/^root:/s,:/bin/dash$,:/bin/zsh,' "${TARGET_DIR}/etc/passwd"

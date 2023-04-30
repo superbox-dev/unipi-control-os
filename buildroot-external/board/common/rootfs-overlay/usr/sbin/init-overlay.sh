@@ -10,9 +10,9 @@ resize_overlay() {
   unused_blocks=$((last_usable_lba - overlay_partition_end))
 
   if [ "${unused_blocks}" -gt "16384" ]; then
-    echo ", +" | sfdisk --no-reread --no-tell-kernel -N 4 ${ROOT_DEVICE}
-    echo ", +" | sfdisk --no-reread --no-tell-kernel -N 5 ${ROOT_DEVICE}
-    sfdisk -V ${ROOT_DEVICE}
+    echo ", +" | sfdisk -q --no-reread --no-tell-kernel -N 4 ${ROOT_DEVICE}
+    echo ", +" | sfdisk -q --no-reread --no-tell-kernel -N 5 ${ROOT_DEVICE}
+    sfdisk -q -V ${ROOT_DEVICE}
     partx -u ${ROOT_DEVICE}
     udevadm settle
     resize2fs ${ROOT_DEVICE}p5

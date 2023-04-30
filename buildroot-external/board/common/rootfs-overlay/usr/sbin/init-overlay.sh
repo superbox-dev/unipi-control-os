@@ -1,5 +1,7 @@
 #!/bin/sh
 
+exec /bin/bash
+
 mount -t proc proc /proc
 mount -t ext4 -o defaults,noatime,commit=30 /dev/mmcblk0p5 /mnt/overlay
 

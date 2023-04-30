@@ -1,10 +1,9 @@
 #!/bin/sh
 
 mount -t proc proc /proc
+mount -t ext4 -o defaults,noatime,commit=30 /dev/mmcblk0p5 /mnt/overlay
 
 setup_overlay() {
-  mount -t ext4 -o defaults,noatime,commit=30 /dev/mmcblk0p5 /mnt/overlay
-
   mkdir -p "/mnt/overlay/$1"
   mkdir -p "/mnt/overlay/$2"
 

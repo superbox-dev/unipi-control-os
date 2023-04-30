@@ -1,7 +1,7 @@
 #!/bin/bash
 # shellcheck disable=SC2155
 
-exec /bin/sh
+exec /bin/bash
 
 set -u
 set -e

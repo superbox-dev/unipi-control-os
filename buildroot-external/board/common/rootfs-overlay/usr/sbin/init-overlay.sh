@@ -16,7 +16,7 @@ mount -t proc proc /proc
 mount -t tmpfs inittemp "${CHROOT}"
 
 if [ $? -ne 0 ]; then
-  fail "ERROR: could not create a temporary filesystem to mount the base filesystems for overlayfs"
+  fail "ERROR: could not create a temporary filesystem to mount the base filesystems for overlayFS"
 fi
 
 function setup_chroot() {
@@ -54,6 +54,6 @@ setup_overlay "root" ".work-root"
 setup_overlay "usr/local" ".work-usr-local"
 setup_overlay "var" ".work-var"
 
-cd "${CHROOT}"
-pivot_root . ./
-exec chroot . /sbin/init
+#cd "${CHROOT}"
+#pivot_root . ./
+exec chroot ${CHROOT} /sbin/init

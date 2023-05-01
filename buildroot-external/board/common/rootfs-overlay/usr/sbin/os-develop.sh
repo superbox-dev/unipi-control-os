@@ -53,9 +53,11 @@ function install_packages() {
 
 function create_virtualenv() {
   if [ ! -f "${VIRTUAL_ENV}/bin/python" ]; then
+    mkdir -pv "${VIRTUAL_ENV}"
+    chown -v unipi: "${VIRTUAL_ENV}"
+
     su - unipi -s /bin/bash -c "
-      mkdir -pv '${VIRTUAL_ENV}' \
-      && python -m venv '${VIRTUAL_ENV}' \
+      python -m venv '${VIRTUAL_ENV}' \
       && source '${VIRTUAL_ENV}/bin/activate' \
       && pip install --upgrade pip"
   fi

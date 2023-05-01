@@ -124,7 +124,6 @@ Conflicts=unipi-control.service
 
 [Service]
 Type=simple
-ExecCondition=/bin/sh -c '! /usr/bin/systemctl is-active --quiet unipi-control.service'
 ExecStart=${VIRTUAL_ENV} \
     --config ${UNIPI_CONFIG} \
     --log systemd

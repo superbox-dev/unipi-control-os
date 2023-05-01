@@ -69,6 +69,9 @@ function install_unipi_control() {
   if [ -d "${unipi_control}" ] && [ "$(ls -A ${unipi_control})" ]; then
     echo -e "${SKIP_TEXT} Directory ${unipi_control} is not empty! Can't install unipi-control."
   else
+    mkdir -pv "${unipi_control}"
+    chown -v unipi: "${unipi_control}"
+
     su - unipi -s /bin/bash -c " \
       git clone git@github.com:mh-superbox/unipi-control.git '${unipi_control}/' \
       && source '${VIRTUAL_ENV}/bin/activate' \
@@ -82,6 +85,9 @@ function install_superbox_utils() {
   if [ -d "${superbox_utils}" ] && [ "$(ls -A ${superbox_utils})" ]; then
     echo -e "${SKIP_TEXT} Directory ${superbox_utils} is not empty! Can't install superbox-utils."
   else
+    mkdir -pv "${superbox_utils}"
+    chown -v unipi: "${superbox_utils}"
+
     su - unipi -s /bin/bash -c " \
       git clone git@github.com:mh-superbox/superbox-utils.git '${superbox_utils}' \
       && source '${VIRTUAL_ENV}/bin/activate' \

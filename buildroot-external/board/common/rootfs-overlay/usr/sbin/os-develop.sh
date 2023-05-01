@@ -41,14 +41,16 @@ HEREDOC
 # Program Functions
 
 function install_packages() {
-  echo -e "${COLOR_BOLD_WHITE}[1/4] Create virtualenv ${VIRTUAL_ENV}${COLOR_RESET}"
+  echo -e "${COLOR_BOLD_WHITE}[1/5] Create virtualenv ${VIRTUAL_ENV}${COLOR_RESET}"
   create_virtualenv "$@"
-  echo -e "${COLOR_BOLD_WHITE}[2/4] Install unipi-control to ${SOURCE}${COLOR_RESET}"
+  echo -e "${COLOR_BOLD_WHITE}[2/5] Install unipi-control to ${SOURCE}${COLOR_RESET}"
   install_unipi_control "$@"
-  echo -e "${COLOR_BOLD_WHITE}[3/4] Install superbox-utils to ${SOURCE}${COLOR_RESET}"
+  echo -e "${COLOR_BOLD_WHITE}[3/5] Install superbox-utils to ${SOURCE}${COLOR_RESET}"
   install_superbox_utils "$@"
-  echo -e "${COLOR_BOLD_WHITE}[4/4] Install config files to ${UNIPI_CONFIG}${COLOR_RESET}"
+  echo -e "${COLOR_BOLD_WHITE}[4/5] Install config files to ${UNIPI_CONFIG}${COLOR_RESET}"
   install_config "$@"
+  echo -e "${COLOR_BOLD_WHITE}[5/5] Install systemd service"
+  install_systemd_service "$@"
 }
 
 function create_virtualenv() {
@@ -101,11 +103,38 @@ function install_config() {
   if [ -d "$UNIPI_CONFIG" ] && [ "$(ls -A ${UNIPI_CONFIG})" ]; then
     echo -e "${SKIP_TEXT} Configuration files in ${UNIPI_CONFIG} already exists! Can't write config files."
   else
+    mkdir -pv "${UNIPI_CONFIG}"
+    chown -v unipi: "${UNIPI_CONFIG}"
+
     su - unipi -s /bin/bash -c " \
-      mkdir -pv '${UNIPI_CONFIG}' \
-      && cp -R '${unipi_control}/src/unipi_control/config/etc/unipi/'* '${UNIPI_CONFIG}'"
+      cp -R '${unipi_control}/opkg/data/etc/unipi/'* '${UNIPI_CONFIG}'"
     echo -e "${OK_TEXT} Installed config files to ${UNIPI_CONFIG}"
   fi
+}
+
+function install_systemd_service() {
+  cat > "/etc/systemd/system/unipi-control-dev.service" <<EOL
+[Unit]
+Description=Unipi Control
+After=multi-user.target
+Requires=unipitcp.service
+ConditionPathExists=${VIRTUAL_ENV}/bin/unipi-control
+ConditionPathExists=${UNIPI_CONFIG}/control.yaml
+Conflicts=unipi-control.service
+
+[Service]
+Type=simple
+ExecCondition=/bin/sh -c '! /usr/bin/systemctl is-active --quiet unipi-control.service'
+ExecStart=${VIRTUAL_ENV} \
+    --config ${UNIPI_CONFIG} \
+    --log systemd
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+  systemctl --system daemon-reload
 }
 
 

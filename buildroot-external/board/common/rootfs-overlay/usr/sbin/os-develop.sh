@@ -124,9 +124,7 @@ Conflicts=unipi-control.service
 
 [Service]
 Type=simple
-ExecStart=${VIRTUAL_ENV} \
-    --config ${UNIPI_CONFIG} \
-    --log systemd
+ExecStart=${VIRTUAL_ENV} --config ${UNIPI_CONFIG} --log systemd
 Environment=PYTHONUNBUFFERED=1
 
 [Install]

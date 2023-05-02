@@ -1,8 +1,0 @@
-check program unipi-control.service with path "/bin/systemctl --quiet is-failed unipi-control.service"
-    group systemd
-
-    start program = "/bin/systemctl start unipi-control" with timeout 60 seconds
-    stop program = "/bin/systemctl stop unipi-control"
-
-    if status == 0 then restart
-    if 5 restarts with 10 cycles then timeout

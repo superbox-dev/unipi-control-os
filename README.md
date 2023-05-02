@@ -1,3 +1,5 @@
+[![license-url](https://img.shields.io/badge/license-Apache%202-yellowgreen)](https://opensource.org/license/apache-2-0/)
+
 # Unipi Control OS
 
 Unipi Control OS is a Linux based operating system optimized to host [Unipi Control](https://github.com/mh-superbox/unipi-control).

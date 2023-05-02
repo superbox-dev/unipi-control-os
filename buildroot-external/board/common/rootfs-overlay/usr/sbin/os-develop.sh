@@ -6,7 +6,7 @@ set -euo pipefail
 # Environment
 
 _ME="$(basename "${0}")"
-UNIPI_CONFIG="/usr/local/etc/unipi"
+UNIPI_CONFIG="/usr/local/etc/unipi-dev"
 VIRTUAL_ENV="/usr/local/opt/venv/unipi-control"
 SOURCE="/usr/local/src"
 

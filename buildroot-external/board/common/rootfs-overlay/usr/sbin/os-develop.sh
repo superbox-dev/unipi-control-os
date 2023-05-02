@@ -107,7 +107,7 @@ function install_config() {
     chown -v unipi: "${UNIPI_CONFIG}"
 
     su - unipi -s /bin/bash -c " \
-      cp -R '${unipi_control}/opkg/data/etc/unipi/'* '${UNIPI_CONFIG}'"
+      cp -R '${unipi_control}/opkg/data/usr/local/etc/unipi/'* '${UNIPI_CONFIG}'"
     echo -e "${OK_TEXT} Installed config files to ${UNIPI_CONFIG}"
   fi
 }

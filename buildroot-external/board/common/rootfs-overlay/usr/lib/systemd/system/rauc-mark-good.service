@@ -5,7 +5,6 @@ ConditionKernelCommandLine=|rauc.slot
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStartPre=/bin/systemctl list-units --failed -q
 ExecStart=/bin/rauc status mark-good
 
 [Install]

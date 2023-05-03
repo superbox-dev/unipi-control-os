@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/dash
 
 ROOT_DEVICE=/dev/mmcblk0
 

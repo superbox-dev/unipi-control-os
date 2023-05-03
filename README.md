@@ -41,7 +41,7 @@ $ sudo systemctl enable --now unipi-control.service
 Unipi Control OS use Buildroot for it's embedded systems. For more information visit [www.buildroot.org](https://buildroot.org) and read the [documentation](https://buildroot.org/downloads/manual/manual.html).
 
 ```shell
-~$ git clone https://github.com/mh-superbox/unipi-buildroot.git
+~$ git clone https://github.com/mh-superbox/unipi-control-os.git
 ~$ cd unipi-buildroot
 ~$ git submodule update --init
 ~$ # For more info use:

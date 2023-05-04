@@ -1,0 +1,55 @@
+name: _Publish on FTP
+
+on:
+  workflow_call:
+    inputs:
+      ftp-hostname:
+        required: True
+        type: string
+      ftp-port:
+        required: True
+        type: string
+      ftp-username:
+        required: True
+        type: string
+      ftp-releases-path:
+        required: True
+        type: string
+      version-dev:
+        type: string
+        default: 'false'
+
+    secrets:
+      FTP_PASSWORD:
+        required: True
+
+jobs:
+  publish-on-ftp:
+    name: Publish on FTP
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download files
+        uses: actions/download-artifact@v3
+        with:
+          path: .
+
+      - name: Install packages
+        run: |
+          sudo apt update
+          sudo apt install -y curlftpfs
+
+      - name: Mount FTP
+        run: |
+          sudo mkdir -pv "/mnt/${{ inputs.ftp-hostname }}"
+          sudo curlftpfs \
+            -v \
+            -o "ssl,no_verify_peer,user=${{ inputs.ftp-username }}:${{ secrets.FTP_PASSWORD }},allow_other,rw,gid=$(id -g),uid=$(id -u)" \
+            ftp://${{ inputs.ftp-hostname }}:${{ inputs.ftp-port }} /mnt/${{ inputs.ftp-hostname }}
+
+      - name: Transfer package to FTP server
+        run: |
+          ls -la .
+          mkdir -pv "/mnt/${{ inputs.ftp-hostname }}/${{ inputs.ftp-releases-path }}"
+          rm -fv "/mnt/${{ inputs.ftp-hostname }}/${{ inputs.ftp-releases-path }}/"*
+          cp -pv release/*.img.xz "/mnt/${{ inputs.ftp-hostname }}/${{ inputs.ftp-releases-path }}"
+          cp -pv release/*.raucb "/mnt/${{ inputs.ftp-hostname }}/${{ inputs.ftp-releases-path }}"

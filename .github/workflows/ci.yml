@@ -65,3 +65,18 @@ jobs:
       matrix: ${{ needs.parameters.outputs.matrix }}
       version: ${{ needs.parameters.outputs.version }}
       os-id: ${{ needs.parameters.outputs.os-id }}
+
+  publish-on-ftp:
+    name: Publish on FTP
+    needs:
+      - parameters
+      - release
+    uses: ./.github/workflows/publish-on-ftp.yml
+    with:
+      ftp-hostname: ${{ vars.FTP_HOSTNAME }}
+      ftp-port: ${{ vars.FTP_PORT }}
+      ftp-username: ${{ vars.FTP_USERNAME }}
+      ftp-releases-path: ${{ vars.FTP_RELEASES_PATH }}
+      version-dev: ${{ needs.parameters.outputs.version-dev }}
+    secrets:
+      FTP_PASSWORD: ${{ secrets.FILES_SUPERBOX_ONE_FTP_PASSWORD }}

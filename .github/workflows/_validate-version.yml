@@ -14,13 +14,6 @@ jobs:
 
     steps:
       - name: Check tag ${{ github.ref_name }}
+        shell: bash
         run: |
-          ref_name="${GITHUB_REF_NAME}"
-          tag_version="${ref_name/.dev/}"
-          version="${{ inputs.version }}"
-          os_version="${version/.dev${{ github.run_number }}/}"
-
-          if [ "${tag_version}" != "${os_version}" ]; then
-            echo "Version number in Buildroot metadata does not match tag! (${tag_version} vs. ${os_version})."
-            exit 1
-          fi
+          ./.github/scripts/check-tag.sh

@@ -26,7 +26,7 @@ on:
 
 jobs:
   build-buildroot-image:
-    name: Build image for ${{ matrix.id }}
+    name: Build image for ${{ matrix.boards.id }}
     runs-on: ubuntu-latest
 
     strategy:
@@ -57,16 +57,16 @@ jobs:
           make \
             BUILDDIR=${GITHUB_WORKSPACE} \
             HOSTNAME=${{ inputs.hostname }} \
-            VERSION_DEV=${{ inputs.version-dev }} ${{ matrix.defconfig }}
+            VERSION_DEV=${{ inputs.version-dev }} ${{ matrix.boards.defconfig }}
 
       - name: Upload image
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ inputs.os-id }}-${{ matrix.id }}-${{ inputs.version }}.img.xz
-          path: release/${{ inputs.os-id }}-${{ matrix.id }}-${{ inputs.version }}.img.xz
+          name: ${{ inputs.os-id }}-${{ matrix.boards.id }}-${{ inputs.version }}.img.xz
+          path: release/${{ inputs.os-id }}-${{ matrix.boards.id }}-${{ inputs.version }}.img.xz
 
       - name: Upload RAUC bundle
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ inputs.os-id }}-${{ matrix.id }}-${{ inputs.version }}.raucb
-          path: release/${{ inputs.os-id }}-${{ matrix.id }}-${{ inputs.version }}.raucb
+          name: ${{ inputs.os-id }}-${{ matrix.boards.id }}-${{ inputs.version }}.raucb
+          path: release/${{ inputs.os-id }}-${{ matrix.boards.id }}-${{ inputs.version }}.raucb

@@ -1,4 +1,4 @@
-name: Build buildroot image
+name: _Build buildroot image
 
 on:
   workflow_call:

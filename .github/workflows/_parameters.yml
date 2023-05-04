@@ -1,4 +1,4 @@
-name: Parameters
+name: _Parameters
 
 on:
   workflow_call:

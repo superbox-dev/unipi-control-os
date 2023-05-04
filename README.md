@@ -23,18 +23,24 @@ If you have an Unipi device, that is not supported, then contact me.
 
 ## Getting Started
 
-1. Download the latests [release](https://github.com/mh-superbox/unipi-control-os/releases).
+### Install
+
+1. Download the latest [release](https://github.com/mh-superbox/unipi-control-os/releases) `unipi-control-os-neuron-rpi3-64-1.x.img.xz`.
 2. Write the image to your SD card with [Balena Etcher](https://www.balena.io/etcher).
 3. Insert SD card to your Unipi Neuron and power the system on.
 4. Connect to your Unipi Neuron with `ssh unipi@unipi.local` (The username and password are `unipi`).
-5. Run `sudo os-tools.sh --install` to install Unipi Control.
+5. Run `sudo opkg install unipi-control` to install Unipi Control.
 6. Read the [documentation](https://github.com/mh-superbox/unipi-control#configuration) to configure your Unipi Neuron.
 
 Now you can start the service with:
 
 ```shell
-$ sudo systemctl enable --now unipi-control.service
+$ sudo systemctl start unipi-control.service
 ```
+
+### Update
+
+WIP
 
 ## Development
 

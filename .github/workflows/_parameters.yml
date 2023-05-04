@@ -42,4 +42,4 @@ jobs:
       - name: Create build matrix
         id: generate-matrix
         run: |
-          echo "result=$(cat ./.github/workflows/matrix.json)" >> ${GITHUB_OUTPUT}
+          echo "result=$(cat ./.github/workflows/matrix.json)" >> $GITHUB_OUTPUT

@@ -38,6 +38,7 @@ jobs:
         shell: bash
         run: |
           ./scripts/generate-params.sh
+          cat $GITHUB_OUTPUT
 
       - name: Create build matrix
         uses: actions/github-script@v6

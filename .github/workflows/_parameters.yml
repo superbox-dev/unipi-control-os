@@ -35,27 +35,9 @@ jobs:
 
       - name: Generate 'params'
         id: params
+        shell: bash
         run: |
-          os_id=$(cat ${GITHUB_WORKSPACE}/buildroot-external/meta | grep OS_ID | cut -d'=' -f2 | tr -d '"')
-          os_hostname=$(cat ${GITHUB_WORKSPACE}/buildroot-external/meta | grep OS_HOSTNAME | cut -d'=' -f2 | tr -d '"')
-          major=$(cat ${GITHUB_WORKSPACE}/buildroot-external/meta | grep VERSION_MAJOR | cut -d'=' -f2)
-          build=$(cat ${GITHUB_WORKSPACE}/buildroot-external/meta | grep VERSION_BUILD | cut -d'=' -f2)
-
-          version_dev=$(echo "${{ github.ref_name }}" | cut -d '.' -f 3)
-
-          if [ "${version_dev}" == "" ]; then
-            echo "hostname=${os_hostname}" >> $GITHUB_OUTPUT
-            echo "version=${major}.${build}" >> $GITHUB_OUTPUT
-            release=1
-          else
-            echo "hostname=${os_hostname}-dev" >> $GITHUB_OUTPUT
-            echo "version=${major}.${build}.${version_dev}${{ github.run_number }}" >> $GITHUB_OUTPUT
-            release=0
-          fi
-
-          echo "version-dev=${version_dev}${{ github.run_number }}" >> $GITHUB_OUTPUT
-          echo "release=${release}" >> $GITHUB_OUTPUT
-          echo "os-id=${os_id}" >> $GITHUB_OUTPUT
+          ./scripts/generate-params.sh
 
       - name: Create build matrix
         uses: actions/github-script@v6

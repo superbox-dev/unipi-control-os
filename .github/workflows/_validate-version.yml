@@ -13,9 +13,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check tag ${{ github.ref_name }}
+      - name: Check tag ${GITHUB_REF_NAME}
         run: |
-          ref_name="${{ github.ref_name }}"
+          ref_name="${GITHUB_REF_NAME}"
           tag_version="${ref_name/.dev/}"
           version="${{ inputs.version }}"
           os_version="${version/.dev${{ github.run_number }}/}"

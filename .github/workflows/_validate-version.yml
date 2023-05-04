@@ -1,0 +1,24 @@
+name: Validate
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        required: True
+        type: string
+
+jobs:
+  validate-version:
+    name: Validate version
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check tag ${{ github.ref_name }}
+        run: |
+          ref_name="${{ github.ref_name }}"
+          tag_version="${ref_name/.dev/}"
+
+          if [ "${tag_version}" != "${{ inputs.version }}" ]; then
+            echo "Version number in Buildroot metadata does not match tag! (${tag_version} vs. ${{ inputs.version }})."
+            exit 1
+          fi

@@ -1,0 +1,45 @@
+name: Release
+
+on:
+  workflow_call:
+    inputs:
+      matrix:
+        required: True
+        type: string
+      version:
+        required: True
+        type: string
+      os-id:
+        required: True
+        type: string
+
+jobs:
+  release-on-github:
+    name: Release on GitHub for ${{ matrix.board.id }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix: ${{ fromJson(inputs.matrix) }}
+
+    steps:
+      - name: Download image
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.img.xz
+
+      - name: Release image
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.img.xz
+          files: ${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.img.xz
+
+      - name: Download RAUC bundle
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.raucb
+
+      - name: Release RAUC bundle
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.raucb
+          files: ${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.raucb

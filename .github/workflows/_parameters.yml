@@ -1,0 +1,66 @@
+name: Parameters
+
+on:
+  workflow_call:
+    outputs:
+      matrix:
+        value: ${{ jobs.set-up-parameters.outputs.matrix }}
+      hostname:
+        value: ${{ jobs.set-up-parameters.outputs.hostname }}
+      version:
+        value: ${{ jobs.set-up-parameters.outputs.version }}
+      version-dev:
+        value: ${{ jobs.set-up-parameters.outputs.version-dev }}
+      os-id:
+        value: ${{ jobs.set-up-parameters.outputs.os-id }}
+
+jobs:
+  set-up-parameters:
+    name: Set up parameters
+    runs-on: ubuntu-latest
+
+    outputs:
+      matrix: ${{ steps.generate-matrix.outputs.result }}
+      hostname: ${{ steps.params.outputs.hostname }}
+      version: ${{ steps.params.outputs.version }}
+      version-dev: ${{ steps.params.outputs.version-dev }}
+      release: ${{ steps.params.outputs.release }}
+      os-id: ${{ steps.params.outputs.os-id }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Generate 'params'
+        id: params
+        run: |
+          os_id=$(cat ${GITHUB_WORKSPACE}/buildroot-external/meta | grep OS_ID | cut -d'=' -f2 | tr -d '"')
+          os_hostname=$(cat ${GITHUB_WORKSPACE}/buildroot-external/meta | grep OS_HOSTNAME | cut -d'=' -f2 | tr -d '"')
+          major=$(cat ${GITHUB_WORKSPACE}/buildroot-external/meta | grep VERSION_MAJOR | cut -d'=' -f2)
+          build=$(cat ${GITHUB_WORKSPACE}/buildroot-external/meta | grep VERSION_BUILD | cut -d'=' -f2)
+
+          version_dev=$(echo "${{ github.ref_name }}" | cut -d '.' -f 3)
+
+          if [ "${version_dev}" == "" ]; then
+            echo "hostname=${os_hostname}" >> $GITHUB_OUTPUT
+            echo "version=${major}.${build}" >> $GITHUB_OUTPUT
+            release=1
+          else
+            echo "hostname=${os_hostname}-dev" >> $GITHUB_OUTPUT
+            echo "version=${major}.${build}.${version_dev}${{ github.run_number }}" >> $GITHUB_OUTPUT
+            release=0
+          fi
+
+          echo "version-dev=${version_dev}${{ github.run_number }}" >> $GITHUB_OUTPUT
+          echo "release=${release}" >> $GITHUB_OUTPUT
+          echo "os-id=${os_id}" >> $GITHUB_OUTPUT
+
+      - name: Create build matrix
+        uses: actions/github-script@v6
+        id: generate-matrix
+        with:
+          script: |
+            const boards = require("./.github/workflows/matrix.json")
+            return { "board": boards }

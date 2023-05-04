@@ -1,3 +1,14 @@
+# OS generated files
 .DS_Store
-.idea
 ._*
+
+# Pycharm
+.idea
+
+# Build output dirs
+cache/
+release/
+output/
+
+# Keys
+buildroot-external/*.pem

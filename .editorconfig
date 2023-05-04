@@ -6,8 +6,8 @@ insert_final_newline = true
 indent_style = space
 indent_size = 4
 
-[{Config.in,*.mk}]
+[{Config.in,Makefile,*.mk}]
 indent_style = tab
 
-[{*.sh, *.yml,*.yaml}]
+[{*.sh, *.yml,*.yaml, *.json}]
 indent_size = 2

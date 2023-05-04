@@ -1,0 +1,4 @@
+ENV{ID_PART_ENTRY_UUID}=="20230403-01", SYMLINK+="disk/by-partlabel/boot"
+ENV{ID_PART_ENTRY_UUID}=="20230403-02", SYMLINK+="disk/by-partlabel/system0"
+ENV{ID_PART_ENTRY_UUID}=="20230403-03", SYMLINK+="disk/by-partlabel/system1"
+ENV{ID_PART_ENTRY_UUID}=="20230403-05", SYMLINK+="disk/by-partlabel/overlay"

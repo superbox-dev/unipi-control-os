@@ -1,0 +1,64 @@
+name: Build Images
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  parameters:
+    name: Parameters
+    uses: ./.github/workflows/_parameters.yml
+
+  validate:
+    name: Validate
+    if: |
+      contains(fromJSON('["tag", "branch"]'), github.ref_type)
+      && github.ref_name != 'main'
+      && !endsWith(github.ref_name, '/merge')
+    uses: ./.github/workflows/_validate-version.yml
+    needs:
+      - parameters
+    with:
+      version: ${{ needs.parameters.outputs.version }}
+
+  tests:
+    name: Tests
+    uses: ./.github/workflows/tests.yml
+    needs:
+      - parameters
+
+  build-buildroot-image:
+    name: Build buildroot image
+    if: |
+      contains(fromJSON('["tag", "branch"]'), github.ref_type)
+      && github.ref_name != 'main'
+      && !endsWith(github.ref_name, '/merge')
+    uses: ./.github/workflows/_build-buildroot-image.yml
+    needs:
+      - parameters
+      - validate
+      - tests
+    with:
+      matrix: ${{ needs.parameters.outputs.matrix }}
+      hostname: ${{ needs.parameters.outputs.hostname }}
+      version: ${{ needs.parameters.outputs.version }}
+      version-dev: ${{ needs.parameters.outputs.version-dev }}
+      os-id: ${{ needs.parameters.outputs.os-id }}
+
+  release:
+    name: Release on GitHub
+    if: |
+      github.ref_type == 'tag'
+      && github.event.name != 'workflow_dispatch'
+      && needs.validate.outputs.release == 1
+    uses: ./.github/workflows/_release.yml
+    needs:
+      - parameters
+      - build-buildroot-image
+    with:
+      matrix: ${{ needs.parameters.outputs.matrix }}
+      version: ${{ needs.parameters.outputs.version }}
+      os-id: ${{ needs.parameters.outputs.os-id }}

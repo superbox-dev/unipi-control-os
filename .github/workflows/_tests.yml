@@ -1,0 +1,29 @@
+name: Tests
+
+on:
+  workflow_call:
+
+jobs:
+  validate:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Initialization environment
+        run: |
+          sudo -E apt-get -qq update
+          sudo -E apt-get -qq upgrade
+          sudo apt install shellcheck
+
+      - name: Check shell scripts
+        run: |
+          for file in $(find . -type f -name "*.sh" -not \( -path "./buildroot/*" -prune \)); do shellcheck --format=gcc $file; done;
+
+      - name: Check buildroot-external packages
+        run: |
+          buildroot/utils/check-package --exclude PackageHeader --br2-external buildroot-external/package/*/*

@@ -41,6 +41,9 @@ jobs:
       - parameters
       - validate
       - tests
+    secrets:
+      RAUC_CERTIFICATE: ${{ secrets.RAUC_CERTIFICATE }}
+      RAUC_PRIVATE_KEY: ${{ secrets.RAUC_PRIVATE_KEY }}
     with:
       matrix: ${{ needs.parameters.outputs.matrix }}
       hostname: ${{ needs.parameters.outputs.hostname }}
@@ -57,7 +60,7 @@ jobs:
     uses: ./.github/workflows/_release.yml
     needs:
       - parameters
-      - build-buildroot-image
+      - build
     with:
       matrix: ${{ needs.parameters.outputs.matrix }}
       version: ${{ needs.parameters.outputs.version }}

@@ -1,0 +1,70 @@
+name: Build buildroot image
+
+on:
+  workflow_call:
+    inputs:
+      matrix:
+        required: True
+        type: string
+      hostname:
+        required: True
+        type: string
+      version:
+        required: True
+        type: string
+      version-dev:
+        required: True
+        type: string
+      os-id:
+        required: True
+        type: string
+
+jobs:
+  build-buildroot-image:
+    name: Build image for ${{ matrix.board.id }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix: ${{ fromJson(inputs.matrix) }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          submodules: True
+
+      - name: Initialization environment
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo -E apt-get -qq update
+          sudo -E apt-get -qq upgrade
+          sudo apt install wget git bc binutils bison linux-headers-$(uname -r) xz-utils
+          sudo timedatectl set-timezone "Europe/Vienna"
+
+      - name: Add RAUC release PKI certs
+        env:
+          RAUC_CERTIFICATE: ${{ secrets.RAUC_CERTIFICATE }}
+          RAUC_PRIVATE_KEY: ${{ secrets.RAUC_PRIVATE_KEY }}
+        run: |
+          echo "${RAUC_CERTIFICATE}" > buildroot-external/cert.pem
+          echo "${RAUC_PRIVATE_KEY}" > buildroot-external/key.pem
+
+      - name: Build image
+        run: |
+          make \
+            BUILDDIR=${GITHUB_WORKSPACE} \
+            HOSTNAME=${{ inputs.hostname }} \
+            VERSION_DEV=${{ inputs.version-dev }} ${{ matrix.board.defconfig }}
+
+      - name: Upload image
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.img.xz
+          path: release/${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.img.xz
+
+      - name: Upload RAUC bundle
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.raucb
+          path: release/${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.raucb

@@ -2,6 +2,11 @@ name: _Build
 
 on:
   workflow_call:
+    secrets:
+      RAUC_CERTIFICATE:
+        required: True
+      RAUC_PRIVATE_KEY:
+        required: True
     inputs:
       matrix:
         required: True
@@ -43,12 +48,9 @@ jobs:
           sudo timedatectl set-timezone "Europe/Vienna"
 
       - name: Add RAUC release PKI certs
-        env:
-          RAUC_CERTIFICATE: ${{ secrets.RAUC_CERTIFICATE }}
-          RAUC_PRIVATE_KEY: ${{ secrets.RAUC_PRIVATE_KEY }}
         run: |
-          echo "${RAUC_CERTIFICATE}" > buildroot-external/cert.pem
-          echo "${RAUC_PRIVATE_KEY}" > buildroot-external/key.pem
+          echo "${{ secrets.RAUC_CERTIFICATE }}" > buildroot-external/cert.pem
+          echo "${{ secrets.RAUC_PRIVATE_KEY }}" > buildroot-external/key.pem
 
       - name: Build image
         run: |

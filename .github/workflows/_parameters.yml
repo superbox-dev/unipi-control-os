@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      matrix: ${{ steps.generate-matrix.boards.outputs.result }}
+      matrix: ${{ steps.generate-matrix.board.outputs.result }}
       hostname: ${{ steps.params.outputs.hostname }}
       version: ${{ steps.params.outputs.version }}
       version-dev: ${{ steps.params.outputs.version-dev }}

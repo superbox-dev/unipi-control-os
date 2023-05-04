@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 ref_name="${GITHUB_REF_NAME}"
 tag_version="${ref_name/.dev/}"
 os_version="${$1/.dev${GITHUB_RUN_NUMBER}/}"

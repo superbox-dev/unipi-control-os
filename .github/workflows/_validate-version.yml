@@ -16,9 +16,10 @@ jobs:
       - name: Check tag ${{ github.ref_name }}
         run: |
           ref_name="${{ github.ref_name }}"
-          tag_version="${ref_name/.dev${{ github.run_number }}/}"
+          tag_version="${ref_name/.dev/}"
+          version="${${{ inputs.version }}/.dev${{ github.run_number }}/}"
 
-          if [ "${tag_version}" != "${{ inputs.version }}" ]; then
-            echo "Version number in Buildroot metadata does not match tag! (${tag_version} vs. ${{ inputs.version }})."
+          if [ "${tag_version}" != "${version}" ]; then
+            echo "Version number in Buildroot metadata does not match tag! (${tag_version} vs. ${version})."
             exit 1
           fi

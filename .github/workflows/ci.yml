@@ -71,7 +71,7 @@ jobs:
     needs:
       - parameters
       - release
-    uses: ./.github/workflows/publish-on-ftp.yml
+    uses: ./.github/workflows/_publish-on-ftp.yml
     with:
       ftp-hostname: ${{ vars.FTP_HOSTNAME }}
       ftp-port: ${{ vars.FTP_PORT }}

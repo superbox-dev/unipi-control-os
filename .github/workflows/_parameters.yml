@@ -40,6 +40,9 @@ jobs:
           ./.github/scripts/generate-params.sh
 
       - name: Create build matrix
+        uses: actions/github-script@v6
         id: generate-matrix
-        run: |
-          echo "result={"boards": $(cat ./.github/workflows/matrix.boards.json | jq -c)}" >> "${GITHUB_OUTPUT}"
+        with:
+          script: |
+            const boards = require("./.github/workflows/matrix.json")
+            return { "board": boards }

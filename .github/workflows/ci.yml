@@ -30,13 +30,13 @@ jobs:
     needs:
       - parameters
 
-  build-buildroot-image:
-    name: Build buildroot image
+  build:
+    name: Build
     if: |
       contains(fromJSON('["tag", "branch"]'), github.ref_type)
       && github.ref_name != 'main'
       && !endsWith(github.ref_name, '/merge')
-    uses: ./.github/workflows/_build-buildroot-image.yml
+    uses: ./.github/workflows/_build.yml
     needs:
       - parameters
       - validate

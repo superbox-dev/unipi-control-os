@@ -54,6 +54,13 @@ function install_packages() {
 }
 
 function create_virtualenv() {
+  cat > "/etc/profile.d/unipi-control-dev.sh" <<EOL
+#!/bin/dash
+
+# Set virtualenv path for Unipi Control develop environment.
+export PATH="${PATH}:${VIRTUAL_ENV}/bin"
+EOL
+
   if [ ! -f "${VIRTUAL_ENV}/bin/python" ]; then
     mkdir -pv "${VIRTUAL_ENV}"
     chown -v unipi: "${VIRTUAL_ENV}"
@@ -62,6 +69,8 @@ function create_virtualenv() {
       python -m venv '${VIRTUAL_ENV}' \
       && source '${VIRTUAL_ENV}/bin/activate' \
       && pip install --upgrade pip"
+  else
+    echo -e "${SKIP_TEXT} Virtualenv ${VIRTUAL_ENV} already exists."
   fi
 }
 

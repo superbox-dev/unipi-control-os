@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 os_id=$(grep OS_ID < "${GITHUB_WORKSPACE}/buildroot-external/meta" | cut -d'=' -f2 | tr -d '"')
 os_hostname=$(grep OS_HOSTNAME < "${GITHUB_WORKSPACE}/buildroot-external/meta" | cut -d'=' -f2 | tr -d '"')
 major=$(grep VERSION_MAJOR < "${GITHUB_WORKSPACE}/buildroot-external/meta" | cut -d'=' -f2)

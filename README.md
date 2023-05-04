@@ -30,7 +30,7 @@ If you have an Unipi device, that is not supported, then contact me.
 3. Insert SD card to your Unipi Neuron and power the system on.
 4. Connect to your Unipi Neuron with `ssh unipi@unipi.local` (The username and password are `unipi`).
 5. Run `sudo opkg install unipi-control` to install Unipi Control.
-6. Read the [documentation](https://github.com/mh-superbox/unipi-control#configuration) to configure your Unipi Neuron.
+6. Read the [documentation](https://github.com/mh-superbox/unipi-control#configuration) to configure your Unipi Neuron and copy the configuration files to `/usr/local/etc/unipi`.
 
 Now you can start the service with:
 

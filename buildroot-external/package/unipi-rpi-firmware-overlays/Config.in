@@ -1,0 +1,7 @@
+config BR2_PACKAGE_UNIPI_RPI_FIRMWARE_OVERLAYS
+	bool "Unipi rpi-firmware overlays"
+	select BR2_PACKAGE_UNIPI_KERNEL
+	help
+	  Unipi Rasberry firmware overlays
+
+	  https://github.com/UniPiTechnology/unipi-tools

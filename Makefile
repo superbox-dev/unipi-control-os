@@ -14,6 +14,10 @@ HOSTNAME := "unipi-dev"
 VERSION_DATE := $(shell date --utc +'%Y%m%d')
 VERSION_DEV := dev-$(VERSION_DATE)
 
+.ONESHELL:
+SHELL = /bin/bash
+.SHELLFLAGS = -e
+
 .NOTPARALLEL: $(TARGETS) $(TARGETS_SAVE) $(TARGETS_CONFIG) all
 .PHONY: $(TARGETS) $(TARGETS_SAVE) $(TARGETS_CONFIG) all clean help
 
@@ -35,6 +39,13 @@ $(TARGETS): %: $(RELEASE_DIR) %_defconfig
 	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) BR2_CCACHE_DIR=$(BUILDDIR)/cache/cc BR2_DL_DIR=$(BUILDDIR)/cache/dl BR2_TARGET_GENERIC_HOSTNAME=$(HOSTNAME) VERSION_DEV=$(VERSION_DEV)
 	mv -v $(O)/images/unipi-control-os-* $(RELEASE_DIR)/
 	@echo "Finished $@"
+
+venv:
+	python -m venv $(BUILDDIR)/.venv
+	. $(BUILDDIR)/.venv/bin/activate
+
+install-python: venv
+	pip install -r requirements.txt
 
 clean:
 	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) clean

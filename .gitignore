@@ -1,14 +1,24 @@
-# OS generated files
-.DS_Store
-._*
-
 # Pycharm
 .idea
 
-# Build output dirs
+# OS generated files
+.DS_Store
+._*
+*.swp
+
+# cache
+*.pyc
+
+# virtualenv
+.venv
+
+# checks
+.mypy_cache
+
+# build output dirs
 cache/
 release/
 output/
 
-# Keys
+# keys
 buildroot-external/*.pem

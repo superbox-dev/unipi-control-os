@@ -2,7 +2,9 @@
 
 # Unipi Control OS
 
+<!-- pitch start -->
 Unipi Control OS is a Linux based operating system optimized to host [Unipi Control](https://github.com/mh-superbox/unipi-control).
+<!-- pitch end -->
 
 ### Support me if you like this project 😀
 
@@ -21,6 +23,7 @@ Unipi Control OS is a Linux based operating system optimized to host [Unipi Cont
 
 If you have an Unipi device, that is not supported, then contact me.
 
+<!-- quickstart start -->
 ## Getting Started
 
 ### Install
@@ -35,13 +38,15 @@ If you have an Unipi device, that is not supported, then contact me.
 Now you can start the service with:
 
 ```shell
-$ sudo systemctl start unipi-control.service
+sudo systemctl start unipi-control.service
 ```
+<!-- quickstart end -->
 
 ### Update
 
 WIP
 
+<!-- development start -->
 ## Development
 
 Unipi Control OS use Buildroot for it's embedded systems. For more information visit [www.buildroot.org](https://buildroot.org) and read the [documentation](https://buildroot.org/downloads/manual/manual.html).
@@ -57,3 +62,4 @@ Unipi Control OS use Buildroot for it's embedded systems. For more information v
 ```
 
 Wait a long time ... and then write the image from `~/unipi-buildroot/release/` to a SD card.
+<!-- development end -->

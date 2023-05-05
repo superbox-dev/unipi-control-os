@@ -14,6 +14,7 @@
 
 # checks
 .mypy_cache
+reports/
 
 # build output dirs
 cache/

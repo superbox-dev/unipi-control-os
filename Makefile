@@ -19,7 +19,7 @@ SHELL = /bin/bash
 .SHELLFLAGS = -e
 
 .NOTPARALLEL:
-.PHONY: docs
+.PHONY: $(TARGETS) $(TARGETS_SAVE) $(TARGETS_CONFIG) docs
 
 all: $(TARGETS)
 

@@ -16,11 +16,9 @@ VERSION_DEV := dev-$(VERSION_DATE)
 
 .ONESHELL:
 SHELL = /bin/bash
-.SHELLFLAGS = -e
 
-.NOTPARALLEL: $(TARGETS) $(TARGETS_SAVE) $(TARGETS_CONFIG) all
-.PHONY: $(TARGETS) $(TARGETS_SAVE) $(TARGETS_CONFIG) all clean docs venv install help
-
+.NOTPARALLEL:
+.PHONY: docs
 
 all: $(TARGETS)
 

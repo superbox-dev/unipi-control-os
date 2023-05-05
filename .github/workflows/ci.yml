@@ -15,7 +15,8 @@ jobs:
   validate:
     name: Validate
     if: |
-      github.event.ref_type == 'tag'
+      contains(fromJSON('["tag", "branch"]'), github.ref_type)
+      && !endsWith(github.ref_name, '/merge')
     uses: ./.github/workflows/_validate-version.yml
     needs:
       - parameters
@@ -35,6 +36,7 @@ jobs:
     uses: ./.github/workflows/_build.yml
     needs:
       - parameters
+      - validate
       - tests
     secrets:
       RAUC_CERTIFICATE: ${{ secrets.RAUC_CERTIFICATE }}

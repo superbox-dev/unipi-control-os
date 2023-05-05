@@ -38,6 +38,16 @@ The Unipi Neuron I/O are now available in your network via MQTT.
 
 If you have an Unipi device, that is not supported, then contact use.
 
+## Changelog
+
+The changelog lives in the [CHANGELOG.md](CHANGELOG.md) document. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+
+## Contributing
+
+We're happy about your contributions to the project!
+
+You can get started by reading the [CONTRIBUTING.md](CONTRIBUTING.md).
+
 <!-- donation start -->
 ## Donation
 
@@ -45,16 +55,6 @@ We put a lot of time into this project. If you like it, you can support us with 
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/F2F0KXO6D)
 <!-- donation end -->
-
-## Changelog
-
-WIP
-
-## Contributing
-
-We're happy about your contributions to the project!
-
-You can get started by reading the [CONTRIBUTING.md](CONTRIBUTING.md).
 
 <!-- additional_info start -->
 ## Additional information

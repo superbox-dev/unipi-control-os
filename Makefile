@@ -16,7 +16,6 @@ VERSION_DEV := dev-$(VERSION_DATE)
 
 .ONESHELL:
 SHELL = /bin/bash
-.SHELLFLAGS = -e
 
 .NOTPARALLEL:
 .PHONY: docs

@@ -18,8 +18,8 @@ VERSION_DEV := dev-$(VERSION_DATE)
 SHELL = /bin/bash
 .SHELLFLAGS = -e
 
-.NOTPARALLEL: $(TARGETS) $(TARGETS_SAVE) $(TARGETS_CONFIG) all
-.PHONY: $(TARGETS) $(TARGETS_SAVE) $(TARGETS_CONFIG) all clean help
+.NOTPARALLEL:
+.PHONY: docs
 
 all: $(TARGETS)
 
@@ -44,8 +44,11 @@ venv:
 	python -m venv $(BUILDDIR)/.venv
 	. $(BUILDDIR)/.venv/bin/activate
 
-install-python: venv
+install: venv
 	pip install -r requirements.txt
+
+uninstall:
+	rm -rfv $(BUILDDIR)/.venv
 
 clean:
 	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) clean

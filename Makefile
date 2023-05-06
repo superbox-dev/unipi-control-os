@@ -40,7 +40,7 @@ $(TARGETS): %: $(RELEASE_DIR) %_defconfig
 	@echo "Finished $@"
 
 venv:
-	python -m venv $(BUILDDIR)/.venv
+	python3 -m venv $(BUILDDIR)/.venv
 	. $(BUILDDIR)/.venv/bin/activate
 
 install: venv

@@ -57,7 +57,7 @@ function fix_rootfs() {
   sed -i "/srv/d" "${TARGET_DIR}/usr/lib/tmpfiles.d/home.conf"
 
   mkdir -pv "${TARGET_DIR}/boot/"
-  cp -fv "${BINARIES_DIR}/Image" "${TARGET_DIR}/boot/"
+  # cp -fv "${BINARIES_DIR}/Image" "${TARGET_DIR}/boot/"
 
   mkdir -pv "${TARGET_DIR}/opt/unipi/"
   mkdir -pv "${TARGET_DIR}/usr/local/"

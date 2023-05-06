@@ -45,6 +45,8 @@ venv:
 
 install: venv
 	pip install -r requirements.txt
+	git submodule update --init
+	cd buildroot; git checkout 2023.02
 
 uninstall:
 	rm -rfv $(BUILDDIR)/.venv

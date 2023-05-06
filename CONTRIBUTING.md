@@ -10,17 +10,17 @@ Clone the unipi-control-os repository.
 git clone https://github.com/mh-superbox/unipi-control-os.git
 ```
 
-Inside the repository, initialize the buildroot submodule:
+Inside the repository,  use `make`to initialize the buildroot submodule and python virtualenv.
 
 ```shell
-git submodule update --init
+make install
 ```
 
 ## Building
 
 Unipi Control OS use Buildroot for it's embedded systems. For more information visit [www.buildroot.org](https://buildroot.org) and read the [documentation](https://buildroot.org/downloads/manual/manual.html).
 
-For compiling Buildroot images we use `make`. 
+For compiling Buildroot images we use `make`.
 > Execude `make help` for a detailed help.
 
 You can create a image for e.g. Neuron Raspberry Pi 3 64 bit with:

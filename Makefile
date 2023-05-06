@@ -12,7 +12,7 @@ TARGETS_SAVE := $(notdir $(patsubst %_defconfig,%_savedefconfig,$(wildcard $(DEF
 
 HOSTNAME := "unipi-dev"
 VERSION_DATE := $(shell date --utc +'%Y%m%d')
-VERSION_DEV := dev-$(VERSION_DATE)
+VERSION_DEV := dev$(VERSION_DATE)
 
 .ONESHELL:
 SHELL = /bin/bash

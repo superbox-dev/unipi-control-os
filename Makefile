@@ -39,6 +39,12 @@ $(TARGETS): %: $(RELEASE_DIR) %_defconfig
 	mv -v $(O)/images/unipi-control-os-* $(RELEASE_DIR)/
 	@echo "Finished $@"
 
+menuconfig:
+	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) menuconfig
+
+uboot-menuconfig:
+	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) uboot-menuconfig
+
 venv:
 	python3 -m venv $(BUILDDIR)/.venv
 	. $(BUILDDIR)/.venv/bin/activate

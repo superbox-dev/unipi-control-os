@@ -40,7 +40,7 @@ If you have an Unipi device, that is not supported, then contact use.
 
 ## Changelog
 
-The changelog lives in the [CHANGELOG.md](CHANGELOG.md) document. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+The changelog lives in the [CHANGELOG.md](CHANGELOG.md) document. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Contributing
 

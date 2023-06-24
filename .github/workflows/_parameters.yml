@@ -11,6 +11,8 @@ on:
         value: ${{ jobs.set-up-parameters.outputs.version }}
       version-dev:
         value: ${{ jobs.set-up-parameters.outputs.version-dev }}
+      release:
+        value: ${{ jobs.set-up-parameters.outputs.release }}
       os-id:
         value: ${{ jobs.set-up-parameters.outputs.os-id }}
 

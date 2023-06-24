@@ -27,19 +27,15 @@ jobs:
         with:
           path: ${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.img.xz
 
-      - name: Release image
-        uses: softprops/action-gh-release@v1
-        with:
-          name: ${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.img.xz
-          files: ${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.img.xz
-
       - name: Download RAUC bundle
         uses: actions/download-artifact@v3
         with:
           name: ${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.raucb
 
-      - name: Release RAUC bundle
+      - name: Release on GitHub
         uses: softprops/action-gh-release@v1
         with:
-          name: ${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.raucb
-          files: ${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.raucb
+          name: ${{ inputs.os-id }} ${{ inputs.version }}
+          files: |
+            ${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.img.xz
+            ${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.raucb

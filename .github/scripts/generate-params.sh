@@ -19,11 +19,11 @@ else
   {
     echo "hostname=${os_hostname}-dev"
     echo "version=${major}.${build}.${version_dev}"
+    echo "version-dev=${version_dev}"
     echo "release=0"
   } >> "${GITHUB_OUTPUT}"
 fi
 
 {
-  echo "version-dev=${version_dev}"
   echo "os-id=${os_id}"
 } >> "${GITHUB_OUTPUT}"

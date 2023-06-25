@@ -41,11 +41,11 @@ HEREDOC
 # Program Functions
 
 function install_packages() {
-  echo -e "${COLOR_BOLD_WHITE}[1/5] Create virtualenv ${VIRTUAL_ENV}${COLOR_RESET}"
+  echo -e "${COLOR_BOLD_WHITE}[1/4] Create virtualenv ${VIRTUAL_ENV}${COLOR_RESET}"
   create_virtualenv "$@"
-  echo -e "${COLOR_BOLD_WHITE}[2/5] Install unipi-control to ${SOURCE}${COLOR_RESET}"
+  echo -e "${COLOR_BOLD_WHITE}[2/4] Install unipi-control to ${SOURCE}${COLOR_RESET}"
   install_unipi_control "$@"
-  echo -e "${COLOR_BOLD_WHITE}[3/5] Install config files to ${UNIPI_CONFIG}${COLOR_RESET}"
+  echo -e "${COLOR_BOLD_WHITE}[3/4] Install config files to ${UNIPI_CONFIG}${COLOR_RESET}"
   install_config "$@"
   echo -e "${COLOR_BOLD_WHITE}[4/4] Install systemd service"
   install_systemd_service "$@"

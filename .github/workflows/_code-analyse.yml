@@ -1,11 +1,11 @@
-name: _Tests
+name: _Code analyse
 
 on:
   workflow_call:
 
 jobs:
-  validate:
-    name: Tests
+  code-analyse:
+    name: Code analyse
     runs-on: ubuntu-latest
 
     steps:

@@ -23,9 +23,9 @@ jobs:
     with:
       version: ${{ needs.parameters.outputs.version }}
 
-  tests:
-    name: Tests
-    uses: ./.github/workflows/_tests.yml
+  code-analyse:
+    name: Code analyse
+    uses: ./.github/workflows/_code-analyse.yml
     needs:
       - parameters
 
@@ -37,7 +37,7 @@ jobs:
     needs:
       - parameters
       - validate
-      - tests
+      - code-analyse
     secrets:
       RAUC_CERTIFICATE: ${{ secrets.RAUC_CERTIFICATE }}
       RAUC_PRIVATE_KEY: ${{ secrets.RAUC_PRIVATE_KEY }}

@@ -45,11 +45,9 @@ function install_packages() {
   create_virtualenv "$@"
   echo -e "${COLOR_BOLD_WHITE}[2/5] Install unipi-control to ${SOURCE}${COLOR_RESET}"
   install_unipi_control "$@"
-  echo -e "${COLOR_BOLD_WHITE}[3/5] Install superbox-utils to ${SOURCE}${COLOR_RESET}"
-  install_superbox_utils "$@"
-  echo -e "${COLOR_BOLD_WHITE}[4/5] Install config files to ${UNIPI_CONFIG}${COLOR_RESET}"
+  echo -e "${COLOR_BOLD_WHITE}[3/5] Install config files to ${UNIPI_CONFIG}${COLOR_RESET}"
   install_config "$@"
-  echo -e "${COLOR_BOLD_WHITE}[5/5] Install systemd service"
+  echo -e "${COLOR_BOLD_WHITE}[4/4] Install systemd service"
   install_systemd_service "$@"
 }
 
@@ -87,22 +85,6 @@ function install_unipi_control() {
       git clone git@github.com:mh-superbox/unipi-control.git '${unipi_control}/' \
       && source '${VIRTUAL_ENV}/bin/activate' \
       && pip install -e '${unipi_control}'"
-  fi
-}
-
-function install_superbox_utils() {
-  local superbox_utils="${SOURCE}/superbox-utils"
-
-  if [ -d "${superbox_utils}" ] && [ "$(ls -A ${superbox_utils})" ]; then
-    echo -e "${SKIP_TEXT} Directory ${superbox_utils} is not empty! Can't install superbox-utils."
-  else
-    mkdir -pv "${superbox_utils}"
-    chown -v unipi: "${superbox_utils}"
-
-    su - unipi -s /bin/bash -c " \
-      git clone git@github.com:mh-superbox/superbox-utils.git '${superbox_utils}' \
-      && source '${VIRTUAL_ENV}/bin/activate' \
-      && pip install -e '${superbox_utils}'"
   fi
 }
 

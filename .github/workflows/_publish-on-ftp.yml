@@ -31,7 +31,7 @@ jobs:
       - name: Download files
         uses: actions/download-artifact@v3
         with:
-          path: .
+          path: release
 
       - name: Install packages
         run: |
@@ -51,5 +51,5 @@ jobs:
           ls -la .
           mkdir -pv "/mnt/${{ inputs.ftp-hostname }}/${{ inputs.ftp-releases-path }}"
           rm -fv "/mnt/${{ inputs.ftp-hostname }}/${{ inputs.ftp-releases-path }}/"*
-          cp -pv *.img.xz "/mnt/${{ inputs.ftp-hostname }}/${{ inputs.ftp-releases-path }}"
-          cp -pv *.raucb "/mnt/${{ inputs.ftp-hostname }}/${{ inputs.ftp-releases-path }}"
+          cp -pv release/*.img.xz "/mnt/${{ inputs.ftp-hostname }}/${{ inputs.ftp-releases-path }}"
+          cp -pv release/*.raucb "/mnt/${{ inputs.ftp-hostname }}/${{ inputs.ftp-releases-path }}"

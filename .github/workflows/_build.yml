@@ -64,9 +64,11 @@ jobs:
         with:
           name: ${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.img.xz
           path: release/${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.img.xz
+          if-no-files-found: error
 
       - name: Upload RAUC bundle
         uses: actions/upload-artifact@v3
         with:
           name: ${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.raucb
           path: release/${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.raucb
+          if-no-files-found: error

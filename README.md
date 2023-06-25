@@ -6,6 +6,13 @@
 Unipi Control OS is a lightweight and memory-efficient Linux based operating system optimized to host [Unipi Control](https://github.com/mh-superbox/unipi-control).
 <!-- pitch end -->
 
+---
+
+For more information please read the documentation at:
+[docs.superbox.one](https://docs.superbox.one)
+
+---
+
 <!-- quickstart start -->
 ## Getting started
 

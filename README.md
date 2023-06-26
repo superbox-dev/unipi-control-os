@@ -1,4 +1,5 @@
 [![license-url](https://img.shields.io/badge/license-Apache%202-yellowgreen)](https://opensource.org/license/apache-2-0/)
+[![CI](https://github.com/superbox-dev/unipi-control-os/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/superbox-dev/unipi-control-os/actions/workflows/ci.yml)
 
 <!-- pitch start -->
 # Unipi Control OS

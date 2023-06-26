@@ -16,7 +16,7 @@ For more information please read the documentation at:
 <!-- quickstart start -->
 ## Getting started
 
-1. Download the latest [release](https://github.com/mh-superbox/unipi-control-os/releases) `*.img.xz` from GitHub.
+1. Download the latest [release](https://github.com/superbox-dev/unipi-control-os/releases) `*.img.xz` from GitHub.
 2. Write the image `*.img.xz` to your SD card with [Balena Etcher](https://www.balena.io/etcher).
 3. Insert SD card to your Unipi Neuron and power the system on.
 4. Connect to your Unipi Neuron with `ssh` on Linux/macOS or with [Putty](https://www.putty.org/) on Windows (The username and password are `unipi`).
@@ -27,7 +27,7 @@ For more information please read the documentation at:
    ```shell
    sudo opkg install unipi-control
    ```
-6. Read the [Unipi Control documentation](https://github.com/mh-superbox/unipi-control#configuration) to configure your Unipi Neuron and copy the configuration files to `/usr/local/etc/unipi`.
+6. Read the [Unipi Control documentation](https://github.com/superbox-dev/unipi-control#configuration) to configure your Unipi Neuron and copy the configuration files to `/usr/local/etc/unipi`.
 7. Start the service with:
    ```shell
    sudo systemctl start unipi-control.service

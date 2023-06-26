@@ -7,7 +7,7 @@ Thanks for your interest in contributing to **Unipi Control OS**.
 Clone the unipi-control-os repository.
 
 ```shell
-git clone https://github.com/mh-superbox/unipi-control-os.git
+git clone https://github.com/superbox-dev/unipi-control-os.git
 ```
 
 Inside the repository,  use `make`to initialize the buildroot submodule and python virtualenv.

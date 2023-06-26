@@ -82,7 +82,7 @@ function install_unipi_control() {
     chown -v unipi: "${unipi_control}"
 
     su - unipi -s /bin/bash -c " \
-      git clone git@github.com:mh-superbox/unipi-control.git '${unipi_control}/' \
+      git clone git@github.com:superbox-dev/unipi-control.git '${unipi_control}/' \
       && source '${VIRTUAL_ENV}/bin/activate' \
       && pip install -e '${unipi_control}'"
   fi

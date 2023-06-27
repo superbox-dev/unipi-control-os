@@ -1,13 +1,13 @@
-<!-- update_packages start -->
 # Package manager
 
+<!-- content start -->
 ## Install package
 
 List all available packages, select a package and install it with:
 
 ```shell
 opkg list
-opkg install PACKAGE_NAME
+sudo opkg install PACKAGE_NAME
 ```
 
 ## Upgrade packages
@@ -15,12 +15,12 @@ opkg install PACKAGE_NAME
 Update the list of available packages and upgrade the packages with:
 
 ```shell
-opkg update
-opkg upgrade
+sudo opkg update
+sudo opkg upgrade
 ```
 
 ## Develop
 
 If you would install the newest develop releases you can enable the testing repository in the `/etc/opkg/opkg.conf`. Only do this if you know what you are doing!
 
-<!-- update_packages end -->
+<!-- content end -->

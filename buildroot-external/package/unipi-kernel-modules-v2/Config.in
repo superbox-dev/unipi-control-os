@@ -1,0 +1,8 @@
+config BR2_PACKAGE_UNIPI_KERNEL_MODULES_V2
+	bool "Unipi kernel modules v2"
+	depends on BR2_LINUX_KERNEL
+	help
+	  Kernel modules for Unipi Neuron
+	  Tested for kernel versions 5.10 .. 5.15.5
+
+	  https://github.com/UniPiTechnology/unipi-kernel-modules

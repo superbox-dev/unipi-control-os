@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 
+## [1.2] - 2023-05-05
+
 ## Changed
 
 - Bump Unipi kernel modules to v1.124

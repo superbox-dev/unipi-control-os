@@ -51,7 +51,6 @@ function fix_rootfs() {
   rm -rfv "${TARGET_DIR:?}/etc/xdg"
 
   # Cleanup root
-  rm -rfv "${TARGET_DIR:?}/media"
   rm -rfv "${TARGET_DIR:?}/srv"
 
   sed -i "/srv/d" "${TARGET_DIR}/usr/lib/tmpfiles.d/home.conf"

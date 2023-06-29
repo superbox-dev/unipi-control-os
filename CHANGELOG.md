@@ -6,9 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 
+### Added
+
+- Enable support to mount samba and nfs shares.
+
 ### Removed
 
-- Removed deprecated superbox-utils pip package from `os-develop.sh` 
+- Removed deprecated superbox-utils pip package from `os-develop.sh`.
 
 ## [1.0] - 2023-06-25
 

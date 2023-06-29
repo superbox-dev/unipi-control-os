@@ -6,9 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 
+## [1.1] - 2023-06-29
+
 ### Added
 
-- Enable support to mount samba and nfs shares.
+- Enabled support to mount samba and nfs shares.
+- Wrote documentation for [remote backup](docs/backup-config.md) to a samba or nfs share.
 
 ### Removed
 

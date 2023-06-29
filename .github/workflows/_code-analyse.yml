@@ -22,7 +22,7 @@ jobs:
 
       - name: Check shell scripts
         run: |
-          find . -type f -name "*.sh" -not ( -path "./buildroot/*" -prune ) -exec shellcheck --format=gcc {} \;
+          find . -type f -name "*.sh" -not \( -path "./buildroot/*" -prune \) -exec shellcheck --format=gcc {} \;
 
       - name: Check buildroot-external packages
         run: |

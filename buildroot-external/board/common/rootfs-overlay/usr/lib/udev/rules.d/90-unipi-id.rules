@@ -1,0 +1,1 @@
+SUBSYSTEM=="platform", ACTION=="bind", DEVPATH=="/devices/platform/unipi-id", TAG+="systemd", RUN+="/opt/unipi/tools/uhelper unipi-id unipi-id"

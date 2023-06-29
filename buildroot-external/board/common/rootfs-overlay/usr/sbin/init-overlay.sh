@@ -39,7 +39,7 @@ mount -t ext4 -o defaults,noatime,commit=30 ${ROOT_DEVICE}p5 /mnt/overlay
 
 setup_overlay "etc" ".work-etc"
 setup_overlay "home" ".work-home"
-setup_overlay "media" ".media-var"
+setup_overlay "media" ".work-media"
 setup_overlay "opt/unipi" ".work-opt-unipi"
 setup_overlay "root" ".work-root"
 setup_overlay "usr/local" ".work-usr-local"

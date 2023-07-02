@@ -1,5 +1,5 @@
 comment "Unipi packages"
-source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-kernel-modules-v2/Config.in"
+source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-kernel-modules/Config.in"
 source "$BR2_EXTERNAL_UNIPI_PATH/package/unipi-rpi-firmware-overlays/Config.in"
 
 comment "Shell optimizations"

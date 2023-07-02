@@ -1,0 +1,5 @@
+config BR2_PACKAGE_UNIPI_KERNEL_MODULES
+	bool "Unipi kernel modules"
+	depends on BR2_LINUX_KERNEL
+	help
+	  Unipi Neuron kernel modules - DKMS source

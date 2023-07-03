@@ -14,9 +14,9 @@ UNIPI_KERNEL_MODULES_MODULE_SUBDIRS = modules/rtc-unipi modules/unipi modules/un
 
 define UNIPI_KERNEL_MODULES_EXTRACT_CMDS
 	$(AR) x --output $(@D) $(UNIPI_KERNEL_MODULES_DL_DIR)/$(UNIPI_KERNEL_MODULES_SOURCE)
-	$(TAR) xf $(@D)/data.tar.xz
+	$(TAR) xf $(@D)/data.tar.xz -C $(@D)
 	mkdir $(@D)/modules
-	mv $(@D)/usr/share/unipi-$(UNIPI_KERNEL_MODULES_VERSION)/* $(@D)/modules
+	mv $(@D)/usr/src/unipi-$(UNIPI_KERNEL_MODULES_VERSION)/* $(@D)/modules
 endef
 
 $(eval $(kernel-module))

@@ -17,7 +17,6 @@ jobs:
       - name: Initialization environment
         run: |
           sudo -E apt-get -qq update
-          sudo -E apt-get -qq upgrade
           sudo apt install shellcheck
 
       - name: Check shell scripts

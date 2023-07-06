@@ -17,8 +17,10 @@ arm_64bit=1
 
 # Neuron
 dtparam=i2c_arm=on
-dtoverlay=unipi_id
-dtoverlay=unipi_rtc
+dtoverlay=i2c-rtc,mcp7941x
+dtoverlay=neuronee
+dtoverlay=unipiee
+dtoverlay=neuron-spi-new
 
 # Enable watchdog, system will reset if U-Boot and Linux do not boot within 16 seconds
 dtparam=watchdog

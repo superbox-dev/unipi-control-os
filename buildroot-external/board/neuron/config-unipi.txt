@@ -1,0 +1,4 @@
+dtparam=i2c_arm=on
+dtoverlay=unipi_id
+dtoverlay=unipi_rtc
+dtoverlay=unipi_l203

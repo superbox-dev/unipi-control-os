@@ -104,7 +104,7 @@ function install_config() {
 }
 
 function install_systemd_service() {
-  cat > "/etc/systemd/system/unipi-control-dev.service" <<EOL
+  cat > "/usr/local/lib/systemd/system/unipi-control-dev.service" <<EOL
 [Unit]
 Description=Unipi Control
 After=multi-user.target

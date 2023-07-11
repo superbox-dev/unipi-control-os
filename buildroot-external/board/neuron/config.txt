@@ -18,7 +18,11 @@ arm_64bit=1
 # Enable watchdog, system will reset if U-Boot and Linux do not boot within 16 seconds
 dtparam=watchdog
 
+# Neuron
+dtparam=i2c_arm=on
+dtoverlay=unipi_id
+dtoverlay=unipi_rtc
+dtoverlay=unipi_l203
+
 [pi4]
 arm_boost=1
-
-include config-unipi.txt

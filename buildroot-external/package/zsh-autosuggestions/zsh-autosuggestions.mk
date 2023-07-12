@@ -15,7 +15,7 @@ ZSH_AUTOSUGGESTIONS_DEPENDENCIES += zsh
 
 define ZSH_AUTOSUGGESTIONS_EXTRACT_CMDS
 	$(UNZIP) -d $(@D) $(ZSH_AUTOSUGGESTIONS_DL_DIR)/$(ZSH_AUTOSUGGESTIONS_SOURCE)
-	$(MKDIR) -p $(@D)/zsh-autosuggestions
+	$(MKDIR) $(@D)/zsh-autosuggestions
 	$(MV) $(@D)/zsh-autosuggestions-$(ZSH_AUTOSUGGESTIONS_VERSION)/* $(@D)/zsh-autosuggestions
 	$(RM) -r $(@D)/zsh-autosuggestions-$(ZSH_AUTOSUGGESTIONS_VERSION)
 endef

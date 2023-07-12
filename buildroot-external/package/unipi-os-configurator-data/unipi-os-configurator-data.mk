@@ -15,8 +15,9 @@ define UNIPI_OS_CONFIGURATOR_DATA_EXTRACT_CMDS
 endef
 
 define UNIPI_OS_CONFIGURATOR_DATA_INSTALL_TARGET_CMDS
-	$(INSTALL) -D -m 0644 $(@D)/opt/unipi/os-configurator/udev/* $(TARGET_DIR)/opt/unipi/os-configurator/udev
-	$(INSTALL) -D -m 0644 $(@D)/lib/udev/rules.d/* $(TARGET_DIR)/lib/udev/rules.d
+	$(INSTALL) -D -m 0644 $(@D)/opt/unipi/os-configurator/udev/* -t $(TARGET_DIR)/opt/unipi/os-configurator/udev
+	$(INSTALL) -D -m 0644 $(@D)/lib/udev/rules.d/* -t $(TARGET_DIR)/lib/udev/rules.d
+	$(INSTALL) -D -m 0644 $(@D)/boot/overlays/* -t $(BINARIES_DIR)/rpi-firmware/overlays
 endef
 
 $(eval $(generic-package))

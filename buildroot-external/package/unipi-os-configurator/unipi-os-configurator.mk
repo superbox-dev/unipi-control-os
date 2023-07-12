@@ -15,8 +15,8 @@ define UNIPI_OS_CONFIGURATOR_EXTRACT_CMDS
 endef
 
 define UNIPI_OS_CONFIGURATOR_INSTALL_TARGET_CMDS
-	$(INSTALL) -D -m 0744 $(@D)/opt/unipi/tools/{uhelper,unipiid} $(TARGET_DIR)/opt/unipi/tools
-	$(INSTALL) -D -m 0644 $(@D)/lib/udev/rules.d/90-unipi-id.rules $(TARGET_DIR)/lib/udev/rules.d
+	$(INSTALL) -D -m 0744 $(@D)/opt/unipi/tools/{uhelper,unipiid} -t $(TARGET_DIR)/opt/unipi/tools
+	$(INSTALL) -D -m 0644 $(@D)/lib/udev/rules.d/90-unipi-id.rules -t $(TARGET_DIR)/lib/udev/rules.d
 endef
 
 $(eval $(generic-package))

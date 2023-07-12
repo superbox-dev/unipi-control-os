@@ -1,6 +1,5 @@
 config BR2_PACKAGE_UNIPI_OS_CONFIGURATOR
 	bool "Unipi OS configurator"
 	select BR2_PACKAGE_UNIPI_OS_CONFIGURATOR_DATA
-	select BR2_PACKAGE_UNIPI_KERNEL_MODULES
 	help
 	  Binaries and scripts for Unipi OS configurator

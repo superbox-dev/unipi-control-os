@@ -6,10 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 
+## Added
+
+- Added udev rules and device tree overlays from `unipi-os-configurator-data` debian package
+- Added binary, udev rules from `unipi-os-configurator`
+
 ## Changed
 
 - Bump Unipi kernel modules to v2.26
-- Changed repository URL for v2.x releases (`unipi-os-configurator` is required for the new Unipi kernel modules).
 
 ## [1.2] - 2023-07-07
 

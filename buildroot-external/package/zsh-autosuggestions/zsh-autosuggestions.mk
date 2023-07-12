@@ -15,13 +15,13 @@ ZSH_AUTOSUGGESTIONS_DEPENDENCIES += zsh
 
 define ZSH_AUTOSUGGESTIONS_EXTRACT_CMDS
 	$(UNZIP) -d $(@D) $(ZSH_AUTOSUGGESTIONS_DL_DIR)/$(ZSH_AUTOSUGGESTIONS_SOURCE)
-	mkdir -p $(@D)/zsh-autosuggestions
-	mv $(@D)/zsh-autosuggestions-$(ZSH_AUTOSUGGESTIONS_VERSION)/* $(@D)/zsh-autosuggestions
+	$(MKDIR) -p $(@D)/zsh-autosuggestions
+	$(MV) $(@D)/zsh-autosuggestions-$(ZSH_AUTOSUGGESTIONS_VERSION)/* $(@D)/zsh-autosuggestions
 	$(RM) -r $(@D)/zsh-autosuggestions-$(ZSH_AUTOSUGGESTIONS_VERSION)
 endef
 
 define ZSH_AUTOSUGGESTIONS_INSTALL_TARGET_CMDS
-	cp -R $(@D)/zsh-autosuggestions $(TARGET_DIR)/usr/share
+	$(CP) -R $(@D)/zsh-autosuggestions $(TARGET_DIR)/usr/share
 endef
 
 $(eval $(generic-package))

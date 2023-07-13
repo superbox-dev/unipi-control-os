@@ -22,7 +22,7 @@ dtparam=watchdog
 dtparam=i2c_arm=on
 dtoverlay=unipi_id
 dtoverlay=unipi_rtc
-dtoverlay=unipi_l203
+include config-unipi.txt
 
 [pi4]
 arm_boost=1

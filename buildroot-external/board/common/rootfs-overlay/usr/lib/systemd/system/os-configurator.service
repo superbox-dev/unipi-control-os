@@ -1,0 +1,13 @@
+[Unit]
+Description=OS Configurator
+After=local-fs.target
+BindsTo=sys-devices-platform-unipi\x2did.device
+After=sys-devices-platform-unipi\x2did.device
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/os-configurator.py
+RemainAfterExit=yes
+
+[Install]
+WantedBy=sysinit.target

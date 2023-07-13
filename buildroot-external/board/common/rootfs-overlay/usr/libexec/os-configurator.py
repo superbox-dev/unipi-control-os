@@ -10,9 +10,6 @@ from pathlib import Path
 from subprocess import CalledProcessError
 from subprocess import CompletedProcess
 from typing import ClassVar
-from typing import Dict
-from typing import Optional
-from typing import Type
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 logging.getLogger("os-configurator")
@@ -22,7 +19,7 @@ class UnipiId:
     path: Path = Path("/sys/devices/platform/unipi-id/unipi-id/")
 
     @classmethod
-    def get_line_item(cls: Type["UnipiId"], item: str) -> str:
+    def get_line_item(cls: type["UnipiId"], item: str) -> str:
         """Read file from unipi-id sys path.
 
         Parameters
@@ -39,7 +36,7 @@ class UnipiId:
             return f.readline().strip()
 
     @classmethod
-    def get_hex_item(cls: Type["UnipiId"], item: str) -> int:
+    def get_hex_item(cls: type["UnipiId"], item: str) -> int:
         """Convert hexadecimal value to integer.
 
         Parameters
@@ -58,11 +55,11 @@ class Product:
     def __init__(self, product_id: int, name: str, **kwargs: str) -> None:
         self.id: int = product_id
         self.name: str = name
-        self.vars: Dict[str, str] = kwargs
+        self.vars: dict[str, str] = kwargs
 
 
 class Products:
-    products: ClassVar[Dict[int, Product]] = {
+    products: ClassVar[dict[int, Product]] = {
         259: Product(259, "S103", dt="unipi_s103", udev="s103", has_ds2482="1"),
         2563: Product(2563, "S103_G", dt="unipi_s103_g", udev="s103_g", has_ds2482="1", has_gprs="1"),
         263: Product(263, "S107"),
@@ -92,7 +89,7 @@ class Products:
     }
 
     @classmethod
-    def get_product_info_by_name(cls: Type["Products"], product_name: str) -> Optional[Product]:
+    def get_product_info_by_name(cls: type["Products"], product_name: str) -> Product | None:
         """Get product info by name.
 
         Parameters
@@ -113,7 +110,7 @@ class Products:
         return None
 
     @classmethod
-    def get_product_info(cls: Type["Products"]) -> Optional[Product]:
+    def get_product_info(cls: type["Products"]) -> Product | None:
         """Read product identification from eeprom.
 
         Returns
@@ -140,7 +137,7 @@ class OSConfigurator:
     OLD_FINGERPRINT: Path = Path("/opt/unipi/os-configurator/fingerprint")
 
     @classmethod
-    def _get_fingerprint(cls: Type["OSConfigurator"]) -> str:
+    def _get_fingerprint(cls: type["OSConfigurator"]) -> str:
         try:
             result: CompletedProcess = subprocess.run(
                 "/opt/unipi/tools/unipiid fingerprint", shell=True, check=True, capture_output=True  # ruff: noqa: S602
@@ -153,7 +150,7 @@ class OSConfigurator:
         return stdout
 
     @classmethod
-    def _update_config_txt(cls: Type["OSConfigurator"], env: Dict[str, str]) -> None:
+    def _update_config_txt(cls: type["OSConfigurator"], env: dict[str, str]) -> None:
         config: Path = Path("/mnt/boot/config_unipi.txt")
         config_text: str = ""
 
@@ -166,7 +163,7 @@ class OSConfigurator:
         config.write_text(config_text, encoding="utf-8")
 
     @classmethod
-    def _link_udev_rules(cls: Type["OSConfigurator"], env: Dict[str, str]) -> None:
+    def _link_udev_rules(cls: type["OSConfigurator"], env: dict[str, str]) -> None:
         if env["udev"]:
             for rule in Path("/etc/udev/rules.d").rglob("50-*.rules"):
                 rule.unlink()
@@ -176,8 +173,8 @@ class OSConfigurator:
             )
 
     @classmethod
-    def _get_env(cls: Type["OSConfigurator"]) -> Dict[str, str]:
-        env: Dict[str, str] = {}
+    def _get_env(cls: type["OSConfigurator"]) -> dict[str, str]:
+        env: dict[str, str] = {}
 
         try:
             if product_info := Products.get_product_info():
@@ -189,7 +186,7 @@ class OSConfigurator:
         return env
 
     @classmethod
-    def check(cls: Type["OSConfigurator"]) -> bool:
+    def check(cls: type["OSConfigurator"]) -> bool:
         """Check if changes found that required an update."""
         logging.info("OS Configurator: check started")
 
@@ -201,14 +198,14 @@ class OSConfigurator:
         return False
 
     @classmethod
-    def update(cls: Type["OSConfigurator"]) -> None:
+    def update(cls: type["OSConfigurator"]) -> None:
         """Update OS configuration."""
         logging.info("OS Configurator: Update invoked")
         fingerprint: str = cls._get_fingerprint()
 
         cls.OLD_FINGERPRINT.write_text(fingerprint, encoding="utf-8")
 
-        env: Dict[str, str] = cls._get_env()
+        env: dict[str, str] = cls._get_env()
 
         cls._update_config_txt(env)
         cls._link_udev_rules(env)

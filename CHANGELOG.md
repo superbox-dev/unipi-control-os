@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 
+## [2.0] - 2023-07-14
+
 ## Added
  
 - Added udev rules and device tree overlays from `unipi-os-configurator-data` debian package

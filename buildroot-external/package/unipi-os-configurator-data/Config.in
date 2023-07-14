@@ -1,0 +1,5 @@
+config BR2_PACKAGE_UNIPI_OS_CONFIGURATOR_DATA
+	bool "Unipi OS configurator data"
+	depends on BR2_PACKAGE_UNIPI_OS_CONFIGURATOR
+	help
+	  Unipi Neuron specific data for Unipi OS configurator

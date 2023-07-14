@@ -26,3 +26,19 @@ jobs:
       - name: Check buildroot-external packages
         run: |
           buildroot/utils/check-package --exclude PackageHeader --br2-external buildroot-external/package/*/*
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: pip
+
+      - name: Linters
+        run: |
+          pip install -r requirements.txt
+          black --version
+          black --diff --check $(git ls-files '*.py')
+          mypy --version
+          mypy $(git ls-files '*.py')
+          ruff --version
+          ruff $(git ls-files '*.py')

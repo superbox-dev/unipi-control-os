@@ -3,7 +3,7 @@
 <!-- content start -->
 Create a [systemd.service](https://www.freedesktop.org/software/systemd/man/systemd.service.html) file to back up to the mount point.
 
-Copy the following content and save as `/etc/systemd/system/unipi-config-backup.service`.
+Copy the following content and save as `/usr/local/lib/systemd/system/unipi-config-backup.service`.
 With the `ExecStartPost` all backups older than 7 days are deleted.
 
 ```ini
@@ -23,7 +23,7 @@ WantedBy=multi-user.target
 
 Create a [systemd.timer](https://www.freedesktop.org/software/systemd/man/systemd.timer.html) file to automaticly start the systemd service.
 
-Copy the following content and save as `/etc/systemd/system/unipi-config-backup.timer`.
+Copy the following content and save as `/usr/local/lib/systemd/system/unipi-config-backup.timer`.
 With `OnCalendar` you can change the timer interval.
 
 ```ini

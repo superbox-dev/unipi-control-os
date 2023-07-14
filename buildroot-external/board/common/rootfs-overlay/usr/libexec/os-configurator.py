@@ -135,6 +135,7 @@ class Products:
 
 class OSConfigurator:
     OLD_FINGERPRINT: Path = Path("/opt/unipi/os-configurator/fingerprint")
+    CONFIG_UNIPI: Path = Path("/mnt/boot/config_unipi.txt")
 
     @classmethod
     def _get_fingerprint(cls: type["OSConfigurator"]) -> str:
@@ -151,7 +152,6 @@ class OSConfigurator:
 
     @classmethod
     def _update_config_txt(cls: type["OSConfigurator"], env: dict[str, str]) -> None:
-        config: Path = Path("/mnt/boot/config_unipi.txt")
         config_text: str = ""
 
         if env["has_ds2482"] == "1":
@@ -160,7 +160,7 @@ class OSConfigurator:
         if env["dt"]:
             config_text += f"dtoverlay={env['dt']}\n"
 
-        config.write_text(config_text, encoding="utf-8")
+        cls.CONFIG_UNIPI.write_text(config_text, encoding="utf-8")
 
     @classmethod
     def _link_udev_rules(cls: type["OSConfigurator"], env: dict[str, str]) -> None:
@@ -190,7 +190,11 @@ class OSConfigurator:
         """Check if changes found that required an update."""
         logging.info("OS Configurator: check started")
 
-        if cls.OLD_FINGERPRINT.exists() and cls.OLD_FINGERPRINT.read_text(encoding="utf-8") == cls._get_fingerprint():
+        if (
+            cls.OLD_FINGERPRINT.exists()
+            and cls.OLD_FINGERPRINT.read_text(encoding="utf-8") == cls._get_fingerprint()
+            and cls.CONFIG_UNIPI.exists()
+        ):
             logging.info("OS Configurator: Check complete, no changes")
             return True
 

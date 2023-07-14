@@ -7,9 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [Unreleased]
 
 ## Added
-
+ 
 - Added udev rules and device tree overlays from `unipi-os-configurator-data` debian package
 - Added binary, udev rules from `unipi-os-configurator`
+- Added `os-configurator` systemd service for automatically configurate udev rules and device tree overlays
 
 ## Changed
 

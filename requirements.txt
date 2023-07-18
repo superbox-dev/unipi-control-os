@@ -1,4 +1,4 @@
-black==23.3.0
+black==23.7.0
 mypy==1.2.0
 ruff==0.0.277
 yamllint==1.31.0

@@ -15,14 +15,15 @@ arm_64bit=1
 # enable autoprobing of Bluetooth driver without need of hciattach/btattach
 #dtoverlay=krnbt=on
 
-# Enable watchdog, system will reset if U-Boot and Linux do not boot within 16 seconds
-dtparam=watchdog
-
 # Neuron
 dtparam=i2c_arm=on
-dtoverlay=unipi_id
-dtoverlay=unipi_rtc
-include config_unipi.txt
+dtoverlay=i2c-rtc,mcp7941x
+dtoverlay=neuronee
+dtoverlay=unipiee
+dtoverlay=neuron-spi-new
+
+# Enable watchdog, system will reset if U-Boot and Linux do not boot within 16 seconds
+dtparam=watchdog
 
 [pi4]
 arm_boost=1

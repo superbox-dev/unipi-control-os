@@ -6,24 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 
-## [2.0] - 2023-07-14
-
-## Added
- 
-- Added udev rules and device tree overlays from `unipi-os-configurator-data` debian package
-- Added binary, udev rules from `unipi-os-configurator`
-- Added `os-configurator` systemd service for automatically configurate udev rules and device tree overlays
+## [1.3] - 2023-07-23
 
 ## Changed
 
-- Bump Unipi kernel modules to v2.26
-- Bump kernel to v6.1.21
+- Bump Buildroot version to 2023.02.3
 
 ## [1.2] - 2023-07-07
 
 ## Changed
 
-- Bump Unipi kernel modules to v1.124
+- Bump Unipi kernel modules version to 1.124
 
 ## [1.1] - 2023-06-29
 

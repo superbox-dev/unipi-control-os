@@ -50,6 +50,7 @@ venv:
 	. $(BUILDDIR)/.venv/bin/activate
 
 install: venv
+	. $(BUILDDIR)/.venv/bin/activate
 	pip install -r requirements.txt
 	git submodule update --init
 	cd buildroot; git checkout 2023.02

@@ -49,13 +49,8 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          sudo -E apt-get -qq update
-          sudo -E apt-get -qq upgrade
           sudo apt install wget git bc binutils bison linux-headers-$(uname -r) xz-utils
           sudo timedatectl set-timezone "Europe/Vienna"
-          sudo apt-get clean autoclean
-          sudo apt-get autoremove --yes
-          sudo rm -rf /var/lib/{apt,dpkg,cache,log}/
 
       - name: Add RAUC release PKI certs
         run: |

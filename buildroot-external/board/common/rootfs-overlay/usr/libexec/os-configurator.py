@@ -141,7 +141,7 @@ class OSConfigurator:
     def _get_fingerprint(cls: type["OSConfigurator"]) -> str:
         try:
             result: CompletedProcess = subprocess.run(
-                "/opt/unipi/tools/unipiid fingerprint", shell=True, check=True, capture_output=True  # ruff: noqa: S602
+                "/opt/unipi/tools/unipiid fingerprint", shell=True, check=True, capture_output=True  # noqa: S602
             )
         except CalledProcessError as error:
             logging.error(error.stderr.decode())
@@ -180,7 +180,7 @@ class OSConfigurator:
             if product_info := Products.get_product_info():
                 env = product_info.vars
         except FileNotFoundError as error:
-            logging.error("Missing unipi-id module or bad id eprom.")  # ruff: noqa: TRY400
+            logging.error("Missing unipi-id module or bad id eprom.")
             raise SystemExit(1) from error
 
         return env
@@ -215,7 +215,7 @@ class OSConfigurator:
         cls._link_udev_rules(env)
 
         logging.info("Reboot system to apply all changes in configuration")
-        os.system("/sbin/reboot")  # ruff: noqa: S605
+        os.system("/sbin/reboot")  # noqa: S605
 
 
 def main() -> None:

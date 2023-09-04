@@ -33,6 +33,13 @@ jobs:
       matrix: ${{ fromJson(inputs.matrix) }}
 
     steps:
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@master
+        with:
+          root-reserve-mb: 512
+          swap-size-mb: 1024
+          remove-dotnet: 'true'
+
       - name: Check out repository
         uses: actions/checkout@v4
         with:
@@ -46,11 +53,18 @@ jobs:
           sudo -E apt-get -qq upgrade
           sudo apt install wget git bc binutils bison linux-headers-$(uname -r) xz-utils
           sudo timedatectl set-timezone "Europe/Vienna"
+          sudo apt-get clean autoclean
+          sudo apt-get autoremove --yes
+          sudo rm -rf /var/lib/{apt,dpkg,cache,log}/
 
       - name: Add RAUC release PKI certs
         run: |
           echo "${{ secrets.RAUC_CERTIFICATE }}" > buildroot-external/cert.pem
           echo "${{ secrets.RAUC_PRIVATE_KEY }}" > buildroot-external/key.pem
+
+      - name: Free space
+        run: |
+          df -h
 
       - name: Build image
         run: |

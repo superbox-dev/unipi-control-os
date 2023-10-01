@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-UNIPI_KERNEL_MODULES_VERSION = 1.124
+UNIPI_KERNEL_MODULES_VERSION = 1.126
 UNIPI_KERNEL_MODULES_SOURCE = v$(UNIPI_KERNEL_MODULES_VERSION).tar.gz
 UNIPI_KERNEL_MODULES_SITE = https://github.com/superbox-dev/unipi-kernel/archive/refs/tags
 UNIPI_KERNEL_MODULES_LICENSE = GPL-3.0+

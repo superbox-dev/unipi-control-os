@@ -43,7 +43,7 @@ Create a [systemd.mount](https://www.freedesktop.org/software/systemd/man/system
 
 ### Samba
 
-Copy the following content and save as `/etc/systemd/system/media-backup.unit`.
+Copy the following content and save as `/etc/systemd/system/media-backup.mount`.
 
 ```ini
 [Unit]
@@ -63,7 +63,7 @@ WantedBy=local-fs.target
 
 ### NFS
 
-Copy the following content and save as `/etc/systemd/system/media-backup.unit`.
+Copy the following content and save as `/etc/systemd/system/media-backup.mount`.
 
 ```ini
 [Unit]
@@ -77,6 +77,28 @@ Type=nfs
 
 [Install]
 WantedBy=local-fs.target
+```
+
+### Automount
+
+Enable systemd automount to mount the share on access.
+Copy the following content and save as `/etc/systemd/system/media-backup.automount`.
+
+```ini
+[Unit]
+Description=Backup partition (automount)
+
+[Automount]
+Where=/media/backup
+
+[Install]
+WantedBy=local-fs.target
+```
+
+Enable the systemd automount:
+
+```bash
+systemctl enable --now media-backup.automount
 ```
 
 ## Enable backup

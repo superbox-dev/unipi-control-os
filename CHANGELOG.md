@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 
+## [1.6] - 2023-10-31
+
+## Changed
+
+- Bump Buildroot version to 2023.02.6
+
 ## [1.5] - 2023-10-01
 
 ## Changed

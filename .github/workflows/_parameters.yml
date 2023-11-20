@@ -42,7 +42,7 @@ jobs:
           ./.github/scripts/generate-params.sh
 
       - name: Create build matrix
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         id: generate-matrix
         with:
           script: |

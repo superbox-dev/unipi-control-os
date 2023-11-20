@@ -6,34 +6,40 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 
+## [1.7] - 2023-11-20
+
+### Changed
+
+- Bump Buildroot version to 2023.02.7
+
 ## [1.6] - 2023-10-31
 
-## Changed
+### Changed
 
 - Bump Buildroot version to 2023.02.6
 
 ## [1.5] - 2023-10-01
 
-## Changed
+### Changed
 
 - Bump Buildroot version to 2023.02.5
 - Bump Unipi kernel modules version to 1.126
 
 ## [1.4] - 2023-09-03
 
-## Changed
+### Changed
 
 - Bump Buildroot version to 2023.02.4
 
 ## [1.3] - 2023-07-23
 
-## Changed
+### Changed
 
 - Bump Buildroot version to 2023.02.3
 
 ## [1.2] - 2023-07-07
 
-## Changed
+### Changed
 
 - Bump Unipi kernel modules version to 1.124
 

@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 
+### Changed
+
+- Updated to gcc 12.x
+
 ## [1.7] - 2023-11-20
 
 ### Changed

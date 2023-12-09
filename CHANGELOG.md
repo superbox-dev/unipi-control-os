@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ### Changed
 
+- Bump Buildroot version to 2023.02.8
 - Updated to gcc 12.x
 
 ## [1.7] - 2023-11-20

@@ -23,6 +23,14 @@ Unipi Control OS use Buildroot for it's embedded systems. For more information v
 For compiling Buildroot images we use `make`.
 > Execude `make help` for a detailed help.
 
+### Run menuconfig (optionally)
+
+```shell
+make neuron_rpi3_64_defconfig
+```
+
+### Compile buildroot
+
 You can create a image for e.g. Neuron Raspberry Pi 3 64 bit with:
 
 ```shell
@@ -30,6 +38,26 @@ make neuron_rpi3_64
 ```
 
 Wait a long time ... and then write the image from `release/` to a SD card.
+
+## Building with docker (Recommended)
+
+Create a docker image:
+
+```shell
+docker build -t unipi-control-os .
+```
+
+Run docker image and start a bash shell:
+
+```shell
+docker run -v "$PWD:/build" -it unipi-control-os bash
+```
+
+Compile buildroot with docker image shell:
+
+```shell
+make neuron_rpi3_64
+```
 
 ## Making a pull request
 

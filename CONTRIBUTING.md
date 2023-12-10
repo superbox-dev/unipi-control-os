@@ -50,7 +50,7 @@ docker build -t unipi-control-os .
 Run docker image and start a bash shell:
 
 ```shell
-docker run -v "$PWD:/build" -it unipi-control-os bash
+docker run --rm --user $(id -u):$(id -g) -v "$PWD:/build" -it unipi-control-os bash
 ```
 
 Compile buildroot with docker image shell:

@@ -28,7 +28,7 @@ jobs:
           buildroot/utils/check-package --exclude PackageHeader --br2-external buildroot-external/package/*/*
 
       - name: Set up Python 3.10
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
           cache: pip

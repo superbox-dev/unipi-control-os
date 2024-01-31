@@ -31,6 +31,7 @@ class UnipiId:
         -------
         str:
             Content from file.
+
         """
         with (cls.path / item).open("r", encoding="utf-8") as f:
             return f.readline().strip()
@@ -47,6 +48,7 @@ class UnipiId:
         Returns
         -------
         int
+
         """
         return int(cls.get_line_item(item), 16)
 
@@ -100,6 +102,7 @@ class Products:
         Returns
         -------
             Return product info or None.
+
         """
         product_name = product_name.lower()
 
@@ -117,6 +120,7 @@ class Products:
         -------
         Product, optional
             Return product info or None.
+
         """
         product_id: int = UnipiId.get_hex_item("platform_id")
 

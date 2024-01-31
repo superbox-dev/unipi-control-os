@@ -23,12 +23,12 @@ jobs:
 
     steps:
       - name: Download image
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.img.xz
 
       - name: Download RAUC bundle
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.raucb
 

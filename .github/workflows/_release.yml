@@ -33,7 +33,7 @@ jobs:
           name: ${{ inputs.os-id }}-${{ matrix.board.id }}-${{ inputs.version }}.raucb
 
       - name: Release on GitHub
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           name: ${{ inputs.os-id }} ${{ inputs.version }}
           files: |
